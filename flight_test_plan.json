@@ -1,0 +1,47 @@
+{
+    "simulation_harness": {
+        "name": "RflySim",
+        "git_repo": "https://github.com/RflySim/RflyExpCode.git",
+        "type": "Model-Based Design (MBD) SITL/HITL Simulator",
+        "experiments": [
+            {
+                "id": "e0",
+                "name": "Multicopter Dynamic Modeling & Simulation"
+            },
+            {
+                "id": "e1",
+                "name": "Sensor Calibration & Noise Analysis"
+            },
+            {
+                "id": "e2",
+                "name": "State Estimation & EKF Filter Design"
+            },
+            {
+                "id": "e3",
+                "name": "Attitude & Angular Rate PID Tuning"
+            },
+            {
+                "id": "e4",
+                "name": "Position Hold & Set-point Control"
+            },
+            {
+                "id": "e8",
+                "name": "Swarm Trajectory Execution & Swarm Failsafe"
+            }
+        ]
+    },
+    "phases": [
+        "1. MATLAB/Simulink RflySim SITL Simulation (e0-e4)",
+        "2. Pixhawk 6X Pro + RflySim HITL Hardware Simulation (e8)",
+        "3. Ground Vibration & Tethered Test Stand Hover (e1)",
+        "4. Free-hover Outdoor RTK GPS Test",
+        "5. Autonomous mission waypoint navigation & payload dropping test"
+    ],
+    "safety_checks": [
+        "micro-XRCE-DDS link timeout failsafe triggers",
+        "Geofence breach automated return-to-land (RTH)",
+        "Single/Dual motor loss coaxial attitude control recovery checks",
+        "DroneBridge communication drop failsafe launch"
+    ],
+    "status": "success"
+}

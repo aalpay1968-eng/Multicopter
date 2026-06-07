@@ -1,0 +1,28 @@
+{
+    "leg_type": "QUAD",
+    "n_legs": 4,
+    "leg_height_m": 0.426,
+    "track_m": 1.6869,
+    "rotor_clearance_m": 0.426,
+    "rotor_clearance_ok": true,
+    "v_sink_ms": 2.4261,
+    "F_contact_N": 6290.662,
+    "F_contact_x15_N": 9435.994,
+    "F_per_leg_N": 1415.399,
+    "tipover_angle_deg": 60.322,
+    "KK10_pass": true,
+    "alpha_max_deg": 50.322,
+    "track_ok": true,
+    "payload_flange_z_m": -0.213,
+    "payload_mount": {
+        "type": "bolt_circle",
+        "bolt_size": "M6",
+        "n_bolts": 4,
+        "bolt_circle_m": 0.06,
+        "quick_release": false
+    },
+    "validation_passed": true,
+    "debug": {
+        "error_context": ""
+    }
+}

@@ -1,0 +1,269 @@
+{
+    "hover": {
+        "MTOW_kg": 135.0,
+        "altitude_m": 120.0,
+        "rho_kgm3": 1.21096,
+        "n_rotors": 8,
+        "coaxial_flag": true,
+        "A_total_m2": 6.33471,
+        "DL_Nm2": 209.063,
+        "T_per_rotor_N": 331.088,
+        "v_i_ms": 10.1777,
+        "k_int": 1.2,
+        "P_ideal_W": 12304.407,
+        "P_hover_W": 22552.066,
+        "FM_estimate": 0.5456,
+        "T_W_ratio": 2.0,
+        "P_total_W": 27159.343,
+        "endurance_hover_min": 12.884,
+        "E_bat_usable_Wh": 5832.0,
+        "KK1_pass": true,
+        "KK4_pass": true,
+        "FM_pass": false,
+        "validation_passed": false,
+        "debug": {
+            "error_context": "",
+            "cg_ref": 0.0
+        }
+    },
+    "bemt": {
+        "n_blades": 2,
+        "D_rotor_m": 1.42,
+        "RPM_hover": 1711.089,
+        "V_tip_ms": 127.221,
+        "CT": 0.010667,
+        "CP": 0.001343,
+        "FM_actual": 0.58,
+        "Q_drag_Nm": 14.799308,
+        "T_calc_N": 1324.35,
+        "P_actual_W": 21214.495,
+        "DL_actual_Nm2": 209.063,
+        "bemt_converged": true,
+        "KK5_pass": false,
+        "validation_passed": false,
+        "debug": {
+            "error_context": ""
+        }
+    },
+    "ground": {
+        "D_rotor_m": 1.42,
+        "z_disk_IGE_m": 0.526,
+        "T_IGE_N": 2432.217,
+        "T_IGE_ratio": 1.8365,
+        "z_OGE_m": 1.42,
+        "P_IGE_W": 11551.363,
+        "P_OGE_W": 21214.495,
+        "energy_saving_pct": 45.55,
+        "takeoff_profile": [
+            {
+                "z_m": 0.426,
+                "z_over_D": 0.3,
+                "T_ratio": 3.2727,
+                "P_W": 6482.207
+            },
+            {
+                "z_m": 0.71,
+                "z_over_D": 0.5,
+                "T_ratio": 1.3333,
+                "P_W": 15910.871
+            },
+            {
+                "z_m": 1.065,
+                "z_over_D": 0.75,
+                "T_ratio": 1.125,
+                "P_W": 18857.329
+            },
+            {
+                "z_m": 1.42,
+                "z_over_D": 1.0,
+                "T_ratio": 1.0667,
+                "P_W": 19888.589
+            },
+            {
+                "z_m": 2.13,
+                "z_over_D": 1.5,
+                "T_ratio": 1.0286,
+                "P_W": 20625.203
+            }
+        ],
+        "validation_passed": true,
+        "debug": {
+            "error_context": ""
+        }
+    },
+    "coax": {
+        "coaxial_flag": true,
+        "n_arms": 4,
+        "axial_sep_m": 0.213,
+        "k_int": 1.266,
+        "T_upper_N": 331.0875,
+        "T_lower_N": 294.2564,
+        "T_total_N": 2501.3756,
+        "P_total_W": 24036.0181,
+        "FM_coax": 1.3212,
+        "Q_net_Nm": -15.746464,
+        "Q_net_trimmed_Nm": 0.0,
+        "RPM_trim_delta": -227.5748,
+        "axial_sep_opt_m": 0.213,
+        "FM_coax_pass": true,
+        "KK13_coax_pass": true,
+        "skipped": false,
+        "validation_passed": true,
+        "debug": {
+            "error_context": ""
+        }
+    },
+    "prop": {
+        "D_in_target": 55.906,
+        "CT_target": 0.085336,
+        "CP_target": 0.055,
+        "FM_target": 0.58,
+        "selected_model": "Mejzlik 27x9 E",
+        "diameter_in": 27.0,
+        "pitch_in": 9.0,
+        "n_blades": 2,
+        "CT_match": 0.11,
+        "CP_match": 0.072,
+        "FM_match": 0.72,
+        "T_match_N": 1707.1166,
+        "T_match_err_pct": 28.902,
+        "RPM_hover_trimmed": 1507.101,
+        "RPM_trim_pct": -11.922,
+        "T_match_err_trimmed_pct": 0.0,
+        "RPM_trim_ok": false,
+        "V_tip_ms": 127.221,
+        "V_tip_trimmed_ms": 112.054,
+        "match_score": 99.0,
+        "kV_recommend": 116,
+        "V_bat_S": "4S",
+        "n_cells": 4,
+        "candidates_count": 1,
+        "V_tip_ok": true,
+        "T_err_ok": false,
+        "FM_pass": true,
+        "safety_pass": false,
+        "coax_ref": true,
+        "validation_passed": false,
+        "debug": {
+            "error_context": "",
+            "CT_target_raw": 0.010667,
+            "CP_target_raw": 0.001343
+        }
+    },
+    "noise": {
+        "V_tip_ms": 127.221,
+        "Ma_tip": 0.3709,
+        "RPM_hover": 1711.089,
+        "n_blades": 2,
+        "n_rotors": 8,
+        "f_BPF_Hz": 57.036,
+        "SPL_rotational_dB": 83.169,
+        "SPL_broadband_dB": 62.882,
+        "SPL_total_1m_dB": 95.241,
+        "r_observer_m": 50.0,
+        "SPL_observer_dB": 60.261,
+        "A_correction_dB": -6.0,
+        "L_Aeq_dBA": 54.261,
+        "L_limit_dBA": 65.0,
+        "noise_pass": true,
+        "excess_dB": 0.0,
+        "reduction_tips": [],
+        "validation_passed": true,
+        "debug": {
+            "error_context": "",
+            "req_vmax": 44.955
+        }
+    },
+    "forward": {
+        "V_cruise_ms": 33.3,
+        "V_opt_ms": 15.5,
+        "V_max_ms": 56.0,
+        "V_best_range_ms": 44.5,
+        "P_cruise_W": 30970.328,
+        "P_min_W": 27541.557,
+        "L_over_D": 1.424,
+        "range_km": 25.083,
+        "endurance_min": 14.117,
+        "E_bat_req_Wh": 3229.305,
+        "energy_profile": [
+            {
+                "phase": "takeoff",
+                "duration_s": 15,
+                "power_w": 23085.44
+            },
+            {
+                "phase": "climb",
+                "duration_s": 30,
+                "power_w": 32591.21
+            },
+            {
+                "phase": "cruise",
+                "duration_s": 300.3,
+                "power_w": 30970.33
+            },
+            {
+                "phase": "landing",
+                "duration_s": 20,
+                "power_w": 19011.54
+            }
+        ],
+        "V_cruise_ok": true,
+        "range_ok": true,
+        "validation_passed": true,
+        "debug": {
+            "error_context": "",
+            "p_available_w": 51602.752
+        }
+    },
+    "energy": {
+        "E_misyon_Wh": 99885.183,
+        "E_elec_Wh": 5450.037,
+        "E_ge_saving_Wh": 43.814,
+        "E_misyon_total_Wh": 105291.406,
+        "E_bat_min_Wh": 131614.257,
+        "E_bat_recommended_Wh": 136928.354,
+        "current_battery_mass_kg": 40.5,
+        "recommended_battery_mass_kg": 760.7131,
+        "battery_mass_delta_kg": 720.2131,
+        "energy_margin_Wh": -129638.354,
+        "t_endurance_min": 232.608,
+        "t_hover_req_min": 220.0,
+        "KK1_pass": true,
+        "KK3_pass": false,
+        "KK4_pass": true,
+        "KK5_pass": false,
+        "KK13_pass": true,
+        "prop_match_pass": false,
+        "Vmax_pass": true,
+        "range_pass": true,
+        "noise_pass": true,
+        "phase_3_complete": false,
+        "mission_requirements_met": false,
+        "blockers": [
+            "KK-3 dayanım gereksinimi saglanmiyor",
+            "KK-5 FM/pervane verimi < 0.60",
+            "Pervane eslesmesi guvenlik kontrolu basarisiz"
+        ],
+        "warnings": [],
+        "recommended_actions": [
+            "Batarya enerjisini en az 136928 Wh seviyesine cikarin (yaklasik +720.21 kg LiPo).",
+            "Pervane seciminde RPM trim veya daha yakin CT/CP katalog pervanesi kullanin."
+        ],
+        "kk_summary": {
+            "KK-1": "PASS",
+            "KK-3": "FAIL",
+            "KK-4": "PASS",
+            "KK-5": "FAIL",
+            "KK-13": "PASS",
+            "PropMatch": "FAIL",
+            "Vmax": "PASS",
+            "Range": "PASS",
+            "Noise": "PASS"
+        },
+        "validation_passed": false,
+        "debug": {
+            "error_context": ""
+        }
+    },
+    "phase_3_complete": false
+}

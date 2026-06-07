@@ -1,0 +1,112 @@
+{
+    "n_rotors": 8,
+    "layout": "X4-coax",
+    "component_list": [
+        {
+            "type": "POD",
+            "name": "hub",
+            "position_m": [
+                0.0,
+                0.0,
+                0.0
+            ]
+        },
+        {
+            "type": "PROP",
+            "name": "rotor_1",
+            "position_m": [
+                1.204909955141877,
+                0.0,
+                0.05
+            ]
+        },
+        {
+            "type": "PROP",
+            "name": "rotor_2",
+            "position_m": [
+                1.204909955141877,
+                0.0,
+                -0.05
+            ]
+        },
+        {
+            "type": "PROP",
+            "name": "rotor_3",
+            "position_m": [
+                7.377945599126403e-17,
+                1.204909955141877,
+                0.05
+            ]
+        },
+        {
+            "type": "PROP",
+            "name": "rotor_4",
+            "position_m": [
+                7.377945599126403e-17,
+                1.204909955141877,
+                -0.05
+            ]
+        },
+        {
+            "type": "PROP",
+            "name": "rotor_5",
+            "position_m": [
+                -1.204909955141877,
+                1.4755891198252805e-16,
+                0.05
+            ]
+        },
+        {
+            "type": "PROP",
+            "name": "rotor_6",
+            "position_m": [
+                -1.204909955141877,
+                1.4755891198252805e-16,
+                -0.05
+            ]
+        },
+        {
+            "type": "PROP",
+            "name": "rotor_7",
+            "position_m": [
+                -2.2133836797379207e-16,
+                -1.204909955141877,
+                0.05
+            ]
+        },
+        {
+            "type": "PROP",
+            "name": "rotor_8",
+            "position_m": [
+                -2.2133836797379207e-16,
+                -1.204909955141877,
+                -0.05
+            ]
+        }
+    ],
+    "CG_m": [
+        -0.0,
+        0.0,
+        -0.0508
+    ],
+    "disk_area_m2": 6.3347,
+    "wetted_area_m2": 0.6483,
+    "bounding_box_m": [
+        -1.9149,
+        1.9149,
+        -1.9149,
+        1.9149,
+        -0.15,
+        0.15
+    ],
+    "vsp_file": "mc.vsp3",
+    "stl_file": "mc.stl",
+    "step_file": "mc.step",
+    "n_disk_check": true,
+    "CG_z_ok": false,
+    "yaw_ref_ok": true,
+    "validation_passed": true,
+    "debug": {
+        "error_context": ""
+    }
+}

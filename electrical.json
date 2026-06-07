@@ -1,0 +1,11 @@
+{
+    "max_current_total_A": 1463.48,
+    "max_current_per_motor_A": 140.41,
+    "recommended_motor_wire_AWG": 0,
+    "total_motor_wire_length_m": 36.36,
+    "main_battery_connector": "AS150",
+    "validation_passed": true,
+    "debug": {
+        "error_context": ""
+    }
+}

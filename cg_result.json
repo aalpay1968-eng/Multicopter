@@ -1,0 +1,97 @@
+{
+    "n_rotors": 8,
+    "MTOW_kg": 135.0,
+    "CG_x_m": 0.0,
+    "CG_y_m": 0.0,
+    "CG_z_m": -0.054648,
+    "x_bat_opt_m": 0.0,
+    "KK7_x_ok": true,
+    "KK7_y_ok": true,
+    "KK7_z_ok": false,
+    "KK7_all_pass": false,
+    "SM_percent": 100.0,
+    "SM_ok": true,
+    "f_pendulum_Hz": 2.132,
+    "payload_CG_envelope_mm": 0.0,
+    "payload_CG_ok": true,
+    "delta_mass_pct": 0.0,
+    "mass_ok": true,
+    "iteration_count": 1,
+    "cg_converged": true,
+    "validation_passed": false,
+    "vsp_cg_ref_m": [
+        -0.0,
+        0.0,
+        -0.0508
+    ],
+    "component_positions": {
+        "Frame/ESC/Cables": {
+            "mass": 20.196,
+            "pos": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "dim_mm": [
+                2409,
+                2409,
+                100
+            ]
+        },
+        "Motors": {
+            "mass": 16.2,
+            "pos": [
+                -0.0,
+                0.0,
+                0.0
+            ],
+            "dim_mm": [
+                80,
+                80,
+                40
+            ]
+        },
+        "Avionics (FC)": {
+            "mass": 8.1,
+            "pos": [
+                0.0,
+                0.0,
+                0.03
+            ],
+            "dim_mm": [
+                100,
+                100,
+                40
+            ]
+        },
+        "Payload": {
+            "mass": 50.004,
+            "pos": [
+                0.0,
+                0.0,
+                -0.12
+            ],
+            "dim_mm": [
+                150,
+                150,
+                150
+            ]
+        },
+        "Battery": {
+            "mass": 40.5,
+            "pos": [
+                0.0,
+                0.0,
+                -0.04
+            ],
+            "dim_mm": [
+                200,
+                80,
+                60
+            ]
+        }
+    },
+    "debug": {
+        "error_context": ""
+    }
+}

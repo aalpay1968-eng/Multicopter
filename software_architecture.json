@@ -1,0 +1,30 @@
+{
+    "os": "ROS 2 Humble / Ubuntu 22.04 LTS",
+    "flight_stack": "PX4-Autopilot v1.15",
+    "middleware": "FastDDS / micro-XRCE-DDS bridge (PX4 default)",
+    "key_nodes": [
+        "state_estimator (ekf2)",
+        "trajectory_planner (GCOPTER - ZJU-FAST-Lab)",
+        "swarm_coordinator (ego-planner-swarm - ZJU)",
+        "payload_dispenser_node (DroneCAN)",
+        "telemetry_video_bridge (DroneBridge)"
+    ],
+    "git_integrations": {
+        "trajectory_optimization": {
+            "name": "GCOPTER",
+            "git_repo": "https://github.com/ZJU-FAST-Lab/GCOPTER.git",
+            "specs": "MINCO (Minimum Control Effort) kinodynamic trajectory optimizer with non-linear drag constraints."
+        },
+        "swarm_planner": {
+            "name": "ego-planner-swarm",
+            "git_repo": "https://github.com/ZJU-FAST-Lab/ego-planner-swarm.git",
+            "specs": "Lightweight gradient-based local planner for multi-UAV swarm collision avoidance."
+        },
+        "digital_telemetry_link": {
+            "name": "DroneBridge",
+            "git_repo": "https://github.com/DroneBridge/DroneBridge.git",
+            "specs": "Bidirectional digital link for Wi-Fi telemetry and low-latency H.264 video streaming."
+        }
+    },
+    "status": "success"
+}

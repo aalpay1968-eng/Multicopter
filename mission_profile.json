@@ -1,0 +1,10 @@
+{
+    "app_type": "genel",
+    "payload_kg": 50.0,
+    "range_km": 10.0,
+    "endurance_min": 30.0,
+    "altitude_m": 120.0,
+    "wind_bft": 3,
+    "ops_env": "kirsal",
+    "flight_type": "VLOS"
+}

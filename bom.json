@@ -1,0 +1,422 @@
+{
+    "BOM": [
+        {
+            "category": "Motors",
+            "alternatives": [
+                {
+                    "model": "MAD Components M30",
+                    "weight_kg": 3.4,
+                    "specs": {
+                        "max_thrust_kg": 65.0,
+                        "rpm_v": 60,
+                        "type": "heavy_lift"
+                    },
+                    "price_usd": 950,
+                    "stock_status": "Low Stock"
+                }
+            ]
+        },
+        {
+            "category": "Propellers",
+            "alternatives": [
+                {
+                    "model": "Mejzlik 40x12",
+                    "weight_kg": 0.35,
+                    "specs": {
+                        "diameter_inch": 40.0,
+                        "pitch_inch": 12.0,
+                        "material": "Carbon fiber"
+                    },
+                    "price_usd": 200,
+                    "stock_status": "Low Stock"
+                }
+            ]
+        },
+        {
+            "category": "ESC",
+            "alternatives": [
+                {
+                    "model": "Hobbywing FOC 120A",
+                    "weight_kg": 0.3,
+                    "specs": {
+                        "max_current_a": 120,
+                        "voltage_s": 14,
+                        "waterproof": true
+                    },
+                    "price_usd": 130,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "Hobbywing XRotor Pro 50A",
+                    "weight_kg": 0.05,
+                    "specs": {
+                        "max_current_a": 50,
+                        "voltage_s": 6,
+                        "waterproof": false
+                    },
+                    "price_usd": 30,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "T-MOTOR FLAME 100A",
+                    "weight_kg": 0.25,
+                    "specs": {
+                        "max_current_a": 100,
+                        "voltage_s": 14,
+                        "waterproof": true
+                    },
+                    "price_usd": 150,
+                    "stock_status": "In Stock"
+                }
+            ]
+        },
+        {
+            "category": "Flight Controller",
+            "alternatives": [
+                {
+                    "model": "CubePilot Cube Orange+",
+                    "weight_kg": 0.1,
+                    "specs": {
+                        "redundancy": "triple",
+                        "firmware": "ArduPilot/PX4",
+                        "processor": "H7"
+                    },
+                    "price_usd": 380,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "CubePilot Cube Blue",
+                    "weight_kg": 0.1,
+                    "specs": {
+                        "redundancy": "triple",
+                        "firmware": "ArduPilot/PX4",
+                        "processor": "H7",
+                        "made_in": "USA"
+                    },
+                    "price_usd": 600,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "Holybro Pixhawk 6X",
+                    "weight_kg": 0.1,
+                    "specs": {
+                        "redundancy": "triple",
+                        "firmware": "PX4/ArduPilot",
+                        "processor": "H7"
+                    },
+                    "price_usd": 350,
+                    "stock_status": "In Stock"
+                }
+            ]
+        },
+        {
+            "category": "Battery",
+            "alternatives": [
+                {
+                    "model": "MaxAmps 40000mAh 12S",
+                    "weight_kg": 9.5,
+                    "specs": {
+                        "capacity_mah": 40000,
+                        "cells_s": 12,
+                        "smart": false
+                    },
+                    "price_usd": 950,
+                    "stock_status": "Low Stock"
+                }
+            ]
+        },
+        {
+            "category": "Frame",
+            "alternatives": [
+                {
+                    "model": "Tarot X6 Hexacopter",
+                    "weight_kg": 2.5,
+                    "specs": {
+                        "type": "hexacopter",
+                        "material": "carbon fiber",
+                        "folding": true
+                    },
+                    "price_usd": 350,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "Tarot T-18 Octocopter",
+                    "weight_kg": 3.2,
+                    "specs": {
+                        "type": "octocopter",
+                        "material": "carbon fiber",
+                        "folding": true
+                    },
+                    "price_usd": 450,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "Tarot 680 Pro Hexacopter",
+                    "weight_kg": 0.8,
+                    "specs": {
+                        "type": "hexacopter",
+                        "material": "carbon fiber",
+                        "folding": true
+                    },
+                    "price_usd": 150,
+                    "stock_status": "In Stock"
+                }
+            ]
+        },
+        {
+            "category": "Telemetry & Communications",
+            "alternatives": [
+                {
+                    "model": "CubePilot Herelink V1.1",
+                    "weight_kg": 0.15,
+                    "specs": {
+                        "range_km": 20,
+                        "video_transmission": true,
+                        "frequency": "2.4GHz"
+                    },
+                    "price_usd": 800,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "RFDesign RFD900x",
+                    "weight_kg": 0.05,
+                    "specs": {
+                        "range_km": 40,
+                        "video_transmission": false,
+                        "frequency": "900MHz"
+                    },
+                    "price_usd": 120,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "RFDesign RFD868x",
+                    "weight_kg": 0.05,
+                    "specs": {
+                        "range_km": 40,
+                        "video_transmission": false,
+                        "frequency": "868MHz"
+                    },
+                    "price_usd": 120,
+                    "stock_status": "In Stock"
+                }
+            ]
+        },
+        {
+            "category": "GPS / RTK",
+            "alternatives": [
+                {
+                    "model": "CubePilot Here3 RTK",
+                    "weight_kg": 0.05,
+                    "specs": {
+                        "type": "RTK",
+                        "constellations": "GPS, GLONASS, Galileo, BeiDou",
+                        "interface": "CAN"
+                    },
+                    "price_usd": 150,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "CubePilot Here4 RTK",
+                    "weight_kg": 0.055,
+                    "specs": {
+                        "type": "RTK",
+                        "constellations": "GPS, GLONASS, Galileo, BeiDou",
+                        "interface": "CAN/DroneCAN"
+                    },
+                    "price_usd": 200,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "Holybro H-RTK F9P",
+                    "weight_kg": 0.04,
+                    "specs": {
+                        "type": "RTK L1/L2",
+                        "constellations": "GPS, GLONASS, Galileo, BeiDou",
+                        "interface": "UART"
+                    },
+                    "price_usd": 250,
+                    "stock_status": "In Stock"
+                }
+            ]
+        },
+        {
+            "category": "Power Distribution Board",
+            "alternatives": [
+                {
+                    "model": "Mauch PL-200",
+                    "weight_kg": 0.08,
+                    "specs": {
+                        "max_current_a": 200,
+                        "voltage_s": 14,
+                        "bec": "dual"
+                    },
+                    "price_usd": 120,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "Mauch PC-200",
+                    "weight_kg": 0.09,
+                    "specs": {
+                        "max_current_a": 200,
+                        "voltage_s": 14,
+                        "bec": "dual"
+                    },
+                    "price_usd": 140,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "Holybro PM02D",
+                    "weight_kg": 0.03,
+                    "specs": {
+                        "max_current_a": 60,
+                        "voltage_s": 6,
+                        "bec": "single"
+                    },
+                    "price_usd": 30,
+                    "stock_status": "In Stock"
+                }
+            ]
+        },
+        {
+            "category": "Gimbal / Camera",
+            "alternatives": [
+                {
+                    "model": "Gremsy Pixy U",
+                    "weight_kg": 0.36,
+                    "specs": {
+                        "type": "3-axis gimbal",
+                        "payload_max_kg": 0.5,
+                        "compatibility": "universal"
+                    },
+                    "price_usd": 1200,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "Gremsy T3 V3",
+                    "weight_kg": 1.05,
+                    "specs": {
+                        "type": "3-axis gimbal",
+                        "payload_max_kg": 1.7,
+                        "compatibility": "universal"
+                    },
+                    "price_usd": 2500,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "DJI Zenmuse H20",
+                    "weight_kg": 0.68,
+                    "specs": {
+                        "type": "integrated camera/gimbal",
+                        "resolution": "20MP",
+                        "zoom": "hybrid"
+                    },
+                    "price_usd": 3500,
+                    "stock_status": "Low Stock"
+                }
+            ]
+        },
+        {
+            "category": "Obstacle Avoidance / Lidar",
+            "alternatives": [
+                {
+                    "model": "Ouster OS0",
+                    "weight_kg": 0.45,
+                    "specs": {
+                        "type": "3D Lidar",
+                        "range_m": 50,
+                        "channels": 32
+                    },
+                    "price_usd": 5000,
+                    "stock_status": "Low Stock"
+                },
+                {
+                    "model": "Velodyne Puck VLP-16",
+                    "weight_kg": 0.83,
+                    "specs": {
+                        "type": "3D Lidar",
+                        "range_m": 100,
+                        "channels": 16
+                    },
+                    "price_usd": 4000,
+                    "stock_status": "Out of Stock"
+                }
+            ]
+        },
+        {
+            "category": "Landing Gear",
+            "alternatives": [
+                {
+                    "model": "Tarot Electric Retractable TL8X002",
+                    "weight_kg": 0.35,
+                    "specs": {
+                        "type": "Retractable",
+                        "material": "Carbon fiber",
+                        "payload_capacity_kg": 15
+                    },
+                    "price_usd": 120,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "EFT Fixed T-style LG",
+                    "weight_kg": 0.5,
+                    "specs": {
+                        "type": "Fixed",
+                        "material": "Aluminum/Carbon",
+                        "payload_capacity_kg": 50
+                    },
+                    "price_usd": 80,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "Holybro S500 Landing Gear",
+                    "weight_kg": 0.1,
+                    "specs": {
+                        "type": "Fixed",
+                        "material": "Plastic",
+                        "payload_capacity_kg": 5
+                    },
+                    "price_usd": 20,
+                    "stock_status": "In Stock"
+                }
+            ]
+        },
+        {
+            "category": "Parachute System",
+            "alternatives": [
+                {
+                    "model": "Galaxy Rescue GRS 5/300",
+                    "weight_kg": 0.45,
+                    "specs": {
+                        "type": "Ballistic",
+                        "max_mtow_kg": 5,
+                        "deployment_time_s": 0.5
+                    },
+                    "price_usd": 450,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "Fruity Chutes Iris Ultra 60",
+                    "weight_kg": 0.3,
+                    "specs": {
+                        "type": "Spring-loaded",
+                        "max_mtow_kg": 10,
+                        "deployment_time_s": 0.8
+                    },
+                    "price_usd": 380,
+                    "stock_status": "In Stock"
+                },
+                {
+                    "model": "ParaZero SafeAir M600",
+                    "weight_kg": 0.65,
+                    "specs": {
+                        "type": "Smart Parachute",
+                        "max_mtow_kg": 16,
+                        "deployment_time_s": 0.4
+                    },
+                    "price_usd": 1800,
+                    "stock_status": "Low Stock"
+                }
+            ]
+        }
+    ]
+}

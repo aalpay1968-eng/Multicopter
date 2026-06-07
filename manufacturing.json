@@ -1,0 +1,22 @@
+{
+    "fastener_torque_specs": {
+        "M3_steel_8_8": "1.3 Nm",
+        "M4_steel_8_8": "3.0 Nm",
+        "M5_steel_8_8": "5.9 Nm",
+        "M6_steel_8_8": "10.0 Nm"
+    },
+    "threadlocker_policy": "Loctite 242 (Blue) tum metal-metal vida baglantilarinda",
+    "assembly_sequence": [
+        "1. Karbon fiber borulari belirtilen uzunlukta kes: 1.315 m",
+        "2. Merkez hub ve motor montaj plakalarini CNC ile isle (Alu 7075-T6)",
+        "3. Katlanir kol mekanizmalarini M4 omuzlu civata ile monte et, mafsallari yagla",
+        "4. Motor guc kablolarini karbon borular icinden gecir",
+        "5. Motorlari montaj plakasina (M3/M4) vida sabitleyici kullanarak sabitle",
+        "6. ESC'leri guc dagitim kartina (PDB) lehimle ve sinyal kablolarini orgule"
+    ],
+    "surface_treatment": "Aluminyum parcalar Siyah Eloksal (Tip II). Karbon yuzeyler mat vernik.",
+    "validation_passed": true,
+    "debug": {
+        "error_context": ""
+    }
+}

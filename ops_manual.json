@@ -1,0 +1,23 @@
+{
+    "pre_flight_checklist": [
+        "1. DroneBridge alici/verici guc bağlantilarini kontrol et",
+        "2. ESP32 Wi-Fi telemetry modulu baglanti durumunu dogrula (SSID: DroneBridge_ESP32)",
+        "3. Batarya hucre voltajlarini kontrol et (min: 3.7V / cell)",
+        "4. RTK GPS fix durumunu teyit et (yatay sapma < 2 cm)",
+        "5. Pervanelerde catlak/gevseklik kontrolu yap",
+        "6. Failsafe modlarinin ve acil motor durdurma (disarm) mekanizmasinin aktif oldugunu kontrol et"
+    ],
+    "telemetry_setup": {
+        "link_name": "DroneBridge",
+        "git_repo": "https://github.com/DroneBridge/DroneBridge.git",
+        "esp32_bridge": "https://github.com/DroneBridge/ESP32.git",
+        "frequency_band": "2.4 GHz / 5.8 GHz Dual-Band Wi-Fi Broadcast",
+        "video_codec": "H.264 low-latency hardware stream",
+        "baudrate": 115200
+    },
+    "maintenance_schedule": {
+        "every_10h": "Inspect carbon fiber arm tubes (Ø50 mm) for cracks, and check fastener tightness (M4/M5 MRO standard). Check motor shafts for play.",
+        "every_50h": "Replace Composite props. Recalibrate MPU6050/MPU9250 IMU on auxiliary controllers (esp-fc). Check cooling fans."
+    },
+    "status": "success"
+}

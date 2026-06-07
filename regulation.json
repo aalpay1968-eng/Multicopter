@@ -1,0 +1,13 @@
+{
+    "EASA_cat": "Specific",
+    "SAIL_level": "SAIL-V",
+    "GRC": 6,
+    "ARC": "ARC-b",
+    "OSO_list": [
+        "OSO-01",
+        "OSO-06",
+        "OSO-11"
+    ],
+    "DO160_class": "DO-160G Cat B",
+    "RID_required": true
+}

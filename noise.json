@@ -1,0 +1,24 @@
+{
+    "V_tip_ms": 127.221,
+    "Ma_tip": 0.3709,
+    "RPM_hover": 1711.089,
+    "n_blades": 2,
+    "n_rotors": 8,
+    "f_BPF_Hz": 57.036,
+    "SPL_rotational_dB": 83.169,
+    "SPL_broadband_dB": 62.882,
+    "SPL_total_1m_dB": 95.241,
+    "r_observer_m": 50.0,
+    "SPL_observer_dB": 60.261,
+    "A_correction_dB": -6.0,
+    "L_Aeq_dBA": 54.261,
+    "L_limit_dBA": 65.0,
+    "noise_pass": true,
+    "excess_dB": 0.0,
+    "reduction_tips": [],
+    "validation_passed": true,
+    "debug": {
+        "error_context": "",
+        "req_vmax": 44.955
+    }
+}

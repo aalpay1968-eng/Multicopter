@@ -1,0 +1,19 @@
+{
+    "n_blades": 2,
+    "D_rotor_m": 1.42,
+    "RPM_hover": 1711.089,
+    "V_tip_ms": 127.221,
+    "CT": 0.010667,
+    "CP": 0.001343,
+    "FM_actual": 0.58,
+    "Q_drag_Nm": 14.799308,
+    "T_calc_N": 1324.35,
+    "P_actual_W": 21214.495,
+    "DL_actual_Nm2": 209.063,
+    "bemt_converged": true,
+    "KK5_pass": false,
+    "validation_passed": false,
+    "debug": {
+        "error_context": ""
+    }
+}

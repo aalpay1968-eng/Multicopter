@@ -1,0 +1,27 @@
+{
+    "MTOW_kg": 135.0,
+    "altitude_m": 120.0,
+    "rho_kgm3": 1.21096,
+    "n_rotors": 8,
+    "coaxial_flag": true,
+    "A_total_m2": 6.33471,
+    "DL_Nm2": 209.063,
+    "T_per_rotor_N": 331.088,
+    "v_i_ms": 10.1777,
+    "k_int": 1.2,
+    "P_ideal_W": 12304.407,
+    "P_hover_W": 22552.066,
+    "FM_estimate": 0.5456,
+    "T_W_ratio": 2.0,
+    "P_total_W": 27159.343,
+    "endurance_hover_min": 12.884,
+    "E_bat_usable_Wh": 5832.0,
+    "KK1_pass": true,
+    "KK4_pass": true,
+    "FM_pass": false,
+    "validation_passed": false,
+    "debug": {
+        "error_context": "",
+        "cg_ref": 0.0
+    }
+}

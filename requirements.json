@@ -1,0 +1,9 @@
+{
+    "MTOW_kg": 25.0,
+    "T_W_req": 2.0,
+    "endurance_min": 25.0,
+    "V_max_ms": 13.5,
+    "V_cruise_ms": 10.0,
+    "redundancy": "Single",
+    "payload_fraction": 0.22
+}

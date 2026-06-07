@@ -1,0 +1,726 @@
+;; ============================================================================
+;; Tandem Wing Multicopter Design - SKILL Implementation
+;; FireFiterDrone500 Project
+;; 
+;; Bu dosya, tandem kanatlı multikopter tasarım hesaplamalarında kullanılan
+;; formülleri içerir ve sonuçları otomatik olarak rapora ekler.
+;; ============================================================================
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Global Değişkenler ve Sabitler
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define TFMD_VERSION "1.0.0")
+(define TFMD_PROJECT_NAME "FireFiterDrone500")
+
+;; Fiziksel Sabitler
+(define GRAVITY 9.81)              ;; m/s²
+(define AIR_DENSITY_SEA_LEVEL 1.225) ;; kg/m³ (deniz seviyesi)
+(define AIR_VISCOSITY 1.81e-5)       ;; kg/(m·s)
+
+;; Varsayılan Tasarım Parametreleri
+(define DEFAULT_WING_SPAN 2.5)       ;; metre (ön kanat)
+(define DEFAULT_WING_CHORD 0.4)      ;; metre
+(define DEFAULT_FUSELAGE_LENGTH 3.0) ;; metre
+(define DEFAULT_MTOW 25.0)           ;; kg (Maximum Take-Off Weight)
+(define DEFAULT_ROTOR_COUNT 8)       ;; motor sayısı
+(define DEFAULT_BATTERY_CAPACITY 22000) ;; mAh
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Yardımcı Fonksiyonlar
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Derece-Radyan dönüşümleri
+(defun tfmd_deg_to_rad (deg)
+  "Dereceyi radyana çevirir"
+  (* deg (/ 3.14159265359 180.0))
+)
+
+(defun tfmd_rad_to_deg (rad)
+  "Radyanı dereceye çevirir"
+  (* rad (/ 180.0 3.14159265359))
+)
+
+;; Üstel ve logaritmik hesaplamalar
+(defun tfmd_square (x)
+  "Bir sayının karesini alır"
+  (* x x)
+)
+
+(defun tfmd_sqrt (x)
+  "Karekök alır"
+  (sqrt x)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Aerodinamik Hesaplama Formülleri
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun tfmd_calculate_wing_area (span chord)
+  "
+  Kanat Alanı Hesaplama
+  Formül: S = b × c
+  где:
+    S = Kanat alanı (m²)
+    b = Kanat açıklığı (m)
+    c = Kordon uzunluğu (m)
+  "
+  (* span chord)
+)
+
+(defun tfmd_calculate_aspect_ratio (span chord)
+  "
+  Aspect Ratio (AR) Hesaplama
+  Formül: AR = b² / S = b / c
+  где:
+    AR = Aspect Ratio
+    b = Kanat açıklığı (m)
+    S = Kanat alanı (m²)
+    c = Kordon uzunluğu (m)
+  "
+  (/ span chord)
+)
+
+(defun tfmd_calculate_reynolds_number (velocity chord air_density viscosity)
+  "
+  Reynolds Sayısı Hesaplama
+  Formül: Re = (ρ × V × c) / μ
+  где:
+    Re = Reynolds sayısı
+    ρ = Hava yoğunluğu (kg/m³)
+    V = Hız (m/s)
+    c = Kordon uzunluğu (m)
+    μ = Dinamik viskozite (kg/(m·s))
+  "
+  (/ (* air_density velocity chord) viscosity)
+)
+
+(defun tfmd_calculate_lift_coefficient (cl_alpha alpha cl0)
+  "
+  Lift Katsayısı (CL) Hesaplama
+  Formül: CL = CL₀ + CL_α × α
+  где:
+    CL = Toplam lift katsayısı
+    CL₀ = Sıfır açıdaki lift katsayısı
+    CL_α = Lift eğrisi eğimi (1/rad)
+    α = Hücum açısı (radyan)
+  
+  Not: İnce profil teorisi için CL_α ≈ 2π
+  "
+  (+ cl0 (* cl_alpha alpha))
+)
+
+(defun tfmd_calculate_lift_force (cl air_density velocity area)
+  "
+  Lift Kuvveti Hesaplama
+  Formül: L = ½ × ρ × V² × S × CL
+  где:
+    L = Lift kuvveti (N)
+    ρ = Hava yoğunluğu (kg/m³)
+    V = Hız (m/s)
+    S = Kanat alanı (m²)
+    CL = Lift katsayısı
+  "
+  (* 0.5 air_density (tfmd_square velocity) area cl)
+)
+
+(defun tfmd_calculate_drag_coefficient (cd0 cl ar oswald_efficiency)
+  "
+  Drag Katsayısı (CD) Hesaplama - Parabolik Drag Polar
+  Formül: CD = CD₀ + CL² / (π × e × AR)
+  где:
+    CD = Toplam drag katsayısı
+    CD₀ = Parasitik drag katsayısı
+    CL = Lift katsayısı
+    e = Oswald verimlilik faktörü (genellikle 0.7-0.9)
+    AR = Aspect ratio
+  "
+  (+ cd0 (/ (tfmd_square cl) (* 3.14159265359 oswald_efficiency ar)))
+)
+
+(defun tfmd_calculate_drag_force (cd air_density velocity area)
+  "
+  Drag Kuvveti Hesaplama
+  Formül: D = ½ × ρ × V² × S × CD
+  где:
+    D = Drag kuvveti (N)
+    ρ = Hava yoğunluğu (kg/m³)
+    V = Hız (m/s)
+    S = Referans alanı (m²)
+    CD = Drag katsayısı
+  "
+  (* 0.5 air_density (tfmd_square velocity) area cd)
+)
+
+(defun tfmd_calculate_induced_velocity (thrust area air_density)
+  "
+  İndüklenmiş Hız Hesaplama (Momentum Teorisi)
+  Formül: v_i = √(T / (2 × ρ × A))
+  где:
+    v_i = İndüklenmiş hız (m/s)
+    T = Thrust (N)
+    ρ = Hava yoğunluğu (kg/m³)
+    A = Rotor disk alanı (m²)
+  "
+  (tfmd_sqrt (/ thrust (* 2 air_density area)))
+)
+
+(defun tfmd_calculate_power_required (thrust induced_velocity)
+  "
+  Gerekli Güç Hesaplama (İdeal Durum)
+  Formül: P = T × v_i
+  где:
+    P = Güç (W)
+    T = Thrust (N)
+    v_i = İndüklenmiş hız (m/s)
+  "
+  (* thrust induced_velocity)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Tandem Kanat Özel Hesaplamaları
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun tfmd_calculate_tandem_interference_factor (front_span rear_span spacing)
+  "
+  Tandem Kanat Etkileşim Faktörü
+  Ön ve arka kanat arasındaki aerodinamik etkileşimi hesaba katar.
+  
+  Formül: η = 1 - k × (S_front / S_total) × exp(-d/b)
+  где:
+    η = Etkileşim faktörü (0-1 arası)
+    k = Empirik katsayı (~0.3)
+    d = Kanatlar arası mesafe (m)
+    b = Karakteristik kanat açıklığı (m)
+  "
+  (let ((k 0.3)
+        (avg_span (/ (+ front_span rear_span) 2.0)))
+    (- 1.0 (* k (/ front_span (+ front_span rear_span))
+             (exp (/ (- spacing) avg_span))))
+  )
+)
+
+(defun tfmd_calculate_tandem_lift_distribution (total_lift front_area rear_area interference_factor)
+  "
+  Tandem Kanat Lift Dağılımı
+  Toplam liftin ön ve arka kanatlar arasında dağılımını hesaplar.
+  
+  Formül:
+    L_front = L_total × (S_front / S_total) × η
+    L_rear = L_total - L_front
+  "
+  (let* ((total_area (+ front_area rear_area))
+         (front_ratio (/ front_area total_area))
+         (front_lift (* total_lift front_ratio interference_factor))
+         (rear_lift (- total_lift front_lift)))
+    (list front_lift rear_lift)
+  )
+)
+
+(defun tfmd_calculate_pitching_moment (lift_front lift_rear x_front x_rear x_cg)
+  "
+  Pitching Moment (Yunuslama Momenti) Hesaplama
+  Formül: M = L_f × (x_f - x_cg) - L_r × (x_r - x_cg)
+  где:
+    M = Pitching moment (N·m)
+    L_f, L_r = Ön ve arka kanat liftleri (N)
+    x_f, x_r = Ön ve arka kanat aerodinamik merkezleri (m)
+    x_cg = Ağırlık merkezi (m)
+  "
+  (- (* lift_front (- x_front x_cg))
+     (* lift_rear (- x_rear x_cg)))
+)
+
+(defun tfmd_calculate_static_margin (x_ac x_cg mac)
+  "
+  Statik Marj Hesaplama
+  Formül: SM = (x_ac - x_cg) / MAC
+  где:
+    SM = Statik marj (boyutsuz)
+    x_ac = Aerodinamik merkez (m)
+    x_cg = Ağırlık merkezi (m)
+    MAC = Ortalama aerodinamik kordon (m)
+  
+  Not: Pozitif statik marj (>0.05) statik stabilite için gereklidir.
+  "
+  (/ (- x_ac x_cg) mac)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Performans Hesaplamaları
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun tfmd_calculate_stall_speed (mtow cl_max air_density wing_area)
+  "
+  Stall (Perdavay) Hızı Hesaplama
+  Formül: V_stall = √(2 × W / (ρ × S × CL_max))
+  где:
+    V_stall = Stall hızı (m/s)
+    W = Ağırlık (N) = m × g
+    ρ = Hava yoğunluğu (kg/m³)
+    S = Kanat alanı (m²)
+    CL_max = Maksimum lift katsayısı
+  "
+  (let ((weight (* mtow GRAVITY)))
+    (tfmd_sqrt (/ (* 2 weight) (* air_density wing_area cl_max)))
+  )
+)
+
+(defun tfmd_calculate_endurance (battery_capacity battery_voltage current_draw efficiency)
+  "
+  Uçuş Süresi (Endurance) Hesaplama
+  Formül: t = (C × V × η) / (I × V) = (C × η) / I
+  где:
+    t = Uçuş süresi (saat)
+    C = Batarya kapasitesi (Ah)
+    V = Batarya voltajı (V)
+    I = Akım çekimi (A)
+    η = Sistem verimliliği
+  "
+  (let ((capacity_ah (/ battery_capacity 1000.0)))
+    (/ (* capacity_ah efficiency) current_draw)
+  )
+)
+
+(defun tfmd_calculate_range (endurance_hours velocity_ms)
+  "
+  Menzil (Range) Hesaplama
+  Formül: R = V × t
+  где:
+    R = Menzil (km)
+    V = Hız (km/h)
+    t = Uçuş süresi (saat)
+  "
+  (/ (* endurance_hours velocity_ms 3.6) 1000.0)
+)
+
+(defun tfmd_calculate_disk_loading (mtow rotor_count rotor_diameter)
+  "
+  Disk Yüklemesi Hesaplama
+  Formül: DL = W / (n × π × R²)
+  где:
+    DL = Disk yüklemesi (N/m²)
+    W = Ağırlık (N)
+    n = Rotor sayısı
+    R = Rotor yarıçapı (m)
+  "
+  (let ((weight (* mtow GRAVITY))
+        (rotor_radius (/ rotor_diameter 2.0))
+        (total_disk_area (* rotor_count 3.14159265359 (tfmd_square rotor_radius))))
+    (/ weight total_disk_area)
+  )
+)
+
+(defun tfmd_calculate_figure_of_merit (thrust power_input air_density rotor_area)
+  "
+  Figure of Merit (Verimlilik Ölçütü) Hesaplama
+  Formül: FM = P_ideal / P_actual
+  где:
+    FM = Figure of merit (0-1 arası)
+    P_ideal = İdeal güç = T^(3/2) / √(2 × ρ × A)
+    P_actual = Gerçek güç girişi (W)
+  "
+  (let ((ideal_power (/ (expt thrust 1.5) (tfmd_sqrt (* 2 air_density rotor_area)))))
+    (/ ideal_power power_input)
+  )
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Rapor Oluşturma Fonksiyonları
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun tfmd_create_design_report (params)
+  "
+  Ana Tasarım Raporu Oluşturur
+  Tüm hesaplama formüllerini ve sonuçlarını içerir.
+  "
+  (let* (;; Parametreleri çıkar
+         (wing_span (or (cdr (assoc 'wing_span params)) DEFAULT_WING_SPAN))
+         (wing_chord (or (cdr (assoc 'wing_chord params)) DEFAULT_WING_CHORD))
+         (fuselage_length (or (cdr (assoc 'fuselage_length params)) DEFAULT_FUSELAGE_LENGTH))
+         (mtow (or (cdr (assoc 'mtow params)) DEFAULT_MTOW))
+         (rotor_count (or (cdr (assoc 'rotor_count params)) DEFAULT_ROTOR_COUNT))
+         (rotor_diameter (or (cdr (assoc 'rotor_diameter params)) 0.5))
+         (battery_capacity (or (cdr (assoc 'battery_capacity params)) DEFAULT_BATTERY_CAPACITY))
+         (cruise_velocity (or (cdr (assoc 'cruise_velocity params)) 15.0))
+         (cl_max (or (cdr (assoc 'cl_max params)) 1.5))
+         (cd0 (or (cdr (assoc 'cd0 params)) 0.03))
+         (oswald_efficiency (or (cdr (assoc 'oswald_efficiency params)) 0.85))
+         
+         ;; Temel hesaplamalar
+         (wing_area (tfmd_calculate_wing_area wing_span wing_chord))
+         (aspect_ratio (tfmd_calculate_aspect_ratio wing_span wing_chord))
+         (reynolds (tfmd_calculate_reynolds_number cruise_velocity wing_chord AIR_DENSITY_SEA_LEVEL AIR_VISCOSITY))
+         (stall_speed (tfmd_calculate_stall_speed mtow cl_max AIR_DENSITY_SEA_LEVEL wing_area))
+         (disk_loading (tfmd_calculate_disk_loading mtow rotor_count rotor_diameter))
+         
+         ;; Tandem spesifik hesaplamalar
+         (rear_wing_span (* wing_span 0.9))  ;; Arka kanat %10 daha küçük
+         (rear_wing_chord wing_chord)
+         (wing_spacing (* fuselage_length 0.4))  ;; Kanatlar arası mesafe
+         (interference_factor (tfmd_calculate_tandem_interference_factor wing_span rear_wing_span wing_spacing))
+         (front_area (tfmd_calculate_wing_area wing_span wing_chord))
+         (rear_area (tfmd_calculate_wing_area rear_wing_span rear_wing_chord))
+         (total_lift (* mtow GRAVITY))
+         (lift_dist (tfmd_calculate_tandem_lift_distribution total_lift front_area rear_area interference_factor))
+         (front_lift (car lift_dist))
+         (rear_lift (cadr lift_dist))
+         
+         ;; Stabilite hesaplamaları
+         (x_front (* fuselage_length 0.3))
+         (x_rear (* fuselage_length 0.7))
+         (x_cg (* fuselage_length 0.5))
+         (pitching_moment (tfmd_calculate_pitching_moment front_lift rear_lift x_front x_rear x_cg))
+         (mac wing_chord)
+         (x_ac (* fuselage_length 0.55))
+         (static_margin (tfmd_calculate_static_margin x_ac x_cg mac))
+         
+         ;; Performans hesaplamaları
+         (total_rotor_area (* rotor_count 3.14159265359 (tfmd_square (/ rotor_diameter 2.0))))
+         (induced_vel (tfmd_calculate_induced_velocity (* mtow GRAVITY) total_rotor_area AIR_DENSITY_SEA_LEVEL))
+         (power_required (tfmd_calculate_power_required (* mtow GRAVITY) induced_vel))
+         (current_draw (/ power_required 44.4))  ;; 12S batarya ~44.4V varsayımı
+         (efficiency 0.85)
+         (endurance (tfmd_calculate_endurance battery_capacity 44.4 current_draw efficiency))
+         (range_km (tfmd_calculate_range endurance cruise_velocity))
+         
+         ;; Drag hesaplamaları
+         (cl_cruise (/ (* 2 (* mtow GRAVITY)) (* AIR_DENSITY_SEA_LEVEL (tfmd_square cruise_velocity) wing_area)))
+         (cd_total (tfmd_calculate_drag_coefficient cd0 cl_cruise aspect_ratio oswald_efficiency))
+         (drag_force (tfmd_calculate_drag_force cd_total AIR_DENSITY_SEA_LEVEL cruise_velocity wing_area))
+         )
+    
+    ;; Raporu oluştur
+    (printf "\n")
+    (printf "================================================================================\n")
+    (printf "                    TANDEM WING MULTICOPTER DESIGN REPORT\n")
+    (printf "                         FireFiterDrone500 Projesi\n")
+    (printf "================================================================================\n")
+    (printf "Rapor Tarihi: %s\n" (ctime (time)))
+    (printf "SKILL Versiyonu: %s\n\n" TFMD_VERSION)
+    
+    (printf "--------------------------------------------------------------------------------\n")
+    (printf "1. TASARIM PARAMETRELERİ\n")
+    (printf "--------------------------------------------------------------------------------\n")
+    (printf "   Kanat Açıklığı (Ön):           %.3f m\n" wing_span)
+    (printf "   Kanat Kordonu:                 %.3f m\n" wing_chord)
+    (printf "   Gövde Uzunluğu:                %.3f m\n" fuselage_length)
+    (printf "   Maksimum Kalkış Ağırlığı:      %.2f kg\n" mtow)
+    (printf "   Rotor Sayısı:                  %d\n" rotor_count)
+    (printf "   Rotor Çapı:                    %.3f m\n" rotor_diameter)
+    (printf "   Batarya Kapasitesi:            %d mAh\n" battery_capacity)
+    (printf "   Seyir Hızı:                    %.2f m/s\n" cruise_velocity)
+    (printf "\n")
+    
+    (printf "--------------------------------------------------------------------------------\n")
+    (printf "2. KULLANILAN FORMÜLLER\n")
+    (printf "--------------------------------------------------------------------------------\n")
+    (printf "\n")
+    (printf "2.1 Kanat Alanı:\n")
+    (printf "    Formül: S = b × c\n")
+    (printf "    Sonuç: S = %.3f × %.3f = %.4f m²\n\n" wing_span wing_chord wing_area)
+    
+    (printf "2.2 Aspect Ratio:\n")
+    (printf "    Formül: AR = b / c\n")
+    (printf "    Sonuç: AR = %.3f / %.3f = %.2f\n\n" wing_span wing_chord aspect_ratio)
+    
+    (printf "2.3 Reynolds Sayısı:\n")
+    (printf "    Formül: Re = (ρ × V × c) / μ\n")
+    (printf "    Sonuç: Re = (%.3f × %.2f × %.3f) / %.2e = %.0f\n\n" 
+            AIR_DENSITY_SEA_LEVEL cruise_velocity wing_chord AIR_VISCOSITY reynolds)
+    
+    (printf "2.4 Stall Hızı:\n")
+    (printf "    Formül: V_stall = √(2 × W / (ρ × S × CL_max))\n")
+    (printf "    Sonuç: V_stall = √(2 × %.2f × %.2f / (%.3f × %.4f × %.2f)) = %.2f m/s\n\n"
+            mtow GRAVITY AIR_DENSITY_SEA_LEVEL wing_area cl_max stall_speed)
+    
+    (printf "2.5 Lift Kuvveti:\n")
+    (printf "    Formül: L = ½ × ρ × V² × S × CL\n")
+    (printf "    Toplam Lift: L = %.2f N (ağırlığa eşit)\n\n" total_lift)
+    
+    (printf "2.6 Drag Katsayısı (Parabolik Drag Polar):\n")
+    (printf "    Formül: CD = CD₀ + CL² / (π × e × AR)\n")
+    (printf "    Sonuç: CD = %.3f + %.3f² / (π × %.2f × %.2f) = %.4f\n\n"
+            cd0 cl_cruise oswald_efficiency aspect_ratio cd_total)
+    
+    (printf "2.7 Drag Kuvveti:\n")
+    (printf "    Formül: D = ½ × ρ × V² × S × CD\n")
+    (printf "    Sonuç: D = ½ × %.3f × %.2f² × %.4f × %.4f = %.3f N\n\n"
+            AIR_DENSITY_SEA_LEVEL cruise_velocity wing_area cd_total drag_force)
+    
+    (printf "2.8 İndüklenmiş Hız (Momentum Teorisi):\n")
+    (printf "    Formül: v_i = √(T / (2 × ρ × A))\n")
+    (printf "    Sonuç: v_i = √(%.2f / (2 × %.3f × %.4f)) = %.3f m/s\n\n"
+            total_lift AIR_DENSITY_SEA_LEVEL total_rotor_area induced_vel)
+    
+    (printf "2.9 Gerekli Güç:\n")
+    (printf "    Formül: P = T × v_i\n")
+    (printf "    Sonuç: P = %.2f × %.3f = %.2f W\n\n" total_lift induced_vel power_required)
+    
+    (printf "2.10 Disk Yüklemesi:\n")
+    (printf "     Formül: DL = W / (n × π × R²)\n")
+    (printf "     Sonuç: DL = %.2f / (%d × π × %.3f²) = %.2f N/m²\n\n"
+             total_lift rotor_count (/ rotor_diameter 2.0) disk_loading)
+    
+    (printf "2.11 Tandem Kanat Etkileşim Faktörü:\n")
+    (printf "     Formül: η = 1 - k × (S_front / S_total) × exp(-d/b)\n")
+    (printf "     Sonuç: η = 1 - 0.3 × (%.4f / %.4f) × exp(-%.3f / %.3f) = %.3f\n\n"
+             front_area (+ front_area rear_area) wing_spacing wing_span interference_factor)
+    
+    (printf "2.12 Tandem Lift Dağılımı:\n")
+    (printf "     Formül: L_front = L_total × (S_front / S_total) × η\n")
+    (printf "             L_rear = L_total - L_front\n")
+    (printf "     Sonuç: L_front = %.2f N, L_rear = %.2f N\n\n" front_lift rear_lift)
+    
+    (printf "2.13 Pitching Moment:\n")
+    (printf "     Formül: M = L_f × (x_f - x_cg) - L_r × (x_r - x_cg)\n")
+    (printf "     Sonuç: M = %.2f × (%.3f - %.3f) - %.2f × (%.3f - %.3f) = %.3f N·m\n\n"
+             front_lift x_front x_cg rear_lift x_rear x_cg pitching_moment)
+    
+    (printf "2.14 Statik Marj:\n")
+    (printf "     Formül: SM = (x_ac - x_cg) / MAC\n")
+    (printf "     Sonuç: SM = (%.3f - %.3f) / %.3f = %.3f\n" x_ac x_cg mac static_margin)
+    (if (> static_margin 0.05)
+        (printf "     Durum: ✓ Statik olarak STABİL (SM > 0.05)\n\n")
+        (printf "     Durum: ✗ Statik olarak INSTABİL (SM < 0.05) - Tasarım gözden geçirilmeli!\n\n"))
+    
+    (printf "2.15 Uçuş Süresi (Endurance):\n")
+    (printf "     Formül: t = (C × η) / I\n")
+    (printf "     Sonuç: t = (%.2f × %.2f) / %.2f = %.2f saat = %.1f dakika\n\n"
+             (/ battery_capacity 1000.0) efficiency current_draw endurance (* endurance 60))
+    
+    (printf "2.16 Menzil (Range):\n")
+    (printf "     Formül: R = V × t\n")
+    (printf "     Sonuç: R = %.2f × %.2f = %.2f km\n\n" (* cruise_velocity 3.6) endurance range_km)
+    
+    (printf "--------------------------------------------------------------------------------\n")
+    (printf "3. HESAPLANAN DEĞERLER ÖZETİ\n")
+    (printf "--------------------------------------------------------------------------------\n")
+    (printf "   Kanat Alanı:                   %.4f m²\n" wing_area)
+    (printf "   Aspect Ratio:                  %.2f\n" aspect_ratio)
+    (printf "   Reynolds Sayısı:               %.0f\n" reynolds)
+    (printf "   Stall Hızı:                    %.2f m/s (%.2f km/h)\n" stall_speed (* stall_speed 3.6))
+    (printf "   Seyir Lift Katsayısı:          %.4f\n" cl_cruise)
+    (printf "   Toplam Drag Katsayısı:         %.4f\n" cd_total)
+    (printf "   Drag Kuvveti:                  %.3f N\n" drag_force)
+    (printf "   İndüklenmiş Hız:               %.3f m/s\n" induced_vel)
+    (printf "   Gerekli Güç:                   %.2f W\n" power_required)
+    (printf "   Disk Yüklemesi:                %.2f N/m²\n" disk_loading)
+    (printf "   Etkileşim Faktörü:             %.3f\n" interference_factor)
+    (printf "   Ön Kanat Lift:                 %.2f N (%.1f%%)\n" front_lift (/ (* front_lift 100.0) total_lift))
+    (printf "   Arka Kanat Lift:               %.2f N (%.1f%%)\n" rear_lift (/ (* rear_lift 100.0) total_lift))
+    (printf "   Pitching Moment:               %.3f N·m\n" pitching_moment)
+    (printf "   Statik Marj:                   %.3f\n" static_margin)
+    (printf "   Tahmini Uçuş Süresi:           %.2f saat (%.1f dakika)\n" endurance (* endurance 60))
+    (printf "   Tahmini Menzil:                %.2f km\n" range_km)
+    (printf "\n")
+    
+    (printf "--------------------------------------------------------------------------------\n")
+    (printf "4. ÖNERİLER VE NOTLAR\n")
+    (printf "--------------------------------------------------------------------------------\n")
+    
+    ;; Otomatik öneriler
+    (if (< static_margin 0.05)
+        (printf "   ⚠ UYARI: Statik marj çok düşük. Ağırlık merkezi öne kaydırılmalı.\n"))
+    
+    (if (> disk_loading 150)
+        (printf "   ⚠ UYARI: Disk yüklemesi yüksek. Daha büyük rotorlar veya daha fazla rotor önerilir.\n"))
+    
+    (if (< interference_factor 0.85)
+        (printf "   ⚠ UYARI: Kanat etkileşimi belirgin. Kanatlar arası mesafe artırılabilir.\n"))
+    
+    (if (< endurance 0.5)
+        (printf "   ⚠ UYARI: Uçuş süresi kısa. Daha yüksek kapasiteli batarya önerilir.\n"))
+    
+    (printf "   ✓ Tandem konfigürasyonu, geleneksel multikopterlere göre daha iyi\n")
+    (printf "     ileri hız performansı ve verimliliği sağlar.\n")
+    (printf "   ✓ Yangın söndürme görevleri için su/retardant tankı ağırlığı\n")
+    (printf "     MTOW hesaplamalarına dahil edilmelidir.\n")
+    (printf "   ✓ Termal kamera ve yangın algılama sensörleri için güç tüketimi\n")
+    (printf "     toplam akım çekimine eklenmelidir.\n")
+    (printf "\n")
+    
+    (printf "================================================================================\n")
+    (printf "                              RAPOR SONU\n")
+    (printf "================================================================================\n")
+    
+    ;; Sonuçları bir liste olarak döndür (programatik kullanım için)
+    (list
+      (cons 'wing_area wing_area)
+      (cons 'aspect_ratio aspect_ratio)
+      (cons 'reynolds_number reynolds)
+      (cons 'stall_speed stall_speed)
+      (cons 'cl_cruise cl_cruise)
+      (cons 'cd_total cd_total)
+      (cons 'drag_force drag_force)
+      (cons 'induced_velocity induced_vel)
+      (cons 'power_required power_required)
+      (cons 'disk_loading disk_loading)
+      (cons 'interference_factor interference_factor)
+      (cons 'front_lift front_lift)
+      (cons 'rear_lift rear_lift)
+      (cons 'pitching_moment pitching_moment)
+      (cons 'static_margin static_margin)
+      (cons 'endurance endurance)
+      (cons 'range_km range_km)
+    )
+  )
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Örnek Kullanım Fonksiyonu
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun tfmd_run_example ()
+  "
+  Örnek bir FireFiterDrone500 tasarımı için rapor oluşturur.
+  "
+  (let ((example_params
+          (list
+            (cons 'wing_span 2.8)
+            (cons 'wing_chord 0.45)
+            (cons 'fuselage_length 3.5)
+            (cons 'mtow 28.0)
+            (cons 'rotor_count 8)
+            (cons 'rotor_diameter 0.55)
+            (cons 'battery_capacity 25000)
+            (cons 'cruise_velocity 18.0)
+            (cons 'cl_max 1.6)
+            (cons 'cd0 0.028)
+            (cons 'oswald_efficiency 0.87)
+          )))
+    
+    (printf "\n")
+    (printf "############################################################################\n")
+    (printf "#                    FireFiterDrone500 - Örnek Tasarım Analizi\n")
+    (printf "############################################################################\n")
+    
+    (tfmd_create_design_report example_params)
+  )
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; CAD Entegrasyon Fonksiyonları (Cadence ALLEGRO için)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun tfmd_export_to_cadence (params report_file)
+  "
+  Tasarım parametrelerini ve raporunu Cadence ALLEGRO'ya aktarır.
+  "
+  (let ((report_data (tfmd_create_design_report params))
+        (output_stream (outfile report_file)))
+    
+    ;; Raporu dosyaya yaz
+    (fprintf output_stream "Tandem Wing Multicopter Design Report\n")
+    (fprintf output_stream "=====================================\n\n")
+    
+    (foreach param params
+      (fprintf output_stream "%s = %L\n" (car param) (cdr param))
+    )
+    
+    (fprintf output_stream "\nHesaplanan Değerler:\n")
+    (foreach item report_data
+      (fprintf output_stream "%s = %L\n" (car item) (cdr item))
+    )
+    
+    (close output_stream)
+    
+    (printf "\nRapor dosyası oluşturuldu: %s\n" report_file)
+    report_data
+  )
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Yangın Söndürme Özel Fonksiyonları
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun tfmd_calculate_water_tank_capacity (mtow_empty max_payload_fraction)
+  "
+  Su Tankı Kapasitesi Hesaplama
+  Formül: V_tank = (MTOW_empty × payload_fraction) / ρ_water
+  где:
+    V_tank = Tank hacmi (litre)
+    ρ_water = Su yoğunluğu (~1 kg/litre)
+  "
+  (let ((max_payload (* mtow_empty max_payload_fraction)))
+    max_payload  ;; 1 litre su ≈ 1 kg
+  )
+)
+
+(defun tfmd_calculate_drop_rate (tank_volume drop_duration)
+  "
+  Su/Bomba Bırakma Oranı Hesaplama
+  Formül: Q = V / t
+  где:
+    Q = Bırakma oranı (litre/saniye)
+    V = Tank hacmi (litre)
+    t = Bırakma süresi (saniye)
+  "
+  (/ tank_volume drop_duration)
+)
+
+(defun tfmd_firefighter_performance_report (params)
+  "
+  Yangın Söndürme Performans Raporu
+  "
+  (let* ((mtow (or (cdr (assoc 'mtow params)) DEFAULT_MTOW))
+         (empty_weight (* mtow 0.6))  ;; Boş ağırlık %60
+         (max_payload (* mtow 0.4))   ;; Faydalı yük %40
+         (water_capacity (tfmd_calculate_water_tank_capacity empty_weight 0.35))
+         (drop_time 10)               ;; 10 saniyede boşaltma
+         (drop_rate (tfmd_calculate_drop_rate water_capacity drop_time))
+         (num_drops (floor (/ water_capacity 20)))  ;; Her dalışta 20L kullanılsa
+         )
+    
+    (printf "\n")
+    (printf "--------------------------------------------------------------------------------\n")
+    (printf "5. YANGIN SÖNDÜRME KAPASİTESİ\n")
+    (printf "--------------------------------------------------------------------------------\n")
+    (printf "   Maksimum Faydalı Yük:          %.2f kg\n" max_payload)
+    (printf "   Su Tankı Kapasitesi:           %.1f litre (%.1f kg)\n" water_capacity water_capacity)
+    (printf "   Bırakma Oranı:                 %.2f litre/saniye\n" drop_rate)
+    (printf "   Bırakma Süresi:                %d saniye\n" drop_time)
+    (printf "   Tahmini Dalış Sayısı:          %d\n" num_drops)
+    (printf "   Toplam Atılabilecek Su:        %.1f litre\n" (* num_drops 20.0))
+    (printf "\n")
+  )
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Ana Program Giriş Noktası
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun TFMD_main ()
+  "
+  Tandem Wing Multicopter Design - Ana Fonksiyon
+  FireFiterDrone500 projesi için tam analiz çalıştırır.
+  "
+  (printf "\n")
+  (printf "╔════════════════════════════════════════════════════════════════════════════╗\n")
+  (printf "║          TANDEM WING MULTICOPTER DESIGN - FireFiterDrone500                ║\n")
+  (printf "║                     SKILL Implementation v%s                               ║\n" TFMD_VERSION)
+  (printf "╚════════════════════════════════════════════════════════════════════════════╝\n")
+  
+  ;; Örnek analizi çalıştır
+  (tfmd_run_example)
+  
+  ;; Yangın söndürme özel raporu
+  (let ((firefighter_params
+          (list
+            (cons 'mtow 28.0)
+            (cons 'wing_span 2.8)
+            (cons 'cruise_velocity 18.0)
+          )))
+    (tfmd_firefighter_performance_report firefighter_params)
+  )
+  
+  (printf "\nAnaliz tamamlandı.\n")
+  (printf "Daha detaylı bilgi için fonksiyon dokümantasyonunu inceleyin.\n")
+)
+
+;; Otomatik yükleme için
+(when (boundp 'TFMD_AUTO_RUN)
+  (TFMD_main)
+)
+
+(provide 'tandem-wing-multicopter-design)

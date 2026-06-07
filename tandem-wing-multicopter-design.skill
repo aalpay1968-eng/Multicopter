@@ -52,6 +52,19 @@
   (sqrt x)
 )
 
+(defun tfmd_expt (base power)
+  "
+  Üstel hesaplama: base^power
+  Formül: base^power = exp(power × ln(base))
+  "
+  (exp (* power (log base)))
+)
+
+(defun tfmd_log (x)
+  "Doğal logaritma alır"
+  (log x)
+)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Aerodinamik Hesaplama Formülleri
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -196,7 +209,7 @@
   (let ((k 0.3)
         (avg_span (/ (+ front_span rear_span) 2.0)))
     (- 1.0 (* k (/ front_span (+ front_span rear_span))
-             (exp (/ (- spacing) avg_span))))
+             (tfmd_expt 2.718281828459045 (/ (- spacing) avg_span))))
   )
 )
 
@@ -320,7 +333,7 @@
     P_ideal = İdeal güç = T^(3/2) / √(2 × ρ × A)
     P_actual = Gerçek güç girişi (W)
   "
-  (let ((ideal_power (/ (expt thrust 1.5) (tfmd_sqrt (* 2 air_density rotor_area)))))
+  (let ((ideal_power (/ (tfmd_expt thrust 1.5) (tfmd_sqrt (* 2 air_density rotor_area)))))
     (/ ideal_power power_input)
   )
 )
@@ -396,7 +409,6 @@
     (printf "                    TANDEM WING MULTICOPTER DESIGN REPORT\n")
     (printf "                         FireFiterDrone500 Projesi\n")
     (printf "================================================================================\n")
-    (printf "Rapor Tarihi: %s\n" (ctime (time)))
     (printf "SKILL Versiyonu: %s\n\n" TFMD_VERSION)
     
     (printf "--------------------------------------------------------------------------------\n")
@@ -484,12 +496,25 @@
         (printf "     Durum: ✓ Statik olarak STABİL (SM > 0.05)\n\n")
         (printf "     Durum: ✗ Statik olarak INSTABİL (SM < 0.05) - Tasarım gözden geçirilmeli!\n\n"))
     
-    (printf "2.15 Uçuş Süresi (Endurance):\n")
+    (printf "2.15 Su Tankı Kapasitesi (Yangın Söndürme):\n")
+    (printf "     Formül: V_tank = MTOW_empty × payload_fraction\n")
+    (printf "     Not: 1 litre su ≈ 1 kg\n")
+    (let ((empty_weight (* mtow 0.6))
+          (water_capacity (* mtow 0.35)))
+      (printf "     Sonuç: V_tank = %.2f × 0.35 = %.1f litre\n\n" empty_weight water_capacity))
+    
+    (printf "2.16 Bırakma Oranı (Drop Rate):\n")
+    (printf "     Formül: Q = V / t\n")
+    (let ((water_capacity (* mtow 0.35))
+          (drop_time 10.0))
+      (printf "     Sonuç: Q = %.1f / %.1f = %.2f litre/saniye\n\n" water_capacity drop_time (/ water_capacity drop_time)))
+    
+    (printf "2.17 Uçuş Süresi (Endurance):\n")
     (printf "     Formül: t = (C × η) / I\n")
     (printf "     Sonuç: t = (%.2f × %.2f) / %.2f = %.2f saat = %.1f dakika\n\n"
              (/ battery_capacity 1000.0) efficiency current_draw endurance (* endurance 60))
     
-    (printf "2.16 Menzil (Range):\n")
+    (printf "2.18 Menzil (Range):\n")
     (printf "     Formül: R = V × t\n")
     (printf "     Sonuç: R = %.2f × %.2f = %.2f km\n\n" (* cruise_velocity 3.6) endurance range_km)
     
@@ -614,6 +639,7 @@
     (fprintf output_stream "Tandem Wing Multicopter Design Report\n")
     (fprintf output_stream "=====================================\n\n")
     
+    ;; Parametreleri yaz
     (foreach param params
       (fprintf output_stream "%s = %L\n" (car param) (cdr param))
     )
@@ -669,7 +695,8 @@
          (water_capacity (tfmd_calculate_water_tank_capacity empty_weight 0.35))
          (drop_time 10)               ;; 10 saniyede boşaltma
          (drop_rate (tfmd_calculate_drop_rate water_capacity drop_time))
-         (num_drops (floor (/ water_capacity 20)))  ;; Her dalışta 20L kullanılsa
+         (num_drops (fix (/ water_capacity 20.0)))  ;; Her dalışta 20L kullanılsa
+         (total_water (* num_drops 20.0))
          )
     
     (printf "\n")
@@ -681,7 +708,7 @@
     (printf "   Bırakma Oranı:                 %.2f litre/saniye\n" drop_rate)
     (printf "   Bırakma Süresi:                %d saniye\n" drop_time)
     (printf "   Tahmini Dalış Sayısı:          %d\n" num_drops)
-    (printf "   Toplam Atılabilecek Su:        %.1f litre\n" (* num_drops 20.0))
+    (printf "   Toplam Atılabilecek Su:        %.1f litre\n" total_water)
     (printf "\n")
   )
 )

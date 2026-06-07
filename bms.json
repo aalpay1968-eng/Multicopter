@@ -1,0 +1,19 @@
+{
+    "chemistry": "SSS",
+    "cell_count": 1758,
+    "OVP_V": 4.27,
+    "UVP_V": 2.95,
+    "OVP_hyst_V": 4.17,
+    "UVP_hyst_V": 3.1,
+    "OCP_A": 1511.0,
+    "OTP_C": 70.0,
+    "OTP_warn_C": 60.0,
+    "SCP_flag": true,
+    "SCP_response_us": 200,
+    "balance_type": "passive",
+    "I_balance_mA": 100,
+    "comm": "DroneCAN",
+    "weight_g": 35,
+    "protection_count": 5,
+    "validation_passed": true
+}

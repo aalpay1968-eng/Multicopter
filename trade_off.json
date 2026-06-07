@@ -1,0 +1,14 @@
+{
+    "selected_architecture": "Octocopter",
+    "motor_count": 8,
+    "battery_type": "LiPo",
+    "propeller_size_inch": 28.0,
+    "advantages": [
+        "yeterli itki-redundancy dengesi",
+        "moduler entegrasyona uygun"
+    ],
+    "disadvantages": [
+        "maliyet artisi",
+        "mekanik karmasiklik"
+    ]
+}

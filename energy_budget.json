@@ -1,0 +1,50 @@
+{
+    "E_misyon_Wh": 99885.183,
+    "E_elec_Wh": 5450.037,
+    "E_ge_saving_Wh": 43.814,
+    "E_misyon_total_Wh": 105291.406,
+    "E_bat_min_Wh": 131614.257,
+    "E_bat_recommended_Wh": 136928.354,
+    "current_battery_mass_kg": 40.5,
+    "recommended_battery_mass_kg": 760.7131,
+    "battery_mass_delta_kg": 720.2131,
+    "energy_margin_Wh": -129638.354,
+    "t_endurance_min": 232.608,
+    "t_hover_req_min": 220.0,
+    "KK1_pass": true,
+    "KK3_pass": false,
+    "KK4_pass": true,
+    "KK5_pass": false,
+    "KK13_pass": true,
+    "prop_match_pass": false,
+    "Vmax_pass": true,
+    "range_pass": true,
+    "noise_pass": true,
+    "phase_3_complete": false,
+    "mission_requirements_met": false,
+    "blockers": [
+        "KK-3 dayanım gereksinimi saglanmiyor",
+        "KK-5 FM/pervane verimi < 0.60",
+        "Pervane eslesmesi guvenlik kontrolu basarisiz"
+    ],
+    "warnings": [],
+    "recommended_actions": [
+        "Batarya enerjisini en az 136928 Wh seviyesine cikarin (yaklasik +720.21 kg LiPo).",
+        "Pervane seciminde RPM trim veya daha yakin CT/CP katalog pervanesi kullanin."
+    ],
+    "kk_summary": {
+        "KK-1": "PASS",
+        "KK-3": "FAIL",
+        "KK-4": "PASS",
+        "KK-5": "FAIL",
+        "KK-13": "PASS",
+        "PropMatch": "FAIL",
+        "Vmax": "PASS",
+        "Range": "PASS",
+        "Noise": "PASS"
+    },
+    "validation_passed": false,
+    "debug": {
+        "error_context": ""
+    }
+}

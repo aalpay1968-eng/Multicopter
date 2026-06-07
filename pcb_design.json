@@ -1,0 +1,52 @@
+{
+    "pcb_layers": 6,
+    "layer_stack": {
+        "L1": "Power plane (top) — 3.0 oz Cu",
+        "L2": "Signal / GND — 1.0 oz Cu",
+        "L3": "GND plane — 3.0 oz Cu",
+        "L4": "Power plane (bottom) — 3.0 oz Cu",
+        "L5": "Signal routing — 1.0 oz Cu",
+        "L6": "GND / shielding — 1.0 oz Cu"
+    },
+    "motor_trace_width_mm": 63.87,
+    "bus_trace_width_mm": 2077.15,
+    "signal_trace_width_mm": 0.2,
+    "copper_weight_power_oz": 3.0,
+    "copper_weight_signal_oz": 1.0,
+    "connectors": [
+        "AS150 (Main Power)",
+        "JST-GH 1.25mm (FC / telemetri)",
+        "XT30 (Avionics 5V rail)",
+        "Molex Micro-Fit 3.0 (ESC harness)"
+    ],
+    "emi_zones": {
+        "Zone_A_Power": "Motor faz hatları, PDB bus, ESC çıkışları — ≥ 10 mm izolasyon mesafesi",
+        "Zone_B_Signal": "FC SPI/I2C/UART, GPS, telemetri — guard trace ile korunmuş",
+        "Zone_C_Analog": "Akım sensörü ADC, voltaj bölücü — ayrı analog referans düzlemi"
+    },
+    "cooling_strategy": [
+        "Motor FET'leri için termal via dizisi + bakır dolgu",
+        "PDB ana bus altında 3x3 thermal via array",
+        "ESC MOSFET altında heatsink pad (termal macun ile)"
+    ],
+    "bec_regulators": {
+        "5V_rail": {
+            "output_v": 5.0,
+            "max_a": 11.0,
+            "regulator": "Synchronous Buck (MP2315)"
+        },
+        "12V_rail": {
+            "output_v": 12.0,
+            "max_a": 2.0,
+            "regulator": "Buck (LM2596)"
+        }
+    },
+    "current_sensor": "ACS758-200A Hall Effect",
+    "emi_shielding": true,
+    "pcb_material": "FR-4 Tg170",
+    "min_clearance_mm": 0.5,
+    "validation_passed": true,
+    "debug": {
+        "error_context": ""
+    }
+}

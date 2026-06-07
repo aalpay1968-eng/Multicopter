@@ -1,0 +1,53 @@
+{
+    "cad_software": "SolidWorks / Fusion 360 / FreeCAD",
+    "fea_method": "Euler-Bernoulli Cantilever + Linear Static",
+    "arm_analysis": {
+        "arm_length_m": 1.3152,
+        "tube_OD_mm": 50.0,
+        "tube_ID_mm": 46.0,
+        "material": "CFRP",
+        "I_xx_m4": "8.7010e-08",
+        "M_max_Nm": 516.08,
+        "sigma_max_MPa": 148.28,
+        "sigma_ultimate_MPa": 600.0,
+        "safety_factor": 4.05,
+        "tip_deflection_mm": 48.86,
+        "natural_freq_Hz": 36.3
+    },
+    "load_cases": [
+        {
+            "case": "Hover (T/W=1.0)",
+            "load_factor": 1.0,
+            "sigma_MPa": 74.14
+        },
+        {
+            "case": "Max Thrust (T/W=2.0)",
+            "load_factor": 2.0,
+            "sigma_MPa": 148.28
+        },
+        {
+            "case": "Landing Impact (3G)",
+            "load_factor": 3.0,
+            "sigma_MPa": 222.42
+        },
+        {
+            "case": "Gust (4G)",
+            "load_factor": 4.0,
+            "sigma_MPa": 296.56
+        }
+    ],
+    "worst_case_SF": 2.02,
+    "vibration_check": {
+        "arm_natural_freq_Hz": 36.3,
+        "prop_excitation_freq_Hz": 25.9,
+        "frequency_ratio": 1.4,
+        "resonance_safe": false
+    },
+    "materials_defined": true,
+    "estimated_safety_factor": 2.02,
+    "structural_validation_passed": false,
+    "validation_passed": true,
+    "debug": {
+        "error_context": ""
+    }
+}

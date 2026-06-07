@@ -1,0 +1,23 @@
+{
+    "f_sw_kHz": 32.0,
+    "switching_harmonics": [
+        32000,
+        64000,
+        96000,
+        128000,
+        160000,
+        192000,
+        224000,
+        256000
+    ],
+    "GPS_band_margin_MHz": 1176.2,
+    "GPS_band_ok": true,
+    "GPS_SNR_open_dB": 47.0,
+    "GPS_SNR_net_dB": 40.0,
+    "GPS_SNR_ok": true,
+    "GPS_separation_mm": 1319,
+    "shielding_type": "none",
+    "ferrite_spec": "BN-43-202 Fair-Rite (ESC input)",
+    "RE102_ok": true,
+    "validation_passed": true
+}

@@ -1,0 +1,22 @@
+{
+    "coaxial_flag": true,
+    "n_arms": 4,
+    "axial_sep_m": 0.213,
+    "k_int": 1.266,
+    "T_upper_N": 331.0875,
+    "T_lower_N": 294.2564,
+    "T_total_N": 2501.3756,
+    "P_total_W": 24036.0181,
+    "FM_coax": 1.3212,
+    "Q_net_Nm": -15.746464,
+    "Q_net_trimmed_Nm": 0.0,
+    "RPM_trim_delta": -227.5748,
+    "axial_sep_opt_m": 0.213,
+    "FM_coax_pass": true,
+    "KK13_coax_pass": true,
+    "skipped": false,
+    "validation_passed": true,
+    "debug": {
+        "error_context": ""
+    }
+}

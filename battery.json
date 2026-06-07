@@ -1,0 +1,19 @@
+{
+    "chemistry": "SSS",
+    "S": 6,
+    "P": 293,
+    "V_nom": 22.2,
+    "C_mAh": 1465000,
+    "E_Wh": 32523.0,
+    "weight_kg": 81.308,
+    "discharge_C": 0.77,
+    "DoD": 0.85,
+    "C_rate_ok": true,
+    "mass_ok": true,
+    "t_hover_min": 54.1,
+    "KK3_pass": true,
+    "KK3_target_min": 54.0,
+    "reserve_pct": 20.0,
+    "Peukert_n": 1.06,
+    "validation_passed": true
+}

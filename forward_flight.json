@@ -1,0 +1,41 @@
+{
+    "V_cruise_ms": 33.3,
+    "V_opt_ms": 15.5,
+    "V_max_ms": 56.0,
+    "V_best_range_ms": 44.5,
+    "P_cruise_W": 30970.328,
+    "P_min_W": 27541.557,
+    "L_over_D": 1.424,
+    "range_km": 25.083,
+    "endurance_min": 14.117,
+    "E_bat_req_Wh": 3229.305,
+    "energy_profile": [
+        {
+            "phase": "takeoff",
+            "duration_s": 15,
+            "power_w": 23085.44
+        },
+        {
+            "phase": "climb",
+            "duration_s": 30,
+            "power_w": 32591.21
+        },
+        {
+            "phase": "cruise",
+            "duration_s": 300.3,
+            "power_w": 30970.33
+        },
+        {
+            "phase": "landing",
+            "duration_s": 20,
+            "power_w": 19011.54
+        }
+    ],
+    "V_cruise_ok": true,
+    "range_ok": true,
+    "validation_passed": true,
+    "debug": {
+        "error_context": "",
+        "p_available_w": 51602.752
+    }
+}

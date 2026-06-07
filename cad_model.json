@@ -1,0 +1,26 @@
+{
+    "n_arms": 4,
+    "layout": "X4-coax",
+    "D_out_m": 0.1136,
+    "t_wall_m": 0.01136,
+    "D_in_m": 0.09088,
+    "EI_actual_Nm2": 337852.87,
+    "EI_min_Nm2": 3364.673,
+    "EI_ok": true,
+    "m_arm_single_kg": 7.0343,
+    "hub_diam_m": 0.2892,
+    "socket_depth_m": 0.4544,
+    "arm_fold_flag": false,
+    "hinge_bolt_count": 0,
+    "export_files": [
+        "arm_tube.step",
+        "hub_body.step",
+        "motor_flange.step",
+        "assembly.step"
+    ],
+    "cad_valid": true,
+    "validation_passed": true,
+    "debug": {
+        "error_context": ""
+    }
+}

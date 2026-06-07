@@ -1,0 +1,515 @@
+{
+    "config": {
+        "n_rotors": 8,
+        "layout": "X4-coax",
+        "coaxial_flag": true,
+        "arm_fold_flag": false,
+        "redundancy": "N+2",
+        "rotation_dirs": [
+            "CCW",
+            "CW",
+            "CCW",
+            "CW",
+            "CCW",
+            "CW",
+            "CCW",
+            "CW"
+        ],
+        "motor_positions_m": [
+            [
+                0.603473211335847,
+                0.0,
+                0.05
+            ],
+            [
+                0.603473211335847,
+                0.0,
+                -0.05
+            ],
+            [
+                3.6952076831680964e-17,
+                0.603473211335847,
+                0.05
+            ],
+            [
+                3.6952076831680964e-17,
+                0.603473211335847,
+                -0.05
+            ],
+            [
+                -0.603473211335847,
+                7.390415366336193e-17,
+                0.05
+            ],
+            [
+                -0.603473211335847,
+                7.390415366336193e-17,
+                -0.05
+            ],
+            [
+                -1.1085623049504287e-16,
+                -0.603473211335847,
+                0.05
+            ],
+            [
+                -1.1085623049504287e-16,
+                -0.603473211335847,
+                -0.05
+            ]
+        ],
+        "T_W_OEI": 1.5,
+        "OEI_OK": true,
+        "yaw_balanced_flag": true,
+        "drive_type": "electric",
+        "validation_passed": true,
+        "debug": {
+            "error_context": "",
+            "payload_kg": 50.0,
+            "mtow_kg": 135.0,
+            "sail_level": 5,
+            "is_bvlos": false,
+            "weight_newton": 1324.35
+        }
+    },
+    "geometry": {
+        "n_rotors": 8,
+        "layout": "X4-coax",
+        "D_rotor_m": 1.42,
+        "wheelbase_m": 2.4098,
+        "arm_length_m": 1.2049,
+        "s_D_ratio": 1.2,
+        "hub_diam_m": 0.2892,
+        "tip_clearance_m": 0.142,
+        "DL_actual_Nm2": 209.063,
+        "FM_actual": 0.58,
+        "motor_positions_m": [
+            [
+                1.204909955141877,
+                0.0,
+                0.05
+            ],
+            [
+                1.204909955141877,
+                0.0,
+                -0.05
+            ],
+            [
+                7.377945599126403e-17,
+                1.204909955141877,
+                0.05
+            ],
+            [
+                7.377945599126403e-17,
+                1.204909955141877,
+                -0.05
+            ],
+            [
+                -1.204909955141877,
+                1.4755891198252805e-16,
+                0.05
+            ],
+            [
+                -1.204909955141877,
+                1.4755891198252805e-16,
+                -0.05
+            ],
+            [
+                -2.2133836797379207e-16,
+                -1.204909955141877,
+                0.05
+            ],
+            [
+                -2.2133836797379207e-16,
+                -1.204909955141877,
+                -0.05
+            ]
+        ],
+        "converged_flag": true,
+        "iteration_count": 1,
+        "validation_passed": true,
+        "debug": {
+            "error_context": "",
+            "n_effective": 4,
+            "dl_target_nm2": 220.0,
+            "t_total_n": 1324.35,
+            "t_per_rotor_n": 347.64,
+            "layout_factor": 1.4142135623730951,
+            "bom_override_propeller": false
+        }
+    },
+    "yaw": {
+        "n_rotors": 8,
+        "rotation_dirs": [
+            "CCW",
+            "CW",
+            "CCW",
+            "CW",
+            "CCW",
+            "CW",
+            "CCW",
+            "CW"
+        ],
+        "Q_per_rotor_Nm": [
+            14.799338,
+            14.799338,
+            14.799338,
+            14.799338,
+            14.799338,
+            14.799338,
+            14.799338,
+            14.799338
+        ],
+        "Q_signed_Nm": [
+            -14.799338,
+            14.799338,
+            -14.799338,
+            14.799338,
+            -14.799338,
+            14.799338,
+            -14.799338,
+            14.799338
+        ],
+        "Q_yaw_imbalance_Nm": 0.0,
+        "yaw_balanced_flag": true,
+        "yaw_OK_flag": true,
+        "rotation_dirs_revised": false,
+        "B_matrix": [
+            [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            [
+                0.0,
+                0.0,
+                1.20491,
+                1.20491,
+                0.0,
+                0.0,
+                -1.20491,
+                -1.20491
+            ],
+            [
+                -1.20491,
+                -1.20491,
+                -0.0,
+                -0.0,
+                1.20491,
+                1.20491,
+                0.0,
+                0.0
+            ],
+            [
+                -0.044699,
+                0.044699,
+                -0.044699,
+                0.044699,
+                -0.044699,
+                0.044699,
+                -0.044699,
+                0.044699
+            ]
+        ],
+        "rank_B": 4,
+        "cond_B": 1.0,
+        "cond_B_raw": 22.372,
+        "validation_passed": true,
+        "debug": {
+            "error_context": "",
+            "q_drag_default": 67.549461,
+            "q_drag_used": 14.799338
+        }
+    },
+    "vsp": {
+        "n_rotors": 8,
+        "layout": "X4-coax",
+        "component_list": [
+            {
+                "type": "POD",
+                "name": "hub",
+                "position_m": [
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            },
+            {
+                "type": "PROP",
+                "name": "rotor_1",
+                "position_m": [
+                    1.204909955141877,
+                    0.0,
+                    0.05
+                ]
+            },
+            {
+                "type": "PROP",
+                "name": "rotor_2",
+                "position_m": [
+                    1.204909955141877,
+                    0.0,
+                    -0.05
+                ]
+            },
+            {
+                "type": "PROP",
+                "name": "rotor_3",
+                "position_m": [
+                    7.377945599126403e-17,
+                    1.204909955141877,
+                    0.05
+                ]
+            },
+            {
+                "type": "PROP",
+                "name": "rotor_4",
+                "position_m": [
+                    7.377945599126403e-17,
+                    1.204909955141877,
+                    -0.05
+                ]
+            },
+            {
+                "type": "PROP",
+                "name": "rotor_5",
+                "position_m": [
+                    -1.204909955141877,
+                    1.4755891198252805e-16,
+                    0.05
+                ]
+            },
+            {
+                "type": "PROP",
+                "name": "rotor_6",
+                "position_m": [
+                    -1.204909955141877,
+                    1.4755891198252805e-16,
+                    -0.05
+                ]
+            },
+            {
+                "type": "PROP",
+                "name": "rotor_7",
+                "position_m": [
+                    -2.2133836797379207e-16,
+                    -1.204909955141877,
+                    0.05
+                ]
+            },
+            {
+                "type": "PROP",
+                "name": "rotor_8",
+                "position_m": [
+                    -2.2133836797379207e-16,
+                    -1.204909955141877,
+                    -0.05
+                ]
+            }
+        ],
+        "CG_m": [
+            -0.0,
+            0.0,
+            -0.0508
+        ],
+        "disk_area_m2": 6.3347,
+        "wetted_area_m2": 0.6483,
+        "bounding_box_m": [
+            -1.9149,
+            1.9149,
+            -1.9149,
+            1.9149,
+            -0.15,
+            0.15
+        ],
+        "vsp_file": "mc.vsp3",
+        "stl_file": "mc.stl",
+        "step_file": "mc.step",
+        "n_disk_check": true,
+        "CG_z_ok": false,
+        "yaw_ref_ok": true,
+        "validation_passed": true,
+        "debug": {
+            "error_context": ""
+        }
+    },
+    "cad": {
+        "n_arms": 4,
+        "layout": "X4-coax",
+        "D_out_m": 0.1136,
+        "t_wall_m": 0.01136,
+        "D_in_m": 0.09088,
+        "EI_actual_Nm2": 337852.87,
+        "EI_min_Nm2": 3364.673,
+        "EI_ok": true,
+        "m_arm_single_kg": 7.0343,
+        "hub_diam_m": 0.2892,
+        "socket_depth_m": 0.4544,
+        "arm_fold_flag": false,
+        "hinge_bolt_count": 0,
+        "export_files": [
+            "arm_tube.step",
+            "hub_body.step",
+            "motor_flange.step",
+            "assembly.step"
+        ],
+        "cad_valid": true,
+        "validation_passed": true,
+        "debug": {
+            "error_context": ""
+        }
+    },
+    "cg": {
+        "n_rotors": 8,
+        "MTOW_kg": 135.0,
+        "CG_x_m": 0.0,
+        "CG_y_m": 0.0,
+        "CG_z_m": -0.054648,
+        "x_bat_opt_m": 0.0,
+        "KK7_x_ok": true,
+        "KK7_y_ok": true,
+        "KK7_z_ok": false,
+        "KK7_all_pass": false,
+        "SM_percent": 100.0,
+        "SM_ok": true,
+        "f_pendulum_Hz": 2.132,
+        "payload_CG_envelope_mm": 0.0,
+        "payload_CG_ok": true,
+        "delta_mass_pct": 0.0,
+        "mass_ok": true,
+        "iteration_count": 1,
+        "cg_converged": true,
+        "validation_passed": false,
+        "vsp_cg_ref_m": [
+            -0.0,
+            0.0,
+            -0.0508
+        ],
+        "component_positions": {
+            "Frame/ESC/Cables": {
+                "mass": 20.196,
+                "pos": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "dim_mm": [
+                    2409,
+                    2409,
+                    100
+                ]
+            },
+            "Motors": {
+                "mass": 16.2,
+                "pos": [
+                    -0.0,
+                    0.0,
+                    0.0
+                ],
+                "dim_mm": [
+                    80,
+                    80,
+                    40
+                ]
+            },
+            "Avionics (FC)": {
+                "mass": 8.1,
+                "pos": [
+                    0.0,
+                    0.0,
+                    0.03
+                ],
+                "dim_mm": [
+                    100,
+                    100,
+                    40
+                ]
+            },
+            "Payload": {
+                "mass": 50.004,
+                "pos": [
+                    0.0,
+                    0.0,
+                    -0.12
+                ],
+                "dim_mm": [
+                    150,
+                    150,
+                    150
+                ]
+            },
+            "Battery": {
+                "mass": 40.5,
+                "pos": [
+                    0.0,
+                    0.0,
+                    -0.04
+                ],
+                "dim_mm": [
+                    200,
+                    80,
+                    60
+                ]
+            }
+        },
+        "debug": {
+            "error_context": ""
+        }
+    },
+    "landing": {
+        "leg_type": "QUAD",
+        "n_legs": 4,
+        "leg_height_m": 0.426,
+        "track_m": 1.6869,
+        "rotor_clearance_m": 0.426,
+        "rotor_clearance_ok": true,
+        "v_sink_ms": 2.4261,
+        "F_contact_N": 6290.662,
+        "F_contact_x15_N": 9435.994,
+        "F_per_leg_N": 1415.399,
+        "tipover_angle_deg": 60.322,
+        "KK10_pass": true,
+        "alpha_max_deg": 50.322,
+        "track_ok": true,
+        "payload_flange_z_m": -0.213,
+        "payload_mount": {
+            "type": "bolt_circle",
+            "bolt_size": "M6",
+            "n_bolts": 4,
+            "bolt_circle_m": 0.06,
+            "quick_release": false
+        },
+        "validation_passed": true,
+        "debug": {
+            "error_context": ""
+        }
+    },
+    "validation_passed": false,
+    "phase_2_complete": false,
+    "wbs_version": "v4.0",
+    "kk_summary": {
+        "KK-2": "PASS",
+        "KK-4": "PASS",
+        "KK-6": "PASS",
+        "KK-7": "FAIL",
+        "KK-8": "PASS",
+        "KK-10": "PASS",
+        "KK-13": "PASS"
+    },
+    "wbs_checklist": {
+        "WBS-2.1": true,
+        "WBS-2.2": true,
+        "WBS-2.3": true,
+        "WBS-2.4": true,
+        "WBS-2.5": true,
+        "WBS-2.6": false,
+        "WBS-2.7": true
+    },
+    "debug": {
+        "error_context": ""
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "chemistry": "SSS",
+    "Whkg_actual": 400.0,
+    "C_rate_cont": 12.0,
+    "DoD": 0.85,
+    "V_cell_nom": 3.7,
+    "n_Peukert": 1.06,
+    "TRL": 9,
+    "TRL_ok": true,
+    "cost_relative": 1.5,
+    "score": 360.0,
+    "V_cell_max": 4.2,
+    "V_cell_min": 3.0,
+    "T_max_C": 65.0,
+    "risk_flags": [
+        "tedarik_sinirli",
+        "ozel_BMS_gerekli"
+    ],
+    "sss_eligible": true,
+    "assr_eligible": false,
+    "validation_passed": true
+}

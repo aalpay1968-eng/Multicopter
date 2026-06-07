@@ -1,0 +1,39 @@
+{
+    "motor_thermal": {
+        "p_loss_per_motor_W": 467.56,
+        "R_thermal_eff_CperW": 0.24,
+        "T_rise_C": 112.2,
+        "T_motor_estimated_C": 137.2,
+        "limit_C": 120.0,
+        "margin_C": -17.2
+    },
+    "esc_thermal": {
+        "p_loss_W": 39.43,
+        "R_on_mOhm": 2.0,
+        "T_rise_C": 59.1,
+        "T_esc_estimated_C": 84.1,
+        "limit_C": 100.0,
+        "margin_C": 15.9
+    },
+    "battery_thermal": {
+        "IR_per_cell_mOhm": 0.05,
+        "IR_pack_Ohm": 0.0003,
+        "p_loss_W": 642.53,
+        "T_rise_C": 32.1,
+        "T_battery_estimated_C": 57.1,
+        "limit_C": 60.0,
+        "margin_C": 2.9
+    },
+    "avionics_cooling": "Pasif heatsink — FC işlemci üzerine yapıştırmalı alüminyum soğutucu",
+    "cooling_recommendations": [
+        "Motor sargıları için termal macun + aluminyum montaj plakası tavsiye edilir",
+        "ESC'ler için aktif soğutma fanı veya termal via dizisi ile ısı yayılması gerekli",
+        "⚠️ Batarya termal sınıra yakın — havalandırmalı batarya bölmesi zorunlu"
+    ],
+    "ambient_temp_assumption_C": 25.0,
+    "thermal_validation_passed": false,
+    "validation_passed": false,
+    "debug": {
+        "error_context": ""
+    }
+}

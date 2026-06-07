@@ -1,0 +1,46 @@
+{
+    "D_rotor_m": 1.42,
+    "z_disk_IGE_m": 0.526,
+    "T_IGE_N": 2432.217,
+    "T_IGE_ratio": 1.8365,
+    "z_OGE_m": 1.42,
+    "P_IGE_W": 11551.363,
+    "P_OGE_W": 21214.495,
+    "energy_saving_pct": 45.55,
+    "takeoff_profile": [
+        {
+            "z_m": 0.426,
+            "z_over_D": 0.3,
+            "T_ratio": 3.2727,
+            "P_W": 6482.207
+        },
+        {
+            "z_m": 0.71,
+            "z_over_D": 0.5,
+            "T_ratio": 1.3333,
+            "P_W": 15910.871
+        },
+        {
+            "z_m": 1.065,
+            "z_over_D": 0.75,
+            "T_ratio": 1.125,
+            "P_W": 18857.329
+        },
+        {
+            "z_m": 1.42,
+            "z_over_D": 1.0,
+            "T_ratio": 1.0667,
+            "P_W": 19888.589
+        },
+        {
+            "z_m": 2.13,
+            "z_over_D": 1.5,
+            "T_ratio": 1.0286,
+            "P_W": 20625.203
+        }
+    ],
+    "validation_passed": true,
+    "debug": {
+        "error_context": ""
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "chemistry": "SSS",
+    "charge_rate_C": 1.5,
+    "V_charge_V": 25.2,
+    "I_charge_A": 2197.5,
+    "balance_dV_mV": 5.0,
+    "storage_V_pack": 22.8,
+    "storage_V_cell": 3.8,
+    "charge_time_min": 38.4,
+    "charger_model": "Junsi iCharger 4010 Duo (2×40A)",
+    "profile_type": "CC-CV",
+    "T_min_charge_C": 0.0,
+    "T_max_charge_C": 45.0,
+    "dV_ok": true,
+    "rate_ok": true,
+    "validation_passed": true
+}

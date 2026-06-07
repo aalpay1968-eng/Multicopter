@@ -1,0 +1,18 @@
+{
+    "I_motor_A": 1123.3,
+    "I_avionics_A": 2.48,
+    "I_PDB_total": 1125.8,
+    "I_PDB_rated": 1463.5,
+    "I_fuse_A": 1610.0,
+    "AWG_main": 0,
+    "AWG_motor": 0,
+    "A_main_mm2": 536.0,
+    "V_drop_V": 0.023,
+    "BEC_5V_A": 11.0,
+    "BEC_12V_A": 2.0,
+    "weight_g": 1190,
+    "J_main": 2.73,
+    "J_ok": true,
+    "V_drop_ok": true,
+    "validation_passed": true
+}

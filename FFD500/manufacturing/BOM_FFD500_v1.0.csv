@@ -1,0 +1,17 @@
+Item_ID,Category,Name,Specification,Quantity,Unit_Price,Supplier,Notes
+MTR-VTOL-01,Motor,T-Motor U15XL HV (Eşdeğer),35kgf İtiş, 800KV,8,0,UAV Motor Tedarikçisi,VTOL Kalkış için
+MTR-CRZ-01,Motor,Dualsky GA15000 (Eşdeğer),Yüksek Verim, 400KV,2,0,UAV Motor Tedarikçisi,Seyir uçuşu için
+ESC-VTOL-01,ESC,Hobbywing XRotor 100A HV,CAN Bus, Telemetri,8,0,Hobbywing,VTOL Motor Kontrol
+ESC-CRZ-01,ESC,Hobbywing Platinum Pro 200A HV,Opto,2,0,Hobbywing,Cruise Motor Kontrol
+GEN-01,Jeneratör,30kW Senkron Jeneratör,6000 RPM, 48V Çıkış,1,0,Özel İmalat,Hibrit Güç Ünitesi
+ICE-01,Motor,350cc 2-Zamanlı Benzinli,UAV Tipi, 25kW,1,0,3W/CSI,Jeneratörü sürer
+BAT-01,Batarya,12S 12Ah Li-Ion Paket,50C Deşarj, BMS'li,2,0,Özel Pack,Buffer ve Acil Durum
+PRP-VTOL-01,Pervane,32 inç Karbon Fiber,Sabit Pitch, Yüksek İtiş,8,0,Vess/T-Motor,VTOL için
+PRP-CRZ-01,Pervane,48 inç Ahşap/Kompozit,Çift Kanatlı,2,0,Mejzlik/CRAZYFPV,Cruise için
+CF-WING-01,Yapı,Karbon Fiber Kanat Seti,NACA 6412, 9m Açıklık,1,0,Özel Üretim,Prepreg Otoklav
+CF-FUSE-01,Yapı,Karbon Fiber Gövde Podu,Monokok, 4.2m Uzunluk,1,0,Özel Üretim,IP67 Su Geçirmez
+TK-01,Tank,550L Yangın Söndürme Tankı,Kompozit, Dahili Pompa,1,0,Özel İmalat,Dalga Kırıcılı
+FC-01,Aviyonik,Pixhawk Cube Orange+,Triple IMU, GPS, Telemetri,1,0,HexCube/ArduPilot,Uçuş Kontrolcüsü
+GNSS-01,Sensör,Dual RTK-GPS Septentrio,cm Hassasiyet,2,0,Septentrio,Pozisyonlama
+LIDAR-01,Sensör,LIDAR Lite v3 veya Benzeri,Engel Algılama,1,0,Garmin,Yer Takibi
+CAM-01,Sensör,FLIR Duo Pro R,Termal + Görünür,1,0,Teledyne FLIR,Yangın Tespiti

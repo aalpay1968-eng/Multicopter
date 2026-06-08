@@ -1,0 +1,43 @@
+# FFD500 ArduPilot Parametreleri (Özet)
+# Uçuş Kontrolcü: Pixhawk Cube Orange+
+# Konfigürasyon: Tandem VTOL (ArduPlane 4.x)
+
+# --- FRAME SETUP ---
+Q_ENABLE,1              # VTOL özelliğini aç
+VTOL_TYPE,1             # QuadPlane modu (Standart)
+Q_M_MAX,8               # Maksimum motor sayısı (8 motorlu VTOL)
+Q_FRAME_CLASS,1         # Quad çerçeve tipi (X konfigürasyonu uyarlanacak)
+
+# --- MOTOR MIX (8 Motor için Özel Ayar) ---
+# Not: Standart QuadPlane 4 motora izin verir. 8 motor için "Octa" mix veya dual ESC kullanımı gerekir.
+Q_M_1_MASK,65535        # Tüm motorları aktif et (Özel firmware gerekebilir)
+
+# --- PID GAINS (VTOL Mode) ---
+Q_P_POSZ_P,2.0          # Pozisyon Z (İrtifa) P gain
+Q_P_VELZ_P,5.0          # Hız Z P gain
+Q_P_ANGLE_RLL_P,6.0     # Roll Açı P gain
+Q_P_ANGLE_PIT_P,6.0     # Pitch Açı P gain
+
+# --- TRANSITION (Geçiş) ---
+TRANSITION_MS,3000      # VTOL'dan Sabit Kanata geçiş süresi (ms)
+ARSPD_FBW_MIN,35        # Minimum hava hızı (m/s) - Stall koruması
+ARSPD_FBW_MAX,40        # Maksimum hava hızı (m/s)
+
+# --- FAILSAFE ---
+FS_BATT_ENABLE,1        # Batarya kritik seviyede RTL
+FS_GCS_ENABLE,1         # İletişim koparsa RTL
+RTL_ALT,10000           # RTL İrtifası (cm)
+
+# --- SENSORS ---
+GPS_TYPE,1              # GPS Tipi (Auto)
+BARO_ENABLE,1           # Barometre aktif
+AHRS_EKF_TYPE,3         # EKF3 kullan (Daha stabil)
+
+# --- YANGIN SÖNDÜRME ÖZEL ---
+SERVO_FUNCTION(9),28    # 9. Servo: Tank Bırakma Mekanizması
+RCMAP_ROLL,1            # Roll kanalı
+RCMAP_PITCH,2           # Pitch kanalı
+RCMAP_THROTTLE,3        # Gaz kanalı
+RCMAP_YAW,4             # Yaw kanalı
+
+# NOT: Bu parametreler ilk uçuş öncesi saha ayarı ile optimize edilmelidir.

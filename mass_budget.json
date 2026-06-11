@@ -1,11 +1,11 @@
 {
-    "m_frame": 5.346,
-    "m_motors": 16.2,
-    "m_esc": 6.75,
-    "m_battery": 40.5,
-    "m_avionics": 8.1,
-    "m_payload": 50.004,
-    "m_cables": 5.4,
-    "m_misc": 2.7,
-    "m_total": 135.0
+    "m_frame": 180.0,
+    "m_motors": 110.0,
+    "m_esc": 30.0,
+    "m_battery": 105.0,
+    "m_avionics": 25.0,
+    "m_payload": 500.0,
+    "m_cables": 45.0,
+    "m_misc": 305.0,
+    "m_total": 1300.0
 }

@@ -1,161 +1,92 @@
-import os
-import datetime
 from flask import Flask, render_template_string, request, jsonify
 from flask_socketio import SocketIO, emit
+import json
+import os
+from datetime import datetime
 
-# --- Yapılandırma ---
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'ffd500-orchestra-secret-key'
-socketio = SocketIO(app, cors_allowed_origins="*")
+app.config['SECRET_KEY'] = 'orchestra_secret_key'
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 
-# --- Geçici Bellek (Veritabanı yerine) ---
-# Gerçek bir üretim ortamında SQLite veya PostgreSQL kullanılmalıdır.
-agents_status = {
-    "Qwen_Chief": {"status": "online", "role": "Orkestra Şefi", "color": "green"},
-    "Antigravity": {"status": "offline", "role": "İcraatçı / Dosya Yöneticisi", "color": "red"},
-    "AI_Studio_CFD": {"status": "offline", "role": "Aerodinamik Uzmanı", "color": "red"},
-    "Claude_Architect": {"status": "offline", "role": "Yapısal Tasarımcı", "color": "red"}
-}
+# Aktif Ajanlar Listesi (Bellekte tutulur)
+active_agents = {}
 
-chat_history = [
-    {"sender": "Sistem", "message": "Orkestra Hub başlatıldı. Hoş geldiniz.", "time": datetime.datetime.now().strftime("%H:%M")}
-]
-
-tasks = [
-    {"id": "TASK_001", "desc": "CAD Dosyalarının Oluşturulması", "assigned_to": "Antigravity", "status": "completed"},
-    {"id": "TASK_002", "desc": "CFD Simülasyonu", "assigned_to": "AI_Studio_CFD", "status": "pending"},
-    {"id": "TASK_003", "desc": "Güç Sistemi Optimizasyonu", "assigned_to": "Qwen_Chief", "status": "in_progress"}
-]
-
-# --- HTML Arayüzü (Tek Dosya İçine Gömülü) ---
 HTML_TEMPLATE = """
 <!DOCTYPE html>
-<html lang="tr">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>FFD500 Orkestra Hub</title>
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
-        .container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
-        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h2 { margin-top: 0; color: #333; }
-        
-        /* Agent Listesi */
+        body { font-family: sans-serif; background: #f0f2f5; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; display: flex; gap: 20px; }
+        .panel { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex: 1; }
+        .agent-list { list-style: none; padding: 0; }
         .agent-item { display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #eee; }
-        .led { width: 12px; height: 12px; border-radius: 50%; margin-right: 10px; display: inline-block; }
-        .led.green { background-color: #2ecc71; box-shadow: 0 0 5px #2ecc71; }
-        .led.red { background-color: #e74c3c; box-shadow: 0 0 5px #e74c3c; }
-        .agent-info strong { display: block; }
-        .agent-info small { color: #777; }
-
-        /* Chat */
-        #chat-box { height: 400px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; background: #fafafa; }
-        .msg { margin-bottom: 10px; padding: 8px; border-radius: 5px; }
-        .msg.system { background: #e8f4fd; border-left: 4px solid #3498db; }
-        .msg.user { background: #e8f8f5; border-left: 4px solid #2ecc71; text-align: right; }
-        .msg.ai { background: #fff; border-left: 4px solid #9b59b6; }
-        .msg-meta { font-size: 0.8em; color: #888; margin-bottom: 2px; }
-        
-        input[type="text"], select { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;}
-        button { background: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; }
-        button:hover { background: #2980b9; }
-        
-        /* Task List */
-        .task-item { padding: 8px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
-        .status-badge { padding: 2px 6px; border-radius: 4px; font-size: 0.8em; color: white; }
-        .bg-completed { background: #2ecc71; }
-        .bg-pending { background: #f1c40f; color: #333; }
-        .bg-in_progress { background: #3498db; }
+        .led { width: 12px; height: 12px; border-radius: 50%; margin-right: 10px; background: #ccc; }
+        .led.active { background: #2ecc71; box-shadow: 0 0 5px #2ecc71; }
+        .led.inactive { background: #e74c3c; }
+        #chat-log { height: 300px; overflow-y: scroll; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; background: #fafafa; }
+        .msg { margin-bottom: 5px; }
+        .msg.system { color: #666; font-style: italic; }
+        .msg.agent { color: #2980b9; font-weight: bold; }
+        .msg.user { color: #27ae60; font-weight: bold; }
+        input[type="text"] { width: 70%; padding: 10px; }
+        button { padding: 10px 20px; background: #3498db; color: white; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
+    <h1>🚁 FFD500 Orkestra Kontrol Merkezi</h1>
     <div class="container">
-        <!-- Sol Panel: Durum ve Görevler -->
-        <div>
-            <div class="card" style="margin-bottom: 20px;">
-                <h2>🤖 Ajan Durumu</h2>
-                <div id="agent-list">
-                    {% for name, info in agents.items() %}
-                    <div class="agent-item">
-                        <span class="led {{ info.color }}"></span>
-                        <div class="agent-info">
-                            <strong>{{ name }}</strong>
-                            <small>{{ info.role }}</small>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            
-            <div class="card">
-                <h2>📋 Aktif Görevler</h2>
-                <div id="task-list">
-                    {% for task in tasks %}
-                    <div class="task-item">
-                        <span>{{ task.id }}: {{ task.desc }}</span>
-                        <span class="status-badge bg-{{ task.status }}">{{ task.status }}</span>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
+        <div class="panel">
+            <h2>🤖 Aktif Ajanlar</h2>
+            <ul class="agent-list" id="agent-list">
+                <!-- Ajanlar buraya dinamik gelecek -->
+            </ul>
         </div>
-
-        <!-- Sağ Panel: Sohbet -->
-        <div class="card">
-            <h2>💬 Orkestra Sohbet Odası</h2>
-            <div id="chat-box">
-                {% for msg in chat %}
-                <div class="msg {{ msg.sender|lower }}">
-                    <div class="msg-meta">{{ msg.time }} - {{ msg.sender }}</div>
-                    <div>{{ msg.message }}</div>
-                </div>
-                {% endfor %}
-            </div>
-            <form id="chat-form">
-                <select id="target-agent">
-                    <option value="All">Tüm Ajanlar</option>
-                    <option value="Antigravity">Antigravity</option>
-                    <option value="AI_Studio_CFD">AI Studio CFD</option>
-                    <option value="Qwen_Chief">Qwen Şef</option>
-                </select>
-                <input type="text" id="message-input" placeholder="Mesajınızı veya görevinizi yazın..." autocomplete="off">
-                <button type="submit">Gönder</button>
-            </form>
+        <div class="panel">
+            <h2>💬 Görev & Sohbet</h2>
+            <div id="chat-log"></div>
+            <input type="text" id="msg-input" placeholder="Görev yazın...">
+            <button onclick="sendMessage()">Gönder</button>
         </div>
     </div>
 
     <script>
         const socket = io();
-        const form = document.getElementById('chat-form');
-        const input = document.getElementById('message-input');
-        const target = document.getElementById('target-agent');
-        const chatBox = document.getElementById('chat-box');
+        const agentListEl = document.getElementById('agent-list');
+        const chatLogEl = document.getElementById('chat-log');
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (input.value) {
-                socket.emit('chat_message', {
-                    sender: 'User (Admin)',
-                    message: input.value,
-                    target: target.value
-                });
-                input.value = '';
+        socket.on('connect', () => console.log('✅ Arayüz Hub\'a bağlı'));
+
+        // Ajan listesi güncellendiğinde
+        socket.on('update_agents', (agents) => {
+            agentListEl.innerHTML = '';
+            for (const [name, data] of Object.entries(agents)) {
+                const li = document.createElement('li');
+                li.className = 'agent-item';
+                const statusClass = data.status === 'active' ? 'active' : 'inactive';
+                li.innerHTML = `<div class="led ${statusClass}"></div> <strong>${name}</strong> <small>(${data.role})</small>`;
+                agentListEl.appendChild(li);
             }
         });
 
-        socket.on('new_message', (data) => {
+        // Yeni mesaj geldiğinde
+        socket.on('new_message', (msg) => {
             const div = document.createElement('div');
-            div.className = `msg ${data.sender.includes('User') ? 'user' : 'ai'}`;
-            div.innerHTML = `<div class="msg-meta">${data.time} - ${data.sender}</div><div>${data.message}</div>`;
-            chatBox.appendChild(div);
-            chatBox.scrollTop = chatBox.scrollHeight;
+            div.className = `msg ${msg.type}`;
+            div.innerText = `[${msg.time}] ${msg.sender}: ${msg.text}`;
+            chatLogEl.appendChild(div);
+            chatLogEl.scrollTop = chatLogEl.scrollHeight;
         });
-        
-        // Periyodik durum güncellemesi (Basit polling yerine socket ile yapılabilir ama şimdilik bu yeterli)
-        setInterval(() => {
-            location.reload(); // Basitlik için sayfayı yenileyerek durumu güncelle
-        }, 10000); 
+
+        function sendMessage() {
+            const input = document.getElementById('msg-input');
+            if (input.value.trim() !== '') {
+                socket.emit('user_message', { text: input.value });
+                input.value = '';
+            }
+        }
     </script>
 </body>
 </html>
@@ -163,31 +94,68 @@ HTML_TEMPLATE = """
 
 @app.route('/')
 def index():
-    return render_template_string(HTML_TEMPLATE, agents=agents_status, chat=chat_history, tasks=tasks)
+    return render_template_string(HTML_TEMPLATE)
 
 @socketio.on('connect')
 def handle_connect():
-    print('Kullanıcı bağlandı')
+    print("🔌 Yeni bir bağlantı kabul edildi.")
+    emit('update_agents', active_agents)
 
-@socketio.on('chat_message')
-def handle_message(data):
-    # Mesajı kaydet
-    new_msg = {
-        "sender": data['sender'],
-        "message": f"[{data['target']}] {data['message']}" if data['target'] != 'All' else data['message'],
-        "time": datetime.datetime.now().strftime("%H:%M")
+@socketio.on('register')
+def handle_register(data):
+    agent_name = data.get('agent_name', 'Unknown')
+    role = data.get('role', 'general')
+    print(f"📥 KAYIT ALINDI: {agent_name} ({role})")
+    
+    active_agents[agent_name] = {
+        'role': role,
+        'status': 'active',
+        'last_seen': datetime.now().isoformat()
     }
-    chat_history.append(new_msg)
     
-    # Herkese yayınla
-    emit('new_message', new_msg, broadcast=True)
+    # Tüm bağlı istemcilere (arayüz dahil) güncel listeyi gönder
+    emit('update_agents', active_agents, broadcast=True)
     
-    # Burada basit bir "AI Yanıtı" simülasyonu yapabiliriz
-    # Gerçek senaryoda bu kısım ilgili AI'ın API'sini tetikler
-    if data['target'] == 'Antigravity' or data['target'] == 'All':
-        # Antigravity'nin meşgul olduğunu varsayalım
-        pass 
+    # Sohbet loguna bilgi düş
+    emit('new_message', {
+        'type': 'system',
+        'sender': 'Sistem',
+        'time': datetime.now().strftime('%H:%M'),
+        'text': f'{agent_name} sisteme katıldı.'
+    }, broadcast=True)
+
+@socketio.on('user_message')
+def handle_user_message(data):
+    msg_text = data.get('text')
+    print(f"👤 Kullanıcı Mesajı: {msg_text}")
+    
+    emit('new_message', {
+        'type': 'user',
+        'sender': 'Yönetici',
+        'time': datetime.now().strftime('%H:%M'),
+        'text': msg_text
+    }, broadcast=True)
+    
+    # Tüm ajanlara görev olarak ilet
+    emit('task_assignment', {
+        'from': 'Yönetici',
+        'text': msg_text,
+        'timestamp': datetime.now().isoformat()
+    }, broadcast=True)
+
+@socketio.on('task_complete')
+def handle_task_complete(data):
+    agent = data.get('agent')
+    result = data.get('result')
+    print(f"✅ Görev Tamamlandı: {agent} - {result}")
+    
+    emit('new_message', {
+        'type': 'agent',
+        'sender': agent,
+        'time': datetime.now().strftime('%H:%M'),
+        'text': result
+    }, broadcast=True)
 
 if __name__ == '__main__':
-    # Codespaces için tüm arayüzleri dinle
-    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+    print("🚀 Orkestra Hub başlatılıyor... http://0.0.0.0:5000")
+    socketio.run(app, host='0.0.0.0', port=5000, debug=False, allow_unsafe_werkzeug=True)

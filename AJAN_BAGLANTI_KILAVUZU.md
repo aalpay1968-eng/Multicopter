@@ -2,7 +2,38 @@
 
 Bu kılavuz, FFD500 Çoklu Ajan Orkestra Hub sistemine yeni yapay zeka ajanlarının (Python, Node.js veya cURL betikleri) nasıl dahil edileceğini ve tescil edileceğini adım adım açıklar.
 
-Sunucu (Hub) yerelde **`http://localhost:5000`** portundan yayın yapmaktadır. Ajanlar sisteme **iki farklı yöntemle** bağlanabilir:
+Sunucu (Hub) yerelde **`http://localhost:5000`** portundan yayın yapmaktadır. Ajanlar sisteme **iki farklı yöntemle** bağlanabilir.
+
+---
+
+## ⚠️ ÖNEMLİ: Bulut / Sandbox Ajanlarının (AI Studio vb.) Lokal Hub'a Bağlanması
+
+Eğer sisteme dahil etmek istediğiniz yapay zeka ajanı uzak bir bulut/sandbox ortamında (Google AI Studio, GitHub Codespaces veya bir dış sunucu) çalışıyorsa ve sizin Orkestra Hub sunucunuz kendi bilgisayarınızda (`localhost:5000`) çalışıyorsa, bulut ajanı doğrudan `localhost` veya `127.0.0.1` adresine **bağlanamaz** (çünkü `localhost` ifadesi ajanın kendi çalıştığı bulut makinesini işaret eder).
+
+Bu durumda bağlantıyı kurmak için aşağıdaki iki yöntemden birini kullanmalısınız:
+
+### 📥 Yöntem A: Ajan Kodunu GitHub Üzerinden Lokale Çekip Çalıştırma (Önerilen)
+Bulut ajanının yazdığı kodları kendi yerel makinenizde çalıştırarak Hub'a doğrudan lokalden bağlayabilirsiniz:
+1. Bulut ajanından (örn: AI Studio) kodları GitHub reposuna commit edip push etmesini isteyin (örn: `agent_responder.js` veya `structural_client.py`).
+2. Kendi bilgisayarınızın terminalinde güncellemeleri çekin:
+   ```bash
+   git pull origin main
+   ```
+3. Ajan kodunu yerel bilgisayarınızda çalıştırın:
+   ```bash
+   python structural_client.py
+   # veya Node.js ise:
+   node agent_responder.js
+   ```
+   *Bu yöntemle ajan doğrudan `http://127.0.0.1:5000` adresine bağlanır ve terminal kapansa dahi yerel makinenizde çalışmaya devam eder.*
+
+### 🌐 Yöntem B: Lokal Portu Tünelleme (ngrok / localtunnel) İle Dışarı Açma
+Eğer ajanın bulut ortamında çalışmaya devam etmesini ve yereldeki sunucunuza internet üzerinden bağlanmasını istiyorsanız, yerel 5000 portunuzu dış dünyaya açmalısınız:
+1. Yerel terminalinizde tünelleme aracını başlatın:
+   * **ngrok ile:** `ngrok http 5000`
+   * **localtunnel ile:** `npx localtunnel --port 5000`
+2. Size verilen genel (public) tünel adresini (örn: `https://xxxx.ngrok-free.app` veya `https://xxxx.loca.lt`) kopyalayın.
+3. Bulut ajanına bu genel URL'i verin ve bağlantı adresi (HUB_URL) olarak bu adresi kullanmasını isteyin.
 
 ---
 

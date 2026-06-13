@@ -20,6 +20,8 @@ def index():
 @socketio.on('connect')
 def handle_connect():
     print(f"[CONNECT] Yeni bir baglanti kabul edildi: {request.sid}")
+    # Baglanan istemciye mevcut aktif ajan listesini gonder
+    emit('update_agent_list', list(active_agents.keys()))
 
 @socketio.on('disconnect')
 def handle_disconnect():

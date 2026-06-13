@@ -42,9 +42,10 @@ def connect():
     global is_connected
     is_connected = True
     print(f"[SUCCESS] Orkestra Hub'a bağlandı! ({AGENT_NAME})")
-    # Node.js Hub için ajan kayıt
-    sio.emit('register_agent', {'name': AGENT_NAME, 'role': AGENT_ROLE})
+    # Node.js ve Flask Hub uyumluluğu için çift kimlik anahtarı ile ajan kayıt
+    sio.emit('register_agent', {'name': AGENT_NAME, 'agent_name': AGENT_NAME, 'role': AGENT_ROLE})
     print(f"[INFO] Tescil isteği gönderildi: {AGENT_NAME} (Role: {AGENT_ROLE})")
+
 
 @sio.on('agent_task')
 def handle_agent_task(data):

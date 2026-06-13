@@ -280,16 +280,22 @@ app.post('/api/messages', (req, res) => {
     updateStateFile(text, 'COMPLETED');
     appendToLogFile(`${sender} (REST API Cevabı)`, 'Ajan API üzerinden yanıt gönderdi.', `- Bulgular: ${text}`, '- Sistem IDLE.');
   } else {
-    // Kanal ismine göre ajanı belirle
-    let assignee = 'AI_01_DESIGN';
-    if (ch === '#simulation') assignee = 'AI_02_SIMULATION';
-    else if (ch === '#reporting') assignee = 'AI_03_REPORTING';
-    
-    updateStateFile(text, 'LOCKED', assignee);
-    appendToLogFile(`Yönetici (REST API - ${ch})`, 'Yönetici API üzerinden komut gönderdi.', `- Komut: ${text}`, `- ${assignee} ajanının çalışması bekleniyor.`);
-    
-    // Ajanı WebSocket ile tetikle!
-    emitTaskToAgent(assignee, text, ch);
+    if (ch === '#general') {
+      updateStateFile(text, 'LOCKED', 'Ajanlar');
+      appendToLogFile(`Yönetici (REST API - #general)`, 'Yönetici API üzerinden genel komut gönderdi.', `- Komut: ${text}`, `- Tüm ajanların çalışması bekleniyor.`);
+      io.emit('agent_task', { task: text, from: 'Yönetici', channel: '#general' });
+    } else {
+      // Kanal ismine göre ajanı belirle
+      let assignee = 'AI_01_DESIGN';
+      if (ch === '#simulation') assignee = 'AI_02_SIMULATION';
+      else if (ch === '#reporting') assignee = 'AI_03_REPORTING';
+      
+      updateStateFile(text, 'LOCKED', assignee);
+      appendToLogFile(`Yönetici (REST API - ${ch})`, 'Yönetici API üzerinden komut gönderdi.', `- Komut: ${text}`, `- ${assignee} ajanının çalışması bekleniyor.`);
+      
+      // Ajanı WebSocket ile tetikle!
+      emitTaskToAgent(assignee, text, ch);
+    }
   }
   
   io.emit('load_tasks', loadStateTasks());
@@ -317,31 +323,36 @@ io.on('connection', (socket) => {
   socket.on('register_agent', (data) => {
     const name = data.name || 'Unknown';
     const role = data.role || 'guest';
-    console.log(`[REGISTER] Ajan Kayıt: ${name} (${role}) - ID: ${socket.id}`);
+    const model = data.model || 'Gemini 3.1 Pro';
+    console.log(`[REGISTER] Ajan Kayıt: ${name} (${role}) [Model: ${model}] - ID: ${socket.id}`);
     
     active_agents[socket.id] = {
       name: name,
       role: role,
+      model: model,
       status: 'HEALTHY',
       lastSeen: Date.now(),
       time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
     };
     
     io.emit('update_agents', active_agents);
-    io.emit('broadcast_msg', { sender: 'Sistem', text: `${name} (${role}) sisteme katıldı.`, type: 'sys', channel: '#general', time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }) });
+    io.emit('broadcast_msg', { sender: 'Sistem', text: `${name} (${role}) sisteme katıldı. [Model: ${model}]`, type: 'sys', channel: '#general', time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }) });
   });
 
   // Periyodik Heartbeat Pinglemesi (ping_heartbeat)
   socket.on('ping_heartbeat', (data) => {
     const name = data.name || 'Unknown';
+    const model = data.model || 'Gemini 3.1 Pro';
     if (active_agents[socket.id]) {
       active_agents[socket.id].lastSeen = Date.now();
       active_agents[socket.id].status = 'HEALTHY';
+      if (data.model) active_agents[socket.id].model = data.model;
     } else {
       // Yeniden tescil et
       active_agents[socket.id] = {
         name: name,
         role: data.role || 'guest',
+        model: model,
         status: 'HEALTHY',
         lastSeen: Date.now(),
         time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })

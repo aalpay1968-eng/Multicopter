@@ -352,6 +352,7 @@
                     name: agents[sid].name,
                     status: agents[sid].status,
                     role: agents[sid].role,
+                    model: agents[sid].model || 'Gemini 3.1 Pro',
                     x: humanX + radius * Math.cos(angle),
                     y: humanY + radius * Math.sin(angle)
                 });
@@ -386,7 +387,8 @@
                         <circle r="10" fill="${color}" opacity="0.3" class="animate-pulse" />
                         <circle r="6" fill="${color}" />
                         <text y="-14" font-family="monospace" font-size="7" fill="#cbd5e1" text-anchor="middle" font-weight="bold">${n.name}</text>
-                        <text y="15" font-family="monospace" font-size="6" fill="#64748b" text-anchor="middle">${n.role}</text>
+                        <text y="13" font-family="monospace" font-size="6" fill="#64748b" text-anchor="middle">${n.role}</text>
+                        <text y="21" font-family="monospace" font-size="5" fill="#38bdf8" text-anchor="middle">${n.model}</text>
                     </g>
                 `;
             });
@@ -452,11 +454,12 @@
                             <div class="flex flex-col">
                                 <span class="font-bold text-slate-300 text-xs">${data.name}</span>
                                 <span class="text-[10px] text-slate-500 font-mono">${data.role}</span>
+                                <span class="text-[9px] text-sky-400 font-mono mt-0.5">🤖 ${data.model || 'Gemini 3.1 Pro'}</span>
                             </div>
                         </div>
-                        <div class="text-right">
+                        <div class="text-right flex flex-col justify-between items-end">
                             <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-slate-950 border border-slate-800 ${healthColor}">${data.status}</span>
-                            <div class="text-[8px] text-slate-600 mt-1 font-mono">${data.time}</div>
+                            <div class="text-[8px] text-slate-600 mt-2 font-mono">${data.time}</div>
                         </div>
                     </div>
                 `;

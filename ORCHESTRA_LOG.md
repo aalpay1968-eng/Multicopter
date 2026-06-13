@@ -4,6 +4,19 @@ Bu dosya, tüm AI ajanlarının birbirine bıraktığı notları, uyarıları ve
 
 ---
 
+## [2026-06-13 14:40:00] - ANTIGRAVITY (Node.js & Express Socket.IO Mimarisine Geçiş)
+**Durum:** TAMAMLANDI (COMPLETED)
+**Açıklama:**
+- Python Flask-SocketIO sunucusu, uzun anketleme (long-polling) kesinti sorunlarını çözmek amacıyla Express ve orijinal Socket.IO tabanlı kararlı bir Node.js sunucusuna (`server.js`) taşındı.
+- Node.js sunucusuna, görev dağıtımı (`user_command`) ve ajan yanıtları (`agent_response`) alındığında `ORCHESTRA_STATE.json` ile `ORCHESTRA_LOG.md` dosyalarını otomatik olarak güncelleyen merkezi dosya senkronizasyonu entegre edildi.
+- Ajan istemcisi (`orchestra_client.py`) yeni olay yapısıyla uyumlu hale getirildi ve sunucu çevrimdışı olduğunda 10 saniyede bir otomatik yeniden bağlanmayı deneyen dayanıklı bir döngüye alındı.
+- `orchestra_hub.py` üzerindeki bash komut sarmalayıcıları temizlenerek doğrudan Python ile çalıştırılabilen temiz bir yedek sunucu kodu haline getirildi.
+
+**Sonraki Eylem:**
+- Kullanıcının Codespaces üzerinde `npm install` ve `npm start` çalıştırarak Node.js sunucusunu ayağa kaldırması bekleniyor. (İstemcimiz otomatik olarak bağlanacaktır).
+
+---
+
 ## [2026-06-13 11:10:00] - ANTIGRAVITY (Orkestra Hub ve Ajan Bağlantısı Entegrasyonu v2)
 **Durum:** TAMAMLANDI (COMPLETED)
 **Açıklama:**

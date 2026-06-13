@@ -1,7 +1,7 @@
 {
   "project": "FireFiterDrone500",
   "version": "1.0.0",
-  "last_updated": "2026-06-13T11:40:26.872Z",
+  "last_updated": "2026-06-13T12:41:03.349Z",
   "orchestra_chief": "Qwen",
   "status": "COMPLETED",
   "agents": [
@@ -42,6 +42,12 @@
     {
       "id": "TASK_1781350826866",
       "description": "Tandem kanat aerodinamik optimizasyonunu kontrol et.",
+      "status": "COMPLETED",
+      "assigned_to": "Antigravity"
+    },
+    {
+      "id": "TASK_1781354463334",
+      "description": "Tandem kanat aerodinamik Reynolds sayısı hesabını doğrula.",
       "status": "COMPLETED",
       "assigned_to": "Antigravity"
     }

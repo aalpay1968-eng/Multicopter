@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 import socketio
 
 # Windows terminal encoding safety
@@ -59,9 +60,16 @@ def handle_agent_task(data):
 def disconnect():
     print("[INFO] Hub bağlantısı kesildi.")
 
-try:
-    sio.connect(HUB_URL)
-    sio.wait()
-except Exception as e:
-    print(f"[ERROR] Hata: {e}")
-    print("Lütfen Hub sunucusunun çalıştığından ve adresin doğruluğundan emin olun.")
+# Otomatik yeniden bağlanma döngüsü
+while True:
+    try:
+        print(f"[INFO] {HUB_URL} adresine bağlanmaya çalışılıyor...")
+        sio.connect(HUB_URL, transports=['websocket', 'polling'])
+        sio.wait()
+    except KeyboardInterrupt:
+        print("[INFO] İstemci manuel olarak durduruldu.")
+        break
+    except Exception as e:
+        print(f"[ERROR] Hata: {e}")
+        print("[INFO] 10 saniye sonra tekrar bağlanmayı deneyecek...\n")
+        time.sleep(10)

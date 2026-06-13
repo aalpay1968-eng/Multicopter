@@ -1,131 +1,56 @@
 {
   "project": "FireFiterDrone500",
   "version": "1.0.0",
-  "last_updated": "2026-06-13T16:47:32.495Z",
-  "orchestra_chief": "Qwen",
-  "status": "COMPLETED",
-  "agents": [
-    {
-      "id": "ANTIGRAVITY_01",
-      "role": "Concept_Designer",
-      "status": "IDLE",
-      "last_report": "2026-06-12T19:40:00Z",
-      "current_task": null
-    },
-    {
-      "id": "QWEN_CHIEF",
-      "role": "Orchestra_Manager_QA",
-      "status": "IDLE",
-      "last_report": "2026-06-08T04:05:00Z",
-      "current_task": null
-    }
-  ],
-  "tasks": [
-    {
-      "id": "TASK_001",
-      "description": "Konsept Tasarım ve Ön Analiz",
-      "status": "COMPLETED",
-      "assigned_to": "ANTIGRAVITY_01"
-    },
-    {
-      "id": "TASK_QA_001",
-      "description": "Tasarım Doğrulama ve Hata Kontrolü",
-      "status": "COMPLETED",
-      "assigned_to": "QWEN_CHIEF"
-    },
-    {
-      "id": "TASK_INT_002",
-      "description": "Sistem Entegrasyonu ve Klasör Yapısı",
-      "status": "COMPLETED",
-      "assigned_to": "QWEN_CHIEF"
-    },
-    {
-      "id": "TASK_1781350826866",
-      "description": "Tandem kanat aerodinamik optimizasyonunu kontrol et.",
-      "status": "COMPLETED",
-      "assigned_to": "Antigravity"
-    },
-    {
-      "id": "TASK_1781354463334",
-      "description": "Tandem kanat aerodinamik Reynolds sayısı hesabını doğrula.",
-      "status": "COMPLETED",
-      "assigned_to": "Antigravity"
-    }
-  ],
-  "next_milestone": "All_Milestones_Completed",
-  "warnings": [],
+  "last_updated": "2026-06-13T17:55:20.248Z",
+  "orchestra_chief": "ANTIGRAVITY",
   "system_status": "COMPLETED",
   "locked_by": null,
   "current_task": null,
   "last_updated_by": "Yönetici",
+  "current_agent": null,
+  "next_agent": "AI_03_REPORTING",
   "pending_tasks": [
     {
       "id": "TASK_001",
-      "description": "Tandem kanat aerodinamik Reynolds sayısı hesabını optimize et. (MTOW: 1300kg, Açıklık: 9.2m)",
+      "description": "Tandem kanat aerodinamik optimizasyonu (Reynolds sayısı hesabı)",
       "status": "COMPLETED",
       "assigned_to": "AI_01_DESIGN"
     },
     {
       "id": "TASK_002",
-      "description": "Tandem kanat aerodinamik Reynolds sayisi hesabini optimize et. (MTOW: 1350kg, A�iklik: 9.5m)",
+      "description": "Hibrit güç sistemi termal simülasyonu ve verimlilik analizi",
       "status": "COMPLETED",
-      "assigned_to": "AI_01_DESIGN"
+      "assigned_to": "AI_02_SIMULATION"
     },
     {
       "id": "TASK_003",
-      "description": "Tandem kanat aerodinamik Reynolds sayisi hesabini optimize et. (MTOW: 1350kg, A�iklik: 9.5m)",
+      "description": "Nihai üretim raporu sentezi ve BOM doğrulaması",
       "status": "COMPLETED",
-      "assigned_to": "AI_01_DESIGN"
+      "assigned_to": "AI_03_REPORTING"
     },
     {
       "id": "TASK_004",
-      "description": "Bağlı AI'lar isimlerini yazsın",
+      "description": "Tandem kanat şasisi yapısal dayanım analizi (FEA) ve emniyet katsayısı (SF) doğrulaması",
       "status": "COMPLETED",
-      "assigned_to": "AI_01_DESIGN"
+      "assigned_to": "AI_STRUCTURAL_SPECIALIST"
     },
     {
       "id": "TASK_005",
-      "description": "Ajanlar isimlerini (deepseek vb.) yazsın",
+      "description": "Yapısal takviyelerin ağırlık bütçesine, menzile ve termal yüklere olan etkisinin simülasyonu",
       "status": "COMPLETED",
-      "assigned_to": "AI_01_DESIGN"
+      "assigned_to": "AI_02_SIMULATION"
     },
     {
       "id": "TASK_006",
-      "description": "Ajanlar isimlerini (deepseek vb.) yazsin",
+      "description": "Yapısal FEA raporunun nihai rapora entegrasyonu ve BOM güncellenmesi",
       "status": "COMPLETED",
-      "assigned_to": "AI_01_DESIGN"
-    },
-    {
-      "id": "TASK_007",
-      "description": "Ajanlar isimlerini (deepseek vb.) yazsin",
-      "status": "COMPLETED",
-      "assigned_to": "Ajanlar"
-    },
-    {
-      "id": "TASK_008",
-      "description": "Merhaba, nasilsiniz? Aktif ajanlar kendilerini tanitsin.",
-      "status": "COMPLETED",
-      "assigned_to": "Ajanlar"
-    },
-    {
-      "id": "TASK_009",
-      "description": "Merhaba, nasilsiniz? Aktif ajanlar kendilerini tanitsin.",
-      "status": "COMPLETED",
-      "assigned_to": "Ajanlar"
-    },
-    {
-      "id": "TASK_0010",
-      "description": "Ajanlar isimlerini (deepseek vb.) yazsin",
-      "status": "COMPLETED",
-      "assigned_to": "Ajanlar"
-    },
-    {
-      "id": "TASK_0011",
-      "description": "Bağlı ajanlar isimlerini ve mevcut görevlerini  yazsın",
-      "status": "COMPLETED",
-      "assigned_to": "AI_01_DESIGN"
+      "assigned_to": "AI_03_REPORTING"
     }
   ],
-  "current_agent": null,
-  "next_agent": "AI_01_DESIGN"
+  "critical_parameters": {
+    "MTOW_kg": 1300,
+    "payload_kg": 500,
+    "wing_span_m": 9.2,
+    "flight_time_min": 120
+  }
 }

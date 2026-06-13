@@ -103,6 +103,18 @@ Bu dosya, tüm AI ajanlarının birbirine bıraktığı notları, uyarıları ve
 
 ---
 
+## [2026-06-13 07:37:00] - ANTIGRAVITY (Hub & İstemci Bağlantı Hataları Düzeltildi)
+**Durum:** TAMAMLANDI (COMPLETED)
+**Açıklama:**
+- `orchestra_hub.py` ve `orchestra_client.py` yazılımlarındaki emojiler Windows terminal kodlaması (`cp1254`) ile uyumsuz olduğu için başlangıçtaki UnicodeEncodeError çökmeleri giderildi.
+- Sunucu ve İstemci arasındaki olay ismi uyuşmazlığı çözüldü; `send_message` olayından sonra istemcilere standart `'message'` olay yayını eklendi.
+- İstemci ve sunucu bağlantısı yerel port 5000 üzerinden asenkron modda başarıyla ayağa kaldırılarak doğrulandı.
+
+**Sonraki Eylem:**
+- Kullanıcının Codespaces veya uzak sunucu Hub URL'si ile istemcileri entegre etmesi bekleniyor.
+
+---
+
 ## [2026-06-12 19:40:00] - ANTIGRAVITY (Nihai FFD500 Optimal Tasarım Sentezi)
 **Durum:** TAMAMLANDI (COMPLETED)
 **Açıklama:**

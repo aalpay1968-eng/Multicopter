@@ -7,8 +7,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'orchestra-secret-key-ffd500'
 CORS(app, resources={r"/*": {"origins": "*"}})  # Tüm kaynaklara izin ver
 
-# SocketIO ayarları: CORS açık, sadece WebSocket kullan (daha hızlı ve kararlı)
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading', transport='websocket')
+# SocketIO ayarları: CORS açık, asenkron mod threading (Windows uyumlu)
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 
 # Aktif Ajanlar Listesi
 active_agents = {}
@@ -19,11 +19,11 @@ def index():
 
 @socketio.on('connect')
 def handle_connect():
-    print(f"✅ Yeni bir bağlantı kabul edildi: {request.sid}")
+    print(f"[CONNECT] Yeni bir baglanti kabul edildi: {request.sid}")
 
 @socketio.on('disconnect')
 def handle_disconnect():
-    print(f"❌ Bağlantı kesildi: {request.sid}")
+    print(f"[DISCONNECT] Baglanti kesildi: {request.sid}")
     # Bağlantı kopan ajanı listeden temizle
     agent_to_remove = None
     for name, info in active_agents.items():
@@ -32,14 +32,14 @@ def handle_disconnect():
             break
     if agent_to_remove:
         del active_agents[agent_to_remove]
-        print(f"🧹 Ajan silindi: {agent_to_remove}")
+        print(f"[CLEANUP] Ajan silindi: {agent_to_remove}")
         emit('update_agent_list', list(active_agents.keys()), broadcast=True)
 
 @socketio.on('register')
 def handle_register(data):
     agent_name = data.get('agent_name', 'Unknown')
     role = data.get('role', 'guest')
-    print(f"📥 KAYIT ALINDI: {agent_name} ({role}) - SID: {request.sid}")
+    print(f"[REGISTER] KAYIT ALINDI: {agent_name} ({role}) - SID: {request.sid}")
     
     # Ajanı listeye ekle
     active_agents[agent_name] = {
@@ -53,23 +53,26 @@ def handle_register(data):
     emit('update_agent_list', list(active_agents.keys()), broadcast=True)
     
     # Kayıt yapan ajana özel onay mesajı
-    emit('registration_success', {'message': f'Hoşgeldin {agent_name}! Görev bekleniyor.'})
+    emit('registration_success', {'message': f'Hosgeldin {agent_name}! Gorev bekleniyor.'})
 
 @socketio.on('task_complete')
 def handle_task_complete(data):
-    print(f"🏁 GÖREV TAMAMLANDI: {data}")
+    print(f"[TASK_COMPLETE] GOREV TAMAMLANDI: {data}")
     emit('log_message', {'msg': f"[{data.get('agent')}] {data.get('result')}"}, broadcast=True)
 
 @socketio.on('send_message')
 def handle_message(data):
     msg = data.get('message')
     sender = data.get('sender', 'Hub')
-    print(f"💬 Mesaj: {sender} -> {msg}")
+    print(f"[MSG] {sender} -> {msg}")
+    # Web Arayüzü için receive_message yayını
     emit('receive_message', {'sender': sender, 'message': msg}, broadcast=True)
+    # İHA İstemcileri (Agent) için standart 'message' yayını
+    emit('message', msg, broadcast=True)
 
 if __name__ == '__main__':
-    print("🚀 Orkestra Hub Başlatılıyor... (Port 5000)")
-    print("⚠️ CORS izinleri açıldı, WebSocket modu aktif.")
+    print("[START] Orkestra Hub Baslatiliyor... (Port 5000)")
+    print("[INFO] CORS izinleri acildi, WebSocket/Polling otomatik modu aktif.")
     socketio.run(app, host='0.0.0.0', port=5000, debug=False, allow_unsafe_werkzeug=True)
 
 HTML_TEMPLATE = """
@@ -123,7 +126,7 @@ HTML_TEMPLATE = """
             const listDiv = document.getElementById('agent-list');
             listDiv.innerHTML = '';
             if (agents.length === 0) {
-                listDiv.innerHTML = '<div style="color: #888; font-style: italic;">Bağlı ajan bekleniyor...</div>';
+                listDiv.innerHTML = '<div style="color: #888; font-style: italic;">Bağlı İHA bekleniyor...</div>';
             } else {
                 agents.forEach(agent => {
                     listDiv.innerHTML += `

@@ -1,39 +1,37 @@
-# 1. Eski süreçleri ve dosyayı temizle
-pkill -9 -f "python orchestra_hub.py"
-rm -f orchestra_hub.py requirements.txt
+try:
+    import eventlet
+    eventlet.monkey_patch()
+    async_mode = 'eventlet'
+except ImportError:
+    async_mode = 'threading'
 
-# 2. Gerekli kütüphaneleri yükle
-pip install flask flask-socketio flask-cors eventlet python-engineio -q
-
-# 3. YENİ VE GÜÇLENDİRİLMİŞ KODU OLUŞTUR
-cat > orchestra_hub.py << 'ENDOFFILE'
 import os
+import sys
 import socket
 import datetime
 from flask import Flask, render_template_string, request
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 
+# Windows terminal encoding safety
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ffd500-secret-2026'
-
-# CORS ayarlarını maksimum esneklikte yapıyoruz
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-# Eventlet ile gerçek WebSocket desteği
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet', logger=False, engineio_logger=False)
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode=async_mode, logger=False, engineio_logger=False)
 
-# Ajan hafızası: {session_id: {name, role, time}}
 active_agents = {}
 
-# --- GELİŞMİŞ HTML ARAYÜZÜ ---
 HTML_CODE = """
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FFD500 Orkestra Merkezi</title>
+    <title>FFD500 Orkestra Yönetim Merkezi (Python Fallback)</title>
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <style>
         :root { --bg: #0f172a; --card: #1e293b; --text: #f1f5f9; --accent: #38bdf8; --success: #4ade80; --danger: #f87171; }
@@ -43,7 +41,6 @@ HTML_CODE = """
         h1, h2 { margin: 0 0 15px 0; color: var(--accent); font-weight: 600; }
         h1 { text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 1px; }
         
-        /* Ajan Listesi */
         .agent-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
         .agent-card { background: #334155; padding: 10px; border-radius: 8px; display: flex; align-items: center; gap: 10px; animation: fadeIn 0.3s ease; }
         .status-dot { width: 10px; height: 10px; background: var(--success); border-radius: 50%; box-shadow: 0 0 8px var(--success); animation: pulse 2s infinite; }
@@ -51,14 +48,12 @@ HTML_CODE = """
         .agent-name { font-weight: bold; font-size: 0.95rem; }
         .agent-role { font-size: 0.75rem; color: #94a3b8; }
         
-        /* Sohbet Alanı */
         .chat-box { display: flex; gap: 10px; }
         input[type="text"] { flex: 1; padding: 12px; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: white; outline: none; }
         input[type="text"]:focus { border-color: var(--accent); }
         button { padding: 12px 24px; background: var(--accent); color: #0f172a; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; }
         button:hover { background: #0ea5e9; transform: translateY(-1px); }
         
-        /* Loglar */
         .log-container { height: 250px; overflow-y: auto; background: #000; border-radius: 6px; padding: 10px; font-family: 'Courier New', monospace; font-size: 0.85rem; border: 1px solid #334155; }
         .log-entry { margin-bottom: 6px; border-bottom: 1px solid #1e293b; padding-bottom: 4px; }
         .log-time { color: #64748b; margin-right: 8px; }
@@ -72,7 +67,7 @@ HTML_CODE = """
 </head>
 <body>
     <div class="dashboard">
-        <h1>🚁 FFD500 Orkestra Yönetim Merkezi</h1>
+        <h1>🚁 FFD500 Orkestra Yönetim Merkezi (Python Fallback)</h1>
         
         <div class="card">
             <h2>🟢 Aktif Ajanlar (<span id="count">0</span>)</h2>
@@ -96,7 +91,6 @@ HTML_CODE = """
     </div>
 
     <script>
-        // Socket bağlantısı (Otomatik host algılama)
         const socket = io({ transports: ['websocket', 'polling'], reconnection: true, reconnectionAttempts: 5 });
         
         const agentListEl = document.getElementById('agentList');
@@ -190,9 +184,7 @@ def handle_register(data):
 def handle_command(data):
     txt = data.get('text')
     print(f"📢 KOMUT: {txt}")
-    # Hem loglara düşür hem de tüm ajanlara ilet
     emit('broadcast_msg', {'sender': 'Yönetici', 'text': txt, 'type': 'admin'}, broadcast=True)
-    # Ajanların dinlemesi için standart 'agent_task' eventi
     emit('agent_task', {'task': txt, 'from': 'Yönetici'}, broadcast=True)
 
 @socketio.on('agent_response')
@@ -205,15 +197,8 @@ def handle_response(data):
 if __name__ == '__main__':
     host_name = socket.gethostname()
     local_ip = socket.gethostbyname(host_name)
-    print(f"🚀 FFD500 HUB BAŞLATILIYOR!")
+    print(f"🚀 FFD500 Python Hub Fallback Başlatılıyor...")
     print(f"🌐 Yerel IP: {local_ip}")
     print(f"🔗 Erişim: http://0.0.0.0:5000")
-    try:
-        socketio.run(app, host='0.0.0.0', port=5000, debug=False, allow_unsafe_werkzeug=True)
-    except Exception as e:
-        print(f"HATA: {e}")
-ENDOFFILE
-
-# 4. Hub'ı başlat
-echo "✅ Dosya oluşturuldu. Hub başlatılıyor..."
-python orchestra_hub.py
+    print(f"⚠️ Asenkron WebSocket Modu: {async_mode.upper()}")
+    socketio.run(app, host='0.0.0.0', port=5000, debug=False, allow_unsafe_werkzeug=True)

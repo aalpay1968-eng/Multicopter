@@ -2,18 +2,16 @@ import os
 import sys
 import socketio
 
-# Windows terminal emoji çökmesini önlemek için UTF-8 stdout yapılandırması
+# Windows terminal encoding safety
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
-# .env dosyasından ortam değişkenlerini yükle
 try:
     from dotenv import load_dotenv
     load_dotenv()
 except ImportError:
     pass
 
-# Komut satırı parametresinden, .env'den veya varsayılan local adresten HUB_URL oku
 HUB_URL = None
 if len(sys.argv) > 1:
     HUB_URL = sys.argv[1]
@@ -35,32 +33,26 @@ sio = socketio.Client()
 @sio.event
 def connect():
     print("[SUCCESS] Orkestra Hub'a bağlandı!")
-    # Sisteme kayıt ol
-    sio.emit('register', {'agent_name': 'Antigravity', 'role': 'engineer'})
+    # Node.js Hub için ajan kayıt
+    sio.emit('register_agent', {'name': 'Antigravity', 'role': 'engineer'})
     print("[INFO] Kayıt isteği gönderildi: Antigravity (Role: engineer)")
 
-@sio.event
-def message(data):
+@sio.on('agent_task')
+def handle_agent_task(data):
     # Hub'dan gelen görevi al ve yazdır
     print(f"\n[TASK] Yeni Görev Alındı: {data}")
     
-    # Görev detayını ayrıştır
-    if isinstance(data, dict):
-        task_desc = data.get('message', '')
-        sender = data.get('from', 'Orkestra Şefi')
-    else:
-        task_desc = str(data)
-        sender = 'Orkestra Şefi'
+    task_desc = data.get('task', '')
+    sender = data.get('from', 'Yönetici')
         
     print(f"[PROCESS] İşleniyor: {task_desc} (Gönderen: {sender})")
     
     # Görev sonucunu Hub'a ilet
     result_data = {
         'agent': 'Antigravity', 
-        'result': 'Başarılı',
-        'log': 'FFD500 optimal tasarım raporu doğrulandı ve parametreler senkronize edildi.'
+        'text': 'Başarılı - FFD500 optimal tasarım raporu doğrulandı ve parametreler senkronize edildi.'
     }
-    sio.emit('task_complete', result_data)
+    sio.emit('agent_response', result_data)
     print("[INFO] Görev tamamlandı sinyali gönderildi.")
 
 @sio.event

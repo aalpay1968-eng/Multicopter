@@ -1,0 +1,8 @@
+{
+  "aircraft_id": "AC-VT-20260613-00005",
+  "quality_score": 0.2,
+  "resolution_ok": false,
+  "alignment_error_pct": 5.0,
+  "quality_gate_passed": false,
+  "recommendation": "WARN: Manual check recommended"
+}

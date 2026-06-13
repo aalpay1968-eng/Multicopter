@@ -447,20 +447,29 @@
                 const healthColor = data.status === 'HEALTHY' ? 'text-emerald-400' : (data.status === 'IDLE' ? 'text-amber-400' : 'text-rose-400');
                 const dotColor = data.status === 'HEALTHY' ? 'bg-emerald-500 glow-healthy' : (data.status === 'IDLE' ? 'bg-amber-500 glow-idle' : 'bg-rose-500 glow-dead');
                 
+                const currentTaskText = data.currentTask 
+                    ? `<div class="mt-2 px-2.5 py-1.5 bg-slate-950/80 rounded-lg border border-slate-800 text-[9px] text-amber-400 font-mono"><span class="text-slate-500 font-bold">GÖREV:</span> ${data.currentTask}</div>`
+                    : `<div class="mt-2 px-2.5 py-1.5 bg-slate-950/20 rounded-lg border border-slate-900/60 text-[9px] text-slate-500 font-mono">GÖREV: Beklemede (IDLE)</div>`;
+
                 agentListEl.innerHTML += `
-                    <div class="p-2.5 rounded-xl bg-slate-900/40 border border-slate-900 flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full ${dotColor} animate-pulse"></span>
-                            <div class="flex flex-col">
-                                <span class="font-bold text-slate-300 text-xs">${data.name}</span>
-                                <span class="text-[10px] text-slate-500 font-mono">${data.role}</span>
-                                <span class="text-[9px] text-sky-400 font-mono mt-0.5">🤖 ${data.model || 'Gemini 3.1 Pro'}</span>
+                    <div class="p-2.5 rounded-xl bg-slate-900/40 border border-slate-900 flex flex-col gap-2 shadow-lg">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full ${dotColor} animate-pulse"></span>
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-slate-300 text-xs">${data.name}</span>
+                                    <span class="text-[10px] text-slate-500 font-mono">${data.role}</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-slate-950 border border-slate-800 ${healthColor}">${data.status}</span>
                             </div>
                         </div>
-                        <div class="text-right flex flex-col justify-between items-end">
-                            <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-slate-950 border border-slate-800 ${healthColor}">${data.status}</span>
-                            <div class="text-[8px] text-slate-600 mt-2 font-mono">${data.time}</div>
+                        <div class="flex justify-between items-center text-[9px] text-slate-500 border-t border-slate-950/40 pt-1.5 font-mono">
+                            <span>🤖 ${data.model || 'Gemini 3.1 Pro'}</span>
+                            <span>${data.time}</span>
                         </div>
+                        ${currentTaskText}
                     </div>
                 `;
             }

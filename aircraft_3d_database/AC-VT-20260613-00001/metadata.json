@@ -1,0 +1,42 @@
+{
+  "aircraft_id": "AC-VT-20260613-00001",
+  "name": "FFD-TWT Fire Fighting Drone",
+  "mode": "concept",
+  "classification": {
+    "type": "VTOL",
+    "subtype": "TandemWing + Octocopter lift",
+    "propulsion": "Hybrid",
+    "wing_config": "Tandem"
+  },
+  "dimensions": {
+    "wingspan_m": 9.2,
+    "fuselage_length_m": 6.8,
+    "height_m": 2.1,
+    "mtow_kg": 1300.0,
+    "source": "user_input"
+  },
+  "views_available": [
+    "top"
+  ],
+  "views_missing": [
+    "side_left",
+    "front",
+    "rear",
+    "bottom"
+  ],
+  "quality_score": 0.74,
+  "source_urls": [],
+  "processing_log": [
+    {
+      "timestamp": "2026-06-13T22:47:57.525863",
+      "action": "database_registration",
+      "notes": "Initial registration of FFD-TWT Fire Fighting Drone under taxonomy Level 4"
+    }
+  ],
+  "skill_context": {
+    "skill_name": "aircraft-database",
+    "version": "1.2",
+    "produced_by": "aircraft-database-skill",
+    "timestamp": "2026-06-13T22:47:57.525878"
+  }
+}

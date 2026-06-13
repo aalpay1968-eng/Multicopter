@@ -1,0 +1,42 @@
+{
+  "aircraft_id": "AC-VT-20260613-00002",
+  "name": "Joby Aviation S4",
+  "mode": "real",
+  "classification": {
+    "type": "VTOL",
+    "subtype": "Tiltrotor",
+    "propulsion": "Electric",
+    "wing_config": "Conventional"
+  },
+  "dimensions": {
+    "wingspan_m": 10.7,
+    "fuselage_length_m": 6.4,
+    "height_m": 2.5,
+    "mtow_kg": 2177.0,
+    "source": "datasheet"
+  },
+  "views_available": [],
+  "views_missing": [
+    "side_left",
+    "front",
+    "rear",
+    "bottom"
+  ],
+  "quality_score": 0.2,
+  "source_urls": [
+    "https://evtol.news/aircraft"
+  ],
+  "processing_log": [
+    {
+      "timestamp": "2026-06-13T22:47:57.529256",
+      "action": "database_registration",
+      "notes": "Initial registration of Joby Aviation S4 under taxonomy Level 4"
+    }
+  ],
+  "skill_context": {
+    "skill_name": "aircraft-database",
+    "version": "1.2",
+    "produced_by": "aircraft-database-skill",
+    "timestamp": "2026-06-13T22:47:57.529271"
+  }
+}

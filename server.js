@@ -22,6 +22,26 @@ const io = new Server(server, {
 // Ajan hafızası ve durum takibi
 let active_agents = {};
 
+// Ajan görev takip yardımcı fonksiyonları
+function setAgentTask(agentName, taskText) {
+  for (const [sid, info] of Object.entries(active_agents)) {
+    if (info.name === agentName) {
+      info.currentTask = taskText;
+      break;
+    }
+  }
+}
+
+function clearAgentTask(agentName) {
+  for (const [sid, info] of Object.entries(active_agents)) {
+    if (info.name === agentName) {
+      info.currentTask = null;
+      break;
+    }
+  }
+}
+
+
 // Dosya yolları bulucu
 function getPaths() {
   const rootState = path.join(__dirname, 'ORCHESTRA_STATE.json');
@@ -278,10 +298,16 @@ app.post('/api/messages', (req, res) => {
   // State dosyalarını tetikle
   if (type === 'agent') {
     updateStateFile(text, 'COMPLETED');
+    clearAgentTask(sender);
+    io.emit('update_agents', active_agents);
     appendToLogFile(`${sender} (REST API Cevabı)`, 'Ajan API üzerinden yanıt gönderdi.', `- Bulgular: ${text}`, '- Sistem IDLE.');
   } else {
     if (ch === '#general') {
       updateStateFile(text, 'LOCKED', 'Ajanlar');
+      for (const sid of Object.keys(active_agents)) {
+        active_agents[sid].currentTask = text;
+      }
+      io.emit('update_agents', active_agents);
       appendToLogFile(`Yönetici (REST API - #general)`, 'Yönetici API üzerinden genel komut gönderdi.', `- Komut: ${text}`, `- Tüm ajanların çalışması bekleniyor.`);
       io.emit('agent_task', { task: text, from: 'Yönetici', channel: '#general' });
     } else {
@@ -291,6 +317,8 @@ app.post('/api/messages', (req, res) => {
       else if (ch === '#reporting') assignee = 'AI_03_REPORTING';
       
       updateStateFile(text, 'LOCKED', assignee);
+      setAgentTask(assignee, text);
+      io.emit('update_agents', active_agents);
       appendToLogFile(`Yönetici (REST API - ${ch})`, 'Yönetici API üzerinden komut gönderdi.', `- Komut: ${text}`, `- ${assignee} ajanının çalışması bekleniyor.`);
       
       // Ajanı WebSocket ile tetikle!
@@ -332,7 +360,8 @@ io.on('connection', (socket) => {
       model: model,
       status: 'HEALTHY',
       lastSeen: Date.now(),
-      time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+      time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
+      currentTask: active_agents[socket.id] ? active_agents[socket.id].currentTask || null : null
     };
     
     io.emit('update_agents', active_agents);
@@ -355,7 +384,8 @@ io.on('connection', (socket) => {
         model: model,
         status: 'HEALTHY',
         lastSeen: Date.now(),
-        time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+        time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
+        currentTask: null
       };
       io.emit('update_agents', active_agents);
     }
@@ -380,6 +410,10 @@ io.on('connection', (socket) => {
     // Ajanı tetikle
     emitTaskToAgent(assignee, text, channel);
 
+    // Ajanın görevini set et
+    setAgentTask(assignee, text);
+    io.emit('update_agents', active_agents);
+
     // State ve Log dosyalarını güncelle
     updateStateFile(text, 'LOCKED', assignee);
     appendToLogFile(
@@ -403,6 +437,12 @@ io.on('connection', (socket) => {
     
     // Tüm ajanlara genel yayın yap
     io.emit('agent_task', { task: txt, from: 'Yönetici', channel: '#general' });
+
+    // Tüm ajanların görevini set et
+    for (const sid of Object.keys(active_agents)) {
+      active_agents[sid].currentTask = txt;
+    }
+    io.emit('update_agents', active_agents);
     
     // State ve Log dosyalarını güncelle
     updateStateFile(txt, 'LOCKED', 'AI_01_DESIGN');
@@ -432,6 +472,10 @@ io.on('connection', (socket) => {
       io.emit('broadcast_msg', { ...msgObj, channel: '#general' });
     }
     
+    // Ajanın görevini temizle
+    clearAgentTask(name);
+    io.emit('update_agents', active_agents);
+
     // State ve Log dosyalarını güncelle
     updateStateFile(txt, 'COMPLETED');
     appendToLogFile(

@@ -1,0 +1,13 @@
+.env
+.env.local
+.env.*.local
+node_modules/
+dist/
+build/
+.DS_Store
+*.log
+correct_orchestra_errors.py
+correct_orchestra_errors_direct.py
+orchestra_auto_runner.py
+orchestra_sync_report.py
+package-lock.json

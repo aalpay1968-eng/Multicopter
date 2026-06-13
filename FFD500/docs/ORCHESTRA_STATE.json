@@ -1,7 +1,7 @@
 {
   "project": "FireFiterDrone500",
   "version": "1.0.0",
-  "last_updated": "2026-06-13T12:41:03.349Z",
+  "last_updated": "2026-06-13T12:51:15.034Z",
   "orchestra_chief": "Qwen",
   "status": "COMPLETED",
   "agents": [
@@ -56,5 +56,16 @@
   "warnings": [],
   "system_status": "COMPLETED",
   "locked_by": null,
-  "current_task": null
+  "current_task": null,
+  "last_updated_by": "Yönetici",
+  "pending_tasks": [
+    {
+      "id": "TASK_001",
+      "description": "Tandem kanat aerodinamik Reynolds sayısı hesabını optimize et. (MTOW: 1300kg, Açıklık: 9.2m)",
+      "status": "COMPLETED",
+      "assigned_to": "AI_01_DESIGN"
+    }
+  ],
+  "current_agent": null,
+  "next_agent": "AI_01_DESIGN"
 }

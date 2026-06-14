@@ -52,7 +52,12 @@
             <span class="text-3xl animate-bounce">🛸</span>
             <div>
                 <h1 class="text-lg font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-sky-200 to-indigo-400">FFD500 ORKESTRA koordinasyon merkezi</h1>
-                <p class="text-[10px] text-slate-400 uppercase tracking-widest font-mono">Real-Time Multi-Agent Fleet Orchestrator v6.0</p>
+                <div class="flex items-center gap-2 mt-1">
+                    <select id="projectSelect" onchange="switchProject(this.value)" class="bg-slate-900/80 border border-slate-800 text-sky-400 rounded px-2 py-0.5 text-[10px] font-semibold focus:outline-none focus:border-sky-500 font-mono">
+                        <!-- Loaded dynamically -->
+                    </select>
+                    <button onclick="openNewProjectModal()" class="text-emerald-400 hover:text-emerald-300 text-[10px] font-bold font-mono">+ YENİ PROJE</button>
+                </div>
             </div>
         </div>
         
@@ -590,6 +595,141 @@
             addDebugLog(`[ACTION] Yeni görev atandı -> Alıcı: ${assignee}, Görev: ${desc}`);
             taskDescEl.value = '';
         }
+
+        // --- ÇOKLU PROJE YÖNETİMİ ---
+        const projectSelectEl = document.getElementById('projectSelect');
+        const newProjectModalEl = document.getElementById('newProjectModal');
+
+        function loadProjects() {
+            fetch('/api/projects')
+                .then(res => res.json())
+                .then(data => {
+                    projectSelectEl.innerHTML = '';
+                    data.projects.forEach(p => {
+                        const opt = document.createElement('option');
+                        opt.value = p;
+                        opt.text = p;
+                        if (p === data.active) opt.selected = true;
+                        projectSelectEl.appendChild(opt);
+                    });
+                    addDebugLog(`[PROJECT] Projeler yüklendi. Aktif: ${data.active}`);
+                })
+                .catch(err => addDebugLog(`[ERROR] Proje listesi yüklenemedi: ${err.message}`));
+        }
+
+        function switchProject(name) {
+            addDebugLog(`[PROJECT] Proje değiştiriliyor: ${name}...`);
+            fetch('/api/projects/switch', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    addDebugLog(`[PROJECT] Proje başarıyla değiştirildi. Aktif: ${data.active}`);
+                } else {
+                    addDebugLog(`[ERROR] Proje değiştirilemedi: ${data.error}`);
+                }
+            })
+            .catch(err => addDebugLog(`[ERROR] Proje değiştirilirken hata: ${err.message}`));
+        }
+
+        function openNewProjectModal() {
+            newProjectModalEl.classList.remove('hidden');
+        }
+
+        function closeNewProjectModal() {
+            newProjectModalEl.classList.add('hidden');
+        }
+
+        function createNewProject() {
+            const name = document.getElementById('newProjName').value.trim();
+            const mtow = document.getElementById('newProjMtow').value.trim();
+            const payload = document.getElementById('newProjPayload').value.trim();
+            const span = document.getElementById('newProjSpan').value.trim();
+            const flight_time = document.getElementById('newProjTime').value.trim();
+
+            if (!name) {
+                alert('Proje adı zorunludur!');
+                return;
+            }
+
+            fetch('/api/projects', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, mtow, payload, span, flight_time })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    addDebugLog(`[PROJECT] Yeni proje oluşturuldu: ${data.project}`);
+                    closeNewProjectModal();
+                    loadProjects();
+                    // Otomatik yeni projeye geç
+                    switchProject(data.project);
+                } else {
+                    alert('Proje oluşturulamadı: ' + data.error);
+                }
+            })
+            .catch(err => addDebugLog(`[ERROR] Proje oluşturulurken hata: ${err.message}`));
+        }
+
+        // Socket üzerinden proje değişikliği algılandığında
+        socket.on('project_switched', (data) => {
+            addDebugLog(`[PROJECT] Aktif proje değişti: ${data.project}`);
+            projectSelectEl.value = data.project;
+        });
+
+        // Sayfa yüklendiğinde projeleri getir
+        socket.on('connect', () => {
+            loadProjects();
+        });
     </script>
+
+    <!-- NEW PROJECT MODAL -->
+    <div id="newProjectModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="glass w-full max-w-sm rounded-2xl p-5 text-xs space-y-4 border border-slate-800">
+            <div class="flex justify-between items-center border-b border-slate-900 pb-2">
+                <h3 class="font-bold text-sky-400 uppercase tracking-widest font-mono font-semibold">🚀 YENİ ORKESTRA PROJESİ</h3>
+                <button onclick="closeNewProjectModal()" class="text-slate-400 hover:text-white text-lg font-bold">×</button>
+            </div>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-slate-500 mb-1 text-[10px]">PROJE ADI</label>
+                    <input type="text" id="newProjName" placeholder="TandemWingVTOL" 
+                           class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white focus:outline-none focus:border-sky-500">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-slate-500 mb-1 text-[10px]">MTOW (KG)</label>
+                        <input type="number" id="newProjMtow" placeholder="1000" 
+                               class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white focus:outline-none focus:border-sky-500">
+                    </div>
+                    <div>
+                        <label class="block text-slate-500 mb-1 text-[10px]">PAYLOAD (KG)</label>
+                        <input type="number" id="newProjPayload" placeholder="300" 
+                               class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white focus:outline-none focus:border-sky-500">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-slate-500 mb-1 text-[10px]">KANAT AÇIKLIĞI (M)</label>
+                        <input type="number" step="0.1" id="newProjSpan" placeholder="8.0" 
+                               class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white focus:outline-none focus:border-sky-500">
+                    </div>
+                    <div>
+                        <label class="block text-slate-500 mb-1 text-[10px]">UÇUŞ SÜRESİ (DK)</label>
+                        <input type="number" id="newProjTime" placeholder="90" 
+                               class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white focus:outline-none focus:border-sky-500">
+                    </div>
+                </div>
+            </div>
+            <div class="flex gap-2 pt-2">
+                <button onclick="closeNewProjectModal()" class="flex-1 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-lg border border-slate-700">İPTAL</button>
+                <button onclick="createNewProject()" class="flex-1 py-2 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold rounded-lg shadow-lg shadow-emerald-950/20">OLUŞTUR</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

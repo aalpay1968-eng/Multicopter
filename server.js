@@ -42,16 +42,36 @@ function clearAgentTask(agentName) {
 }
 
 
+// Çoklu proje yapılandırması
+let currentProject = 'FireFiterDrone500';
+const PROJECTS_DIR = path.join(__dirname, 'PROJECTS');
+if (!fs.existsSync(PROJECTS_DIR)) {
+  fs.mkdirSync(PROJECTS_DIR, { recursive: true });
+}
+
+// Varsayılan projeyi hazırla ve kök dosyalarını yedekle
+const defaultProjDir = path.join(PROJECTS_DIR, 'FireFiterDrone500');
+if (!fs.existsSync(defaultProjDir)) {
+  fs.mkdirSync(defaultProjDir, { recursive: true });
+  const rootState = path.join(__dirname, 'ORCHESTRA_STATE.json');
+  const rootLog = path.join(__dirname, 'ORCHESTRA_LOG.md');
+  const docState = path.join(__dirname, 'FFD500', 'docs', 'ORCHESTRA_STATE.json');
+  const docLog = path.join(__dirname, 'FFD500', 'docs', 'ORCHESTRA_LOG.md');
+  
+  const srcState = fs.existsSync(docState) ? docState : (fs.existsSync(rootState) ? rootState : null);
+  const srcLog = fs.existsSync(docLog) ? docLog : (fs.existsSync(rootLog) ? rootLog : null);
+  
+  if (srcState) fs.copyFileSync(srcState, path.join(defaultProjDir, 'ORCHESTRA_STATE.json'));
+  if (srcLog) fs.copyFileSync(srcLog, path.join(defaultProjDir, 'ORCHESTRA_LOG.md'));
+}
+
 // Dosya yolları bulucu
 function getPaths() {
-  const rootState = path.join(__dirname, 'ORCHESTRA_STATE.json');
-  const docState = path.join(__dirname, 'FFD500', 'docs', 'ORCHESTRA_STATE.json');
-  const rootLog = path.join(__dirname, 'ORCHESTRA_LOG.md');
-  const docLog = path.join(__dirname, 'FFD500', 'docs', 'ORCHESTRA_LOG.md');
-
+  const projState = path.join(PROJECTS_DIR, currentProject, 'ORCHESTRA_STATE.json');
+  const projLog = path.join(PROJECTS_DIR, currentProject, 'ORCHESTRA_LOG.md');
   return {
-    statePath: fs.existsSync(docState) ? docState : (fs.existsSync(rootState) ? rootState : docState),
-    logPath: fs.existsSync(docLog) ? docLog : (fs.existsSync(rootLog) ? rootLog : docLog)
+    statePath: projState,
+    logPath: projLog
   };
 }
 
@@ -181,8 +201,22 @@ function updateStateFile(taskDesc, status, agentName = null) {
       }
     }
     
-    fs.writeFileSync(statePath, JSON.stringify(state, null, 2), 'utf8');
-    console.log(`[FILE] State dosyası güncellendi: ${statePath}`);
+    // Write to project folder
+    const jsonStr = JSON.stringify(state, null, 2);
+    fs.writeFileSync(statePath, jsonStr, 'utf8');
+    
+    // Write to root for backward compatibility with clients
+    const rootState = path.join(__dirname, 'ORCHESTRA_STATE.json');
+    fs.writeFileSync(rootState, jsonStr, 'utf8');
+    
+    // Write to docState if needed
+    if (currentProject === 'FireFiterDrone500') {
+      const docState = path.join(__dirname, 'FFD500', 'docs', 'ORCHESTRA_STATE.json');
+      if (fs.existsSync(path.dirname(docState))) {
+        fs.writeFileSync(docState, jsonStr, 'utf8');
+      }
+    }
+    console.log(`[FILE] State dosyaları güncellendi: ${statePath}`);
   } catch (err) {
     console.error(`[ERROR] State güncellenirken hata: ${err.message}`);
   }
@@ -207,8 +241,21 @@ function appendToLogFile(title, desc, findings, nextAction) {
     const timestampStr = new Date().toISOString().replace('T', ' ').substring(0, 19);
     const newEntry = `\n\n## [${timestampStr}] - ${title}\n**Görev:** ${desc}\n**Açıklama:**\n${findings}\n\n**Sonraki Eylem:**\n${nextAction}\n\n---`;
     
-    fs.writeFileSync(logPath, header + newEntry + body, 'utf8');
-    console.log(`[FILE] Log dosyası güncellendi: ${logPath}`);
+    const updatedContent = header + newEntry + body;
+    fs.writeFileSync(logPath, updatedContent, 'utf8');
+    
+    // Write to root for backward compatibility with clients
+    const rootLog = path.join(__dirname, 'ORCHESTRA_LOG.md');
+    fs.writeFileSync(rootLog, updatedContent, 'utf8');
+    
+    // Write to docLog if needed
+    if (currentProject === 'FireFiterDrone500') {
+      const docLog = path.join(__dirname, 'FFD500', 'docs', 'ORCHESTRA_LOG.md');
+      if (fs.existsSync(path.dirname(docLog))) {
+        fs.writeFileSync(docLog, updatedContent, 'utf8');
+      }
+    }
+    console.log(`[FILE] Log dosyaları güncellendi: ${logPath}`);
   } catch (err) {
     console.error(`[ERROR] Log güncellenirken hata: ${err.message}`);
   }
@@ -264,6 +311,129 @@ setInterval(() => {
     io.emit('update_agents', active_agents);
   }
 }, 3000);
+
+// --- REST API ENDPOINTS ---
+app.get('/api/projects', (req, res) => {
+  try {
+    const dirs = fs.readdirSync(PROJECTS_DIR, { withFileTypes: true })
+      .filter(dirent => dirent.isDirectory())
+      .map(dirent => dirent.name);
+    res.json({ projects: dirs, active: currentProject });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/projects', (req, res) => {
+  const { name, mtow, payload, span, flight_time } = req.body;
+  if (!name) {
+    return res.status(400).json({ error: "Proje ismi zorunludur." });
+  }
+  const cleanName = name.replace(/[^a-zA-Z0-9_-]/g, "");
+  const projDir = path.join(PROJECTS_DIR, cleanName);
+  
+  if (fs.existsSync(projDir)) {
+    return res.status(400).json({ error: "Bu isimde bir proje zaten mevcut." });
+  }
+  
+  try {
+    fs.mkdirSync(projDir, { recursive: true });
+    
+    const defaultState = {
+      project: cleanName,
+      version: "1.0.0",
+      last_updated: new Date().toISOString(),
+      orchestra_chief: "ANTIGRAVITY",
+      system_status: "READY",
+      locked_by: null,
+      current_task: null,
+      last_updated_by: "Conductor",
+      current_agent: null,
+      next_agent: "AI_01_DESIGN",
+      pending_tasks: [
+        {
+          id: "TASK_001",
+          description: "Tasarım optimizasyonu ve aerodinamik analizler",
+          status: "PENDING",
+          assigned_to: "AI_01_DESIGN"
+        },
+        {
+          id: "TASK_002",
+          description: "Güç sistemi termal simülasyonu",
+          status: "PENDING",
+          assigned_to: "AI_02_SIMULATION"
+        },
+        {
+          id: "TASK_003",
+          description: "Nihai raporlama ve BOM kontrolü",
+          status: "PENDING",
+          assigned_to: "AI_03_REPORTING"
+        }
+      ],
+      critical_parameters: {
+        MTOW_kg: parseFloat(mtow) || 1000,
+        payload_kg: parseFloat(payload) || 300,
+        wing_span_m: parseFloat(span) || 8.0,
+        flight_time_min: parseFloat(flight_time) || 90
+      }
+    };
+    
+    const defaultLog = `# 📜 Orkestra İletişim Günlüğü (Orchestra Log) - ${cleanName}\n\nBu dosya, tüm AI ajanlarının birbirine bıraktığı notları, uyarıları ve görev özetlerini içerir. **Ters kronolojik sıra** ile doldurulmalıdır.\n\n---\n\n## [${new Date().toISOString().replace('T', ' ').substring(0, 19)}] - SISTEM (Proje Başlatıldı)\n**Görev:** Yeni proje oluşturuldu.\n**Açıklama:**\n- ${cleanName} projesi sisteme başarıyla eklendi ve başlatıldı.\n\n**Sonraki Eylem:**\n- Ajanların görevleri işlemek üzere hazır olması bekleniyor.\n\n---`;
+    
+    fs.writeFileSync(path.join(projDir, 'ORCHESTRA_STATE.json'), JSON.stringify(defaultState, null, 2), 'utf8');
+    fs.writeFileSync(path.join(projDir, 'ORCHESTRA_LOG.md'), defaultLog, 'utf8');
+    
+    res.json({ status: "success", project: cleanName });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/projects/switch', (req, res) => {
+  const { name } = req.body;
+  if (!name) {
+    return res.status(400).json({ error: "Proje ismi belirtilmedi." });
+  }
+  const cleanName = name.replace(/[^a-zA-Z0-9_-]/g, "");
+  const projDir = path.join(PROJECTS_DIR, cleanName);
+  
+  if (!fs.existsSync(projDir)) {
+    return res.status(404).json({ error: "Proje bulunamadı." });
+  }
+  
+  try {
+    const { statePath, logPath } = getPaths();
+    const rootState = path.join(__dirname, 'ORCHESTRA_STATE.json');
+    const rootLog = path.join(__dirname, 'ORCHESTRA_LOG.md');
+    
+    if (fs.existsSync(rootState)) {
+      fs.copyFileSync(rootState, statePath);
+    }
+    if (fs.existsSync(rootLog)) {
+      fs.copyFileSync(rootLog, logPath);
+    }
+    
+    currentProject = cleanName;
+    
+    const newPaths = getPaths();
+    if (fs.existsSync(newPaths.statePath)) {
+      fs.copyFileSync(newPaths.statePath, rootState);
+    }
+    if (fs.existsSync(newPaths.logPath)) {
+      fs.copyFileSync(newPaths.logPath, rootLog);
+    }
+    
+    console.log(`[PROJECT_SWITCH] Aktif proje değiştirildi: ${currentProject}`);
+    
+    io.emit('project_switched', { project: currentProject });
+    io.emit('load_history', loadLogHistory());
+    io.emit('load_tasks', loadStateTasks());
+    
+    res.json({ status: "success", active: currentProject });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // --- REST API ENDPOINTS ---
 app.get('/api/health', (req, res) => {

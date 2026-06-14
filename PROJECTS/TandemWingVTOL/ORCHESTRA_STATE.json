@@ -1,0 +1,38 @@
+{
+  "project": "TandemWingVTOL",
+  "version": "1.0.0",
+  "last_updated": "2026-06-14T05:05:29.774Z",
+  "orchestra_chief": "ANTIGRAVITY",
+  "system_status": "READY",
+  "locked_by": null,
+  "current_task": null,
+  "last_updated_by": "Conductor",
+  "current_agent": null,
+  "next_agent": "AI_01_DESIGN",
+  "pending_tasks": [
+    {
+      "id": "TASK_001",
+      "description": "Tasarım optimizasyonu ve aerodinamik analizler",
+      "status": "PENDING",
+      "assigned_to": "AI_01_DESIGN"
+    },
+    {
+      "id": "TASK_002",
+      "description": "Güç sistemi termal simülasyonu",
+      "status": "PENDING",
+      "assigned_to": "AI_02_SIMULATION"
+    },
+    {
+      "id": "TASK_003",
+      "description": "Nihai raporlama ve BOM kontrolü",
+      "status": "PENDING",
+      "assigned_to": "AI_03_REPORTING"
+    }
+  ],
+  "critical_parameters": {
+    "MTOW_kg": 1200,
+    "payload_kg": 400,
+    "wing_span_m": 8.5,
+    "flight_time_min": 100
+  }
+}

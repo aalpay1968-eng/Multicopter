@@ -1,0 +1,56 @@
+{
+  "project": "FireFiterDrone500",
+  "version": "1.0.0",
+  "last_updated": "2026-06-13T20:53:00.000Z",
+  "orchestra_chief": "ANTIGRAVITY",
+  "system_status": "READY",
+  "locked_by": "AI_03_REPORTING",
+  "current_task": null,
+  "last_updated_by": "Conductor",
+  "current_agent": "AI_03_REPORTING",
+  "next_agent": "AI_03_REPORTING",
+  "pending_tasks": [
+    {
+      "id": "TASK_001",
+      "description": "Tandem kanat aerodinamik optimizasyonu (Reynolds say\u0131s\u0131 hesab\u0131)",
+      "status": "COMPLETED",
+      "assigned_to": "AI_01_DESIGN"
+    },
+    {
+      "id": "TASK_002",
+      "description": "Hibrit g\u00fc\u00e7 sistemi termal sim\u00fclasyonu ve verimlilik analizi",
+      "status": "COMPLETED",
+      "assigned_to": "AI_02_SIMULATION"
+    },
+    {
+      "id": "TASK_003",
+      "description": "Nihai \u00fcretim raporu sentezi ve BOM do\u011frulamas\u0131",
+      "status": "COMPLETED",
+      "assigned_to": "AI_03_REPORTING"
+    },
+    {
+      "id": "TASK_004",
+      "description": "Tandem kanat \u015fasisi yap\u0131sal dayan\u0131m analizi (FEA) ve emniyet katsay\u0131s\u0131 (SF) do\u011frulamas\u0131",
+      "status": "PENDING",
+      "assigned_to": "AI_STRUCTURAL_SPECIALIST"
+    },
+    {
+      "id": "TASK_005",
+      "description": "Yap\u0131sal takviyelerin a\u011f\u0131rl\u0131k b\u00fct\u00e7esine, menzile ve termal y\u00fcklere olan etkisinin sim\u00fclasyonu",
+      "status": "PENDING",
+      "assigned_to": "AI_02_SIMULATION"
+    },
+    {
+      "id": "TASK_006",
+      "description": "Yap\u0131sal FEA raporunun nihai rapora entegrasyonu ve BOM g\u00fcncellenmesi",
+      "status": "PENDING",
+      "assigned_to": "AI_03_REPORTING"
+    }
+  ],
+  "critical_parameters": {
+    "MTOW_kg": 1300,
+    "payload_kg": 500,
+    "wing_span_m": 9.2,
+    "flight_time_min": 120
+  }
+}

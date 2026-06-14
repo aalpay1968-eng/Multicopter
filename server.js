@@ -435,6 +435,52 @@ app.post('/api/projects/switch', (req, res) => {
   }
 });
 
+app.post('/api/projects/delete', (req, res) => {
+  const { name } = req.body;
+  if (!name) {
+    return res.status(400).json({ error: "Proje ismi belirtilmedi." });
+  }
+  const cleanName = name.replace(/[^a-zA-Z0-9_-]/g, "");
+  if (cleanName === 'FireFiterDrone500') {
+    return res.status(400).json({ error: "Varsayılan proje silinemez." });
+  }
+  const projDir = path.join(PROJECTS_DIR, cleanName);
+  
+  if (!fs.existsSync(projDir)) {
+    return res.status(404).json({ error: "Proje bulunamadı." });
+  }
+  
+  try {
+    fs.rmSync(projDir, { recursive: true, force: true });
+    console.log(`[PROJECT_DELETE] Proje silindi: ${cleanName}`);
+    
+    let activeProj = currentProject;
+    if (currentProject === cleanName) {
+      currentProject = 'FireFiterDrone500';
+      activeProj = 'FireFiterDrone500';
+      
+      const rootState = path.join(__dirname, 'ORCHESTRA_STATE.json');
+      const rootLog = path.join(__dirname, 'ORCHESTRA_LOG.md');
+      const newPaths = getPaths();
+      
+      if (fs.existsSync(newPaths.statePath)) {
+        fs.copyFileSync(newPaths.statePath, rootState);
+      }
+      if (fs.existsSync(newPaths.logPath)) {
+        fs.copyFileSync(newPaths.logPath, rootLog);
+      }
+      
+      io.emit('project_switched', { project: currentProject });
+      io.emit('load_history', loadLogHistory());
+      io.emit('load_tasks', loadStateTasks());
+    }
+    
+    res.json({ status: "success", deleted: cleanName, active: activeProj });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // --- REST API ENDPOINTS ---
 app.get('/api/health', (req, res) => {
   res.json({

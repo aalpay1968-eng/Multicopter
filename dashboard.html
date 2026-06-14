@@ -57,6 +57,8 @@
                         <!-- Loaded dynamically -->
                     </select>
                     <button onclick="openNewProjectModal()" class="text-emerald-400 hover:text-emerald-300 text-[10px] font-bold font-mono">+ YENİ PROJE</button>
+                    <span class="text-slate-700">|</span>
+                    <button onclick="deleteCurrentProject()" class="text-rose-400 hover:text-rose-300 text-[10px] font-bold font-mono">SİL</button>
                 </div>
             </div>
         </div>
@@ -680,6 +682,33 @@
             addDebugLog(`[PROJECT] Aktif proje değişti: ${data.project}`);
             projectSelectEl.value = data.project;
         });
+
+        function deleteCurrentProject() {
+            const currentProj = projectSelectEl.value;
+            if (currentProj === 'FireFiterDrone500') {
+                alert('Varsayılan proje silinemez!');
+                return;
+            }
+            if (!confirm(`"${currentProj}" projesini ve tüm verilerini kalıcı olarak silmek istediğinize emin misiniz?`)) {
+                return;
+            }
+            addDebugLog(`[PROJECT] Proje siliniyor: ${currentProj}...`);
+            fetch('/api/projects/delete', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: currentProj })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    addDebugLog(`[PROJECT] Proje silindi: ${data.deleted}. Aktif Proje: ${data.active}`);
+                    loadProjects();
+                } else {
+                    alert('Proje silinemedi: ' + data.error);
+                }
+            })
+            .catch(err => addDebugLog(`[ERROR] Proje silinirken hata: ${err.message}`));
+        }
 
         // Sayfa yüklendiğinde projeleri getir
         socket.on('connect', () => {

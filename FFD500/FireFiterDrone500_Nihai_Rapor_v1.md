@@ -1,11 +1,7 @@
-Harika, bu güncellemeleri entegre ederek nihai sentez raporunu hazırlayalım.
-
----
-
 # Nihai Sentez Raporu: İtfaiyeci Multikopter/Tandem Kanatlı İHA Geliştirme Projesi
 
 **Tarih:** 26 Mayıs 2024
-**Yazar:** [Adınız/Departmanınız - Teknik Sistemler Baş Yazarı]
+**Yazar:** Teknik Sistemler Departmanı
 
 ## Özet
 
@@ -60,5 +56,3 @@ Bu kapsamlı güvenlik yaklaşımı, operasyonel riskleri minimize ederek İHA'n
 Bu nihai sentez raporu, itfaiyeci multikopter/tandem kanatlı İHA projesinin aerodinamik, termal, güç sistemleri, BOM ve güvenlik alanlarındaki güncel durumunu ve elde edilen kritik verileri sunmaktadır. Düzeltilmiş aerodinamik parametreler ve termal simülasyon sonuçları, sistemin belirlenen performans hedeflerini karşıladığını ve operasyonel olarak uygun olduğunu göstermektedir. Özellikle 78°C motor sıcaklığı, %86 jeneratör verimliliği ve sıvı soğutma sistemi seçimi, İHA'nın uzun süreli ve zorlu görevlerde güvenilirliğini artırmaktadır. OEI yedekliliği gibi güvenlik önlemleri, sistemin operasyonel esnekliğini ve görev başarısını maksimize etmektedir.
 
 Proje, prototipleme ve saha testleri aşamasına geçmeye hazırdır. Bu aşamalar, simülasyon verilerinin gerçek dünya koşullarında doğrulanması için kritik öneme sahiptir.
-
----

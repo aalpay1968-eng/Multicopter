@@ -378,7 +378,7 @@
                 let color = '#10b981'; // default green
                 if (n.status === 'RUNNING') color = '#f59e0b';
                 else if (n.status === 'AUDITING') color = '#a855f7';
-                else if (n.status === 'IDLE') color = '#d97706';
+                else if (n.status === 'IDLE') color = '#eab308';
                 else if (n.status === 'DEAD') color = '#ef4444';
                 
                 const lineHtml = `
@@ -404,7 +404,7 @@
                 let color = '#10b981'; // default green
                 if (n.status === 'RUNNING') color = '#f59e0b';
                 else if (n.status === 'AUDITING') color = '#a855f7';
-                else if (n.status === 'IDLE') color = '#d97706';
+                else if (n.status === 'IDLE') color = '#eab308';
                 else if (n.status === 'DEAD') color = '#ef4444';
                 
                 svg.innerHTML += `
@@ -479,8 +479,8 @@
                     healthColor = 'text-purple-400';
                     dotColor = 'bg-purple-500 glow-auditing';
                 } else if (data.status === 'IDLE') {
-                    healthColor = 'text-yellow-600';
-                    dotColor = 'bg-yellow-600 glow-idle';
+                    healthColor = 'text-yellow-400';
+                    dotColor = 'bg-yellow-400 glow-idle';
                 } else if (data.status === 'DEAD') {
                     healthColor = 'text-rose-400';
                     dotColor = 'bg-rose-500 glow-dead';

@@ -281,7 +281,7 @@ function emitTaskToAgent(assignee, taskText, channel) {
   }
 }
 
-// Ajan pingleme ve sağlık takip döngüsü (10 saniyede bir çalışır)
+// Ajan pingleme ve sağlık takip döngüsü (3 saniyede bir çalışır)
 setInterval(() => {
   const now = Date.now();
   let changed = false;
@@ -295,14 +295,14 @@ setInterval(() => {
       console.log(`[DEAD] Ajan pingleme kesildi: ${agent.name} (ID: ${sid})`);
       delete active_agents[sid];
       changed = true;
-    } else if (diff > 12000) {
-      agent.status = 'IDLE';
-      if (oldStatus !== 'IDLE') changed = true;
     } else {
-      // Normal durumda, eğer status 'RUNNING' veya 'AUDITING' ise onu bozmayalım!
-      if (agent.status !== 'RUNNING' && agent.status !== 'AUDITING') {
-        agent.status = 'HEALTHY';
-        if (oldStatus !== 'HEALTHY') changed = true;
+      let targetStatus = 'IDLE';
+      if (agent.currentTask) {
+        targetStatus = agent.name === 'QA_AUDITOR' ? 'AUDITING' : 'RUNNING';
+      }
+      if (oldStatus !== targetStatus) {
+        agent.status = targetStatus;
+        changed = true;
       }
     }
   }
@@ -533,14 +533,17 @@ io.on('connection', (socket) => {
     const model = data.model || 'Gemini 3.1 Pro';
     console.log(`[REGISTER] Ajan Kayıt: ${name} (${role}) [Model: ${model}] - ID: ${socket.id}`);
     
+    const currentTask = active_agents[socket.id] ? active_agents[socket.id].currentTask || null : null;
+    const initialStatus = currentTask ? (name === 'QA_AUDITOR' ? 'AUDITING' : 'RUNNING') : 'IDLE';
+    
     active_agents[socket.id] = {
       name: name,
       role: role,
       model: model,
-      status: 'HEALTHY',
+      status: initialStatus,
       lastSeen: Date.now(),
       time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
-      currentTask: active_agents[socket.id] ? active_agents[socket.id].currentTask || null : null
+      currentTask: currentTask
     };
     
     io.emit('update_agents', active_agents);
@@ -551,14 +554,15 @@ io.on('connection', (socket) => {
   socket.on('ping_heartbeat', (data) => {
     const name = data.name || 'Unknown';
     const model = data.model || 'Gemini 3.1 Pro';
-    const status = data.status || 'HEALTHY';
     const currentTask = data.currentTask !== undefined ? data.currentTask : null;
+    
+    const targetStatus = currentTask ? (name === 'QA_AUDITOR' ? 'AUDITING' : 'RUNNING') : 'IDLE';
     
     let changed = false;
     if (active_agents[socket.id]) {
       active_agents[socket.id].lastSeen = Date.now();
-      if (active_agents[socket.id].status !== status) {
-        active_agents[socket.id].status = status;
+      if (active_agents[socket.id].status !== targetStatus) {
+        active_agents[socket.id].status = targetStatus;
         changed = true;
       }
       if (data.model && active_agents[socket.id].model !== data.model) {
@@ -575,7 +579,7 @@ io.on('connection', (socket) => {
         name: name,
         role: data.role || 'guest',
         model: model,
-        status: status,
+        status: targetStatus,
         lastSeen: Date.now(),
         time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
         currentTask: currentTask

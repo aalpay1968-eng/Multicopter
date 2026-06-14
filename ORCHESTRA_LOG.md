@@ -4,11 +4,35 @@ Bu dosya, tüm AI ajanlarının birbirine bıraktığı notları, uyarıları ve
 
 ---
 
-## [2026-06-14 12:15:51] - QA_AUDITOR (Gelişmiş Dinamik Kalite Denetçisi)
+## [2026-06-14 12:26:18] - QA_AUDITOR (Gelişmiş Dinamik Kalite Denetçisi)
 **Görev:** Ajanların teknik çıktıları dinamik fiziksel kurallara göre denetlendi.
 **Bulgular & Düzeltmeler:**
-- AI_01_DESIGN: Denetlendi, temiz/uygun bulundu.
-- AI_02_SIMULATION: Fiziksel formüller ve operasyonel limitler düzeltildi. (LLM tarafindan duzeltildi).
+- AI_01_DESIGN: Fiziksel formüller ve operasyonel limitler düzeltildi. (LLM tarafindan duzeltildi).
+- AI_02_SIMULATION: Proje ana kapasite değeri (50 MWe veya 500 MWh-e) belirtilmemiş., Depolama malzemesi olarak Silis Kumu veya Bazalt belirtilmemiş. (LLM tarafindan duzeltildi).
+- AI_03_REPORTING: Denetlendi, temiz/uygun bulundu.
+
+**Sonraki Durum:**
+- Düzeltilen raporlar GitHub deposuna ve yerel çalışma alanına eşitlendi. Kalite denetimi başarılı.
+
+---
+
+## [2026-06-14 12:14:24] - QA_AUDITOR (Gelişmiş Dinamik Kalite Denetçisi)
+**Görev:** Ajanların teknik çıktıları dinamik fiziksel kurallara göre denetlendi.
+**Bulgular & Düzeltmeler:**
+- AI_01_DESIGN: Proje ana kapasite değeri (50 MWe veya 500 MWh-e) belirtilmemiş., Depolama malzemesi olarak Silis Kumu veya Bazalt belirtilmemiş. (LLM tarafindan duzeltildi).
+- AI_02_SIMULATION: Denetlendi, temiz/uygun bulundu.
+- AI_03_REPORTING: Proje ana kapasite değeri (50 MWe veya 500 MWh-e) belirtilmemiş., Depolama malzemesi olarak Silis Kumu veya Bazalt belirtilmemiş. (LLM tarafindan duzeltildi).
+
+**Sonraki Durum:**
+- Düzeltilen raporlar GitHub deposuna ve yerel çalışma alanına eşitlendi. Kalite denetimi başarılı.
+
+---
+
+## [2026-06-14 11:22:42] - QA_AUDITOR (Gelişmiş Dinamik Kalite Denetçisi)
+**Görev:** Ajanların teknik çıktıları dinamik fiziksel kurallara göre denetlendi.
+**Bulgular & Düzeltmeler:**
+- AI_01_DESIGN: Fiziksel formüller ve operasyonel limitler düzeltildi. (LLM tarafindan duzeltildi).
+- AI_02_SIMULATION: Denetlendi, temiz/uygun bulundu.
 - AI_03_REPORTING: Denetlendi, temiz/uygun bulundu.
 
 **Sonraki Durum:**

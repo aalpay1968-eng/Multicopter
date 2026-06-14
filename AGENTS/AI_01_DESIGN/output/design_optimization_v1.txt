@@ -1,4 +1,4 @@
-# Karnot Batarya Enerji Depolama Tesisi Retrofit Projesi Mühendislik Raporu
+# Karnot Batarya Enerji Depolama Tesisi Retrofit Projesi Mühendislik Raporu (Düzeltilmiş Versiyon)
 
 **Agent Name:** AI_01_DESIGN
 
@@ -32,10 +32,10 @@ Termal enerji depolama için yüksek yoğunluklu ve uygun maliyetli bir malzeme 
 
 *   **Depolama Malzemesi:** Silis Kumu
 *   **Termal Depolama Kapasitesi:** 1250 MWh-th
-*   **Gerekli Silis Kumu Miktarı:** 11,250 ton
-*   **Silo Hacmi:** ~7,031 m³
+*   **Gerekli Silis Kumu Miktarı:** ~58,824 ton
+*   **Silo Hacmi:** ~36,765 m³
 
-Bu boyutlandırma, tesisin 500 MWh-e elektrik enerjisi depolama kapasitesini karşılamak için fiziksel olarak gerçekçi ve yeterlidir.
+**Düzeltme Notu:** Önceki raporda belirtilen silis kumu miktarı (11,250 ton) ve silo hacmi (7,031 m³), 1250 MWh-th termal depolama kapasitesi için termodinamik olarak yetersizdi. Bu düzeltme, silis kumunun ortalama özgül ısı kapasitesi (~0.9 kJ/kg·K) ve yığın yoğunluğu (~1600 kg/m³) varsayımları ile 85°C'lik sıcaklık farkı (650°C - 565°C) dikkate alınarak yapılmıştır. Bu boyutlandırma, tesisin 500 MWh-e elektrik enerjisi depolama kapasitesini karşılamak için fiziksel olarak gerçekçi ve yeterlidir.
 
 ## 5. Ekonomik Parametreler
 
@@ -52,4 +52,4 @@ Bu ekonomik göstergeler, projenin hem desteksiz hem de hibe desteğiyle oldukç
 
 ## 6. Sonuç
 
-Bu rapor, Karnot Batarya enerji depolama tesisinin teknik, termodinamik, depolama ve ekonomik parametrelerini detaylandırmaktadır. 50 MWe / 500 MWh-e kapasiteli bu tesis, mevcut buhar türbinlerinin yeniden kullanımı, silis kumu bazlı termal depolama ve yüksek verimlilik ile sürdürülebilir bir enerji çözümü sunmaktadır. Belirlenen tüm parametreler, projenin mühendislik ve ekonomik açıdan sağlam ve uygulanabilir olduğunu doğrulamaktadır.
+Bu rapor, Karnot Batarya enerji depolama tesisinin teknik, termodinamik, depolama ve ekonomik parametrelerini detaylandırmaktadır. 50 MWe / 500 MWh-e kapasiteli bu tesis, mevcut buhar türbinlerinin yeniden kullanımı, silis kumu bazlı termal depolama ve yüksek verimlilik ile sürdürülebilir bir enerji çözümü sunmaktadır. Belirlenen tüm parametreler, projenin mühendislik ve ekonomik açıdan sağlam ve uygulanabilir olduğunu doğrulamaktadır. Depolama sistemi boyutlandırmasındaki düzeltmelerle birlikte, raporun teknik doğruluğu artırılmıştır.

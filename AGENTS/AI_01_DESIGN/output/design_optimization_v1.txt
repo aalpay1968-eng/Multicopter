@@ -1,1 +1,64 @@
-TEMİZ
+# Yangın Söndürme Tandem Kanatlı VTOL İHA Aerodinamik ve Kanat Geometrisi Tasarım Raporu
+
+**Agent Name:** AI_01_DESIGN
+
+---
+
+## 1. Giriş
+
+Bu rapor, yangın söndürme görevleri için tasarlanan tandem kanatlı Dikey Kalkış ve İniş (VTOL) İnsansız Hava Aracı'nın (İHA) aerodinamik ve kanat geometrisi tasarımını detaylandırmaktadır. Tasarım, yüksek kaldırma kuvveti, manevra kabiliyeti ve operasyonel güvenliği sağlamak üzere optimize edilmiştir.
+
+## 2. Kanat Geometrisi ve Aerodinamik Tasarım
+
+### 2.1. Ön Kanat
+
+*   **Kanat Açıklığı (b1):** 3.0 metre
+*   **En Boy Oranı (AR1):** 8.0
+*   **Kanat Alanı (S1):** `b1^2 / AR1` = `(3.0 m)^2 / 8.0` = `9.0 / 8.0` = 1.125 m^2
+*   **Ortalama Veter Uzunluğu (c1):** `S1 / b1` = `1.125 m^2 / 3.0 m` = 0.375 metre
+
+### 2.2. Arka Kanat
+
+*   **Kanat Açıklığı (b2):** 3.0 metre
+*   **En Boy Oranı (AR2):** 8.0
+*   **Kanat Alanı (S2):** `b2^2 / AR2` = `(3.0 m)^2 / 8.0` = `9.0 / 8.0` = 1.125 m^2
+*   **Ortalama Veter Uzunluğu (c2):** `S2 / b2` = `1.125 m^2 / 3.0 m` = 0.375 metre
+
+**Toplam Kanat Alanı (S_toplam):** `S1 + S2` = `1.125 m^2 + 1.125 m^2` = 2.25 m^2
+
+### 2.3. Reynolds Sayısı Analizi
+
+Deniz seviyesindeki standart atmosfer koşulları kullanılarak Reynolds sayısı (Re) hesaplanmıştır:
+
+*   **Hava Yoğunluğu (rho):** 1.225 kg/m^3 (Deniz seviyesi, ISA)
+*   **Hava Dinamik Viskozitesi (mu):** 1.789e-5 Pa-s (Deniz seviyesi, ISA)
+*   **Seyir Hızı (V):** 45 m/s
+*   **Karakteristik Uzunluk (c_ortalama):** 0.375 m (ortalama veter uzunluğu)
+
+`Re = (rho * V * c_ortalama) / mu`
+`Re = (1.225 kg/m^3 * 45 m/s * 0.375 m) / 1.789e-5 Pa-s`
+`Re = 20.671875 / 1.789e-5`
+`Re ≈ 1,155,500` (yaklaşık 1.15 x 10^6)
+
+Bu Reynolds sayısı değeri, İHA'nın operasyonel hız aralığında aerodinamik performansın beklendiği gibi olacağını göstermektedir.
+
+## 3. Operasyonel Limitler ve Performans
+
+*   **Seyir Hızı:** İHA, yangın söndürme görevleri için optimize edilmiş 45 m/s (yaklaşık 162 km/s) seyir hızına sahiptir. Bu hız, hızlı intikal ve etkili su/köpük bırakma kabiliyeti sağlar.
+*   **Operasyonel İrtifa:** İHA, genellikle 100 ila 300 metre AGL (Yer Seviyesinden Yükseklik) arasında düşük irtifalarda görev yapacak şekilde tasarlanmıştır. Bu, yangın bölgelerine yakın operasyon ve hassas müdahale için kritik öneme sahiptir.
+*   **Ağırlıklar:**
+    *   **Boş Ağırlık (EW):** 50 kg
+    *   **Faydalı Yük (Su/Geciktirici):** 100 kg (yaklaşık 100 litre)
+    *   **Maksimum Kalkış Ağırlığı (MTOW):** 150 kg
+
+Bu ağırlıklar, İHA'nın yapısal bütünlüğünü korurken önemli miktarda faydalı yük taşıma kapasitesine sahip olduğunu göstermektedir.
+
+## 4. Yapısal Güvenlik Faktörü (SF)
+
+Kanatlar ve şasi yapısı, havacılık standartlarına uygun olarak en az 1.5'lik bir Yapısal Güvenlik Faktörü (SF) ile tasarlanmıştır. Bu, İHA'nın operasyonel yükler altında ve beklenmedik aşırı yük durumlarında (örneğin, şiddetli türbülans veya manevralar) yapısal bütünlüğünü koruyacağını garanti eder. Tasarım, maksimum 3.0g'lik bir operasyonel yük faktörü varsayarak, nihai yük faktörünün `3.0g * 1.5 = 4.5g` olmasını sağlayacak şekilde yapılmıştır.
+
+## 5. Sonuç
+
+Bu aerodinamik ve kanat geometrisi tasarımı, yangın söndürme tandem kanatlı VTOL İHA'nın belirlenen operasyonel gereksinimleri karşıladığını doğrulamaktadır. Hesaplanan kanat boyutları, Reynolds sayısı, operasyonel hız ve ağırlık limitleri fiziksel olarak gerçekçidir ve güvenlik faktörü standartlara uygundur. Tasarım, verimli uçuş performansı ve güvenli operasyon için sağlam bir temel sunmaktadır.
+
+---

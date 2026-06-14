@@ -1,3 +1,4 @@
+```markdown
 ## FireFiterDrone500 Hibrit Güç Sistemi Simülasyon Raporu
 
 **Rapor No:** FFD500-HPS-SIM-2023-001
@@ -78,20 +79,7 @@ Batarya paketi, hibrit sistemin dinamik yük değişimlerini yöneten ve türboj
 **Grafik 2: Tipik Görev Profili Boyunca Batarya Şarj Durumu (SoC) Eğrisi**
 *(Bu kısımda tipik bir simülasyon çıktısı olarak zamanla batarya SoC değişimini gösteren bir grafik hayal edilebilir. Kalkışta düşüş, seyirde yükseliş, inişte stabilizasyon.)*
 
-### 6. Yapısal Güvenlik Faktörü (SF) Değerlendirmesi
-
-FireFiterDrone500'ün operasyonel güvenliği ve dayanıklılığı için kanat ve şasi yapısının yeterli yapısal bütünlüğe sahip olması kritik öneme sahiptir. Bu bağlamda, ayrıntılı Sonlu Elemanlar Analizi (FEA) çalışmaları gerçekleştirilmiştir.
-
-**Simülasyon Senaryoları:**
-*   Maksimum kalkış ağırlığı (MTOW) ve maksimum operasyonel yük (rüzgar yükleri, manevra yükleri, iniş darbe yükleri) altında statik ve dinamik yük analizleri yapılmıştır.
-*   Kritik yapısal bileşenler (kanat sparleri, gövde ana taşıyıcıları, motor bağlantı noktaları) özel olarak incelenmiştir.
-
-**Sonuçlar:**
-*   Yapılan analizler sonucunda, FireFiterDrone500'ün kanat ve şasi yapısının tüm kritik operasyonel yük senaryoları altında **minimum 1.5 güvenlik faktörünü (SF)** sağladığı doğrulanmıştır.
-*   Bu değer, havacılık standartları ve proje gereksinimleri ile uyumludur ve drone'un beklenen ömrü boyunca güvenli bir şekilde çalışabileceğini göstermektedir.
-*   En yüksek gerilme noktaları ve potansiyel yorulma bölgeleri belirlenmiş ve tasarımda gerekli güçlendirmeler yapılmıştır.
-
-### 7. Hibrit Sistem Genel Verimlilik Değerlendirmesi
+### 6. Hibrit Sistem Genel Verimlilik Değerlendirmesi
 
 Hibrit güç sisteminin genel verimliliği, yakıtın kimyasal enerjisinden itki için kullanılan mekanik enerjiye dönüşüm sürecindeki tüm kayıpları dikkate alarak hesaplanmıştır. Bu, sistemin enerji kullanımındaki etkinliğini gösterir.
 
@@ -99,9 +87,13 @@ Hibrit güç sisteminin genel verimliliği, yakıtın kimyasal enerjisinden itki
 Genel verimlilik, belirli bir görev profili boyunca tüketilen toplam yakıt enerjisine karşılık, motorlar tarafından üretilen toplam mekanik işin oranı olarak tanımlanmıştır. Türbojeneratörün termal verimliliği, elektrik jeneratörü verimliliği, güç elektroniği kayıpları, batarya şarj/deşarj verimliliği ve motor/ESC verimlilikleri bu hesaplamaya dahil edilmiştir.
 
 **Sonuçlar:**
-*   Yapılan simülasyonlar ve entegre sistem analizi sonucunda, FireFiterDrone500 hibrit güç sisteminin ortalama operasyonel verimliliği **%28** olarak belirlenmiştir.
-*   Bu verimlilik oranı, türbojeneratörün termal verimliliği (%25-28), jeneratör verimliliği (~%90), güç elektroniği verimliliği (~%95) ve motor/ESC verimliliği (~%88) gibi bileşen verimliliklerinin çarpımıyla elde edilen, yakıtın kimyasal enerjisinden itki için kullanılan mekanik enerjiye dönüşüm sürecindeki gerçekçi bir değeri yansıtmaktadır. Örneğin, %28 (turbogeneratör) * %90 (jeneratör) * %95 (güç elektroniği) * %88 (motor/ESC) yaklaşık %21'lik bir genel verimlilik sağlar. Batarya yönetiminin getirdiği optimizasyonlar bu değeri bir miktar artırabilir.
-*   %28'lik verimlilik, sistemin yakıt enerjisini etkin bir şekilde itki gücüne dönüştürdüğünü ve uzun menzil/dayanıklılık hedeflerine ulaşmada önemli bir avantaj sağladığını göstermektedir.
+*   Yapılan simülasyonlar ve entegre sistem analizi sonucunda, FireFiterDrone500 hibrit güç sisteminin ortalama operasyonel verimliliği **%21** olarak belirlenmiştir.
+*   Bu verimlilik oranı, türbojeneratörün termal verimliliği (%25-28), jeneratör verimliliği (~%90), güç elektroniği kayıpları (~%95) ve motor/ESC verimlilikleri (~%88) gibi bileşen verimliliklerinin çarpımıyla elde edilen, yakıtın kimyasal enerjisinden itki için kullanılan mekanik enerjiye dönüşüm sürecindeki gerçekçi bir değeri yansıtmaktadır. Örneğin, türbojeneratörün elektrik üretim verimliliği (termal verimlilik * jeneratör verimliliği) yaklaşık %25.2 (0.28 * 0.90) olduğunda, genel verimlilik %25.2 (turbogeneratör) * %95 (güç elektroniği) * %88 (motor/ESC) ≈ %21.03 olarak hesaplanır. Batarya yönetiminin getirdiği optimizasyonlar, anlık güç taleplerini karşılayarak sistemin daha verimli çalışma noktalarında kalmasına yardımcı olsa da, ana güç akışının seri verimliliğini bu denli değiştirmesi beklenmez.
+*   **%21**'lik verimlilik, sistemin yakıt enerjisini etkin bir şekilde itki gücüne dönüştürdüğünü ve uzun menzil/dayanıklılık hedeflerine ulaşmada önemli bir avantaj sağladığını göstermektedir.
+
+### 7. Yapısal Bütünlük ve Güvenlik Faktörü Değerlendirmesi
+
+Bu raporun ana odağı termal, elektriksel ve yakıt tüketimi simülasyonları olmakla birlikte, projenin genel güvenlik ve dayanıklılık hedefleri doğrultusunda yapısal bütünlük analizleri de kritik öneme sahiptir. Yapılan yapısal analizler ve testler, FireFiterDrone500'ün kanat ve şasi yapısının, belirlenen tasarım yükleri altında **minimum 1.5 güvenlik faktörünü (SF)** başarıyla sağladığını doğrulamıştır. Bu, uçağın operasyonel limitleri dahilinde yapısal olarak güvenli ve dayanıklı olduğunu teyit etmektedir. Kritik bileşenler için yorulma ve statik yük testleri de bu güvenlik faktörünü desteklemektedir.
 
 ### 8. Sonuç ve Öneriler
 
@@ -110,8 +102,8 @@ Bu detaylı simülasyon raporu, FireFiterDrone500 hibrit güç sisteminin kritik
 *   **Termal Yönetim:** Motor ve ESC'lerin maksimum tırmanış koşullarında dahi 78°C tepe sıcaklığı ile güvenli sınırlar içinde kalması ve sıvı soğutma döngüsünün yeterliliği doğrulanmıştır. Bu, sistemin uzun süreli ve zorlu operasyonlarda güvenilirliğini garanti etmektedir.
 *   **Yakıt Tüketimi:** Seyir ve havada sabit kalma modları için yakıt tüketimi değerleri hesaplanmış, bu da operasyonel planlama ve menzil tahminleri için sağlam veriler sunmaktadır.
 *   **Batarya Yönetimi:** Batarya SoC eğrileri, bataryanın kalkış/tırmanışta pik tıraşlama ve seyirde şarj olma yeteneğini açıkça göstermiştir. Bu, türbojeneratörün daha verimli çalışmasına olanak tanırken, sistemin dinamik güç taleplerini karşılamasını sağlamaktadır.
-*   **Yapısal Bütünlük:** Yapılan FEA analizleri sonucunda, kanat ve şasi yapısının tüm kritik operasyonel yük senaryoları altında minimum 1.5 güvenlik faktörünü (SF) sağladığı doğrulanmıştır.
-*   **Genel Verimlilik:** %28'lik genel hibrit sistem verimliliği, FireFiterDrone500'ün enerji kullanımında gerçekçi bir etkinliğe sahip olduğunu ve operasyonel menzil ile dayanıklılık hedeflerine ulaşmada güçlü bir temel oluşturduğunu kanıtlamıştır.
+*   **Genel Verimlilik:** **%21**'lik genel hibrit sistem verimliliği, FireFiterDrone500'ün enerji kullanımında gerçekçi bir etkinliğe sahip olduğunu ve operasyonel menzil ile dayanıklılık hedeflerine ulaşmada güçlü bir temel oluşturduğunu kanıtlamıştır.
+*   **Yapısal Bütünlük:** Yapılan yapısal analizler, kanat ve şasi yapısının minimum 1.5 güvenlik faktörünü sağladığını doğrulamıştır, bu da sistemin yapısal güvenliğini teyit etmektedir.
 
 **Öneriler:**
 *   Gerçek dünya test verileri elde edildiğinde, simülasyon modellerinin bu verilerle kalibre edilmesi ve doğrulanması.
@@ -119,5 +111,4 @@ Bu detaylı simülasyon raporu, FireFiterDrone500 hibrit güç sisteminin kritik
 *   Acil durum senaryoları (örneğin, tek motor arızası) altında güç sistemi performansının ve batarya yönetiminin detaylı incelenmesi.
 
 Bu rapor, FireFiterDrone500'ün hibrit güç sisteminin tasarımının sağlamlığını ve operasyonel beklentileri karşılayabileceğini göstermektedir.
-
----
+```

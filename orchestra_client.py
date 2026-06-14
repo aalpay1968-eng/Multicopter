@@ -39,6 +39,8 @@ print(f"[INFO] Ajan Kimliği: {AGENT_NAME} (Rol: {AGENT_ROLE}, Model: {AGENT_MOD
 
 sio = socketio.Client()
 is_connected = False
+current_status = "HEALTHY"
+current_task = None
 
 @sio.event
 def connect():
@@ -54,6 +56,7 @@ def connect():
 def handle_agent_task(data):
     import re
     import requests
+    global current_status, current_task
     
     # Hub'dan gelen görevi al
     task_desc = data.get('task', '')
@@ -62,6 +65,11 @@ def handle_agent_task(data):
     
     print(f"\n[TASK] Yeni Görev Alındı (Kanal: {channel}): {task_desc}")
     print(f"[PROCESS] {AGENT_NAME} görevi işliyor...")
+    
+    # Çalışıyor durumunu bildir
+    current_status = "RUNNING"
+    current_task = task_desc
+    sio.emit('ping_heartbeat', {'name': AGENT_NAME, 'role': AGENT_ROLE, 'model': AGENT_MODEL, 'status': current_status, 'currentTask': current_task})
     
     # 1. Gemini API'yi doğrudan sorgulamayı dene
     result_text = None
@@ -135,6 +143,11 @@ def handle_agent_task(data):
         'channel': channel
     }
     sio.emit('agent_response', result_data)
+    
+    # Boş durumuna geri dön
+    current_status = "HEALTHY"
+    current_task = None
+    sio.emit('ping_heartbeat', {'name': AGENT_NAME, 'role': AGENT_ROLE, 'model': AGENT_MODEL, 'status': current_status, 'currentTask': current_task})
     print(f"[INFO] Yanıt gönderildi: {result_text}")
 
 @sio.event
@@ -148,7 +161,13 @@ def heartbeat_loop():
     while True:
         if is_connected:
             try:
-                sio.emit('ping_heartbeat', {'name': AGENT_NAME, 'role': AGENT_ROLE, 'model': AGENT_MODEL})
+                sio.emit('ping_heartbeat', {
+                    'name': AGENT_NAME, 
+                    'role': AGENT_ROLE, 
+                    'model': AGENT_MODEL,
+                    'status': current_status,
+                    'currentTask': current_task
+                })
             except Exception as e:
                 print(f"[WARN] Heartbeat hatası: {e}")
         time.sleep(5)

@@ -93,12 +93,16 @@ function loadLogHistory() {
         channel = '#simulation';
       } else if (bodyLower.includes('rapor') || bodyLower.includes('report') || bodyLower.includes('yazım')) {
         channel = '#reporting';
+      } else if (bodyLower.includes('yapısal') || bodyLower.includes('structural') || bodyLower.includes('fea')) {
+        channel = '#structural';
+      } else if (bodyLower.includes('kalite') || bodyLower.includes('denet') || bodyLower.includes('qa') || bodyLower.includes('audit')) {
+        channel = '#qa';
       }
       
       let type = 'sys';
       if (sender.toLowerCase().includes('yönetici') || sender.toLowerCase().includes('admin') || sender.toLowerCase().includes('chief')) {
         type = 'admin';
-      } else if (sender.toLowerCase().includes('antigravity') || sender.toLowerCase().includes('agent') || sender.toLowerCase().includes('bot') || sender.toLowerCase().includes('specialist') || sender.toLowerCase().startsWith('ai_')) {
+      } else if (sender.toLowerCase().includes('antigravity') || sender.toLowerCase().includes('agent') || sender.toLowerCase().includes('bot') || sender.toLowerCase().includes('specialist') || sender.toLowerCase().includes('auditor') || sender.toLowerCase().startsWith('ai_') || sender.toLowerCase().startsWith('qa_')) {
         type = 'agent';
       }
       
@@ -248,8 +252,11 @@ setInterval(() => {
       agent.status = 'IDLE';
       if (oldStatus !== 'IDLE') changed = true;
     } else {
-      agent.status = 'HEALTHY';
-      if (oldStatus !== 'HEALTHY') changed = true;
+      // Normal durumda, eğer status 'RUNNING' veya 'AUDITING' ise onu bozmayalım!
+      if (agent.status !== 'RUNNING' && agent.status !== 'AUDITING') {
+        agent.status = 'HEALTHY';
+        if (oldStatus !== 'HEALTHY') changed = true;
+      }
     }
   }
   
@@ -315,6 +322,8 @@ app.post('/api/messages', (req, res) => {
       let assignee = 'AI_01_DESIGN';
       if (ch === '#simulation') assignee = 'AI_02_SIMULATION';
       else if (ch === '#reporting') assignee = 'AI_03_REPORTING';
+      else if (ch === '#structural') assignee = 'AI_STRUCTURAL_SPECIALIST';
+      else if (ch === '#qa') assignee = 'QA_AUDITOR';
       
       updateStateFile(text, 'LOCKED', assignee);
       setAgentTask(assignee, text);
@@ -372,21 +381,39 @@ io.on('connection', (socket) => {
   socket.on('ping_heartbeat', (data) => {
     const name = data.name || 'Unknown';
     const model = data.model || 'Gemini 3.1 Pro';
+    const status = data.status || 'HEALTHY';
+    const currentTask = data.currentTask !== undefined ? data.currentTask : null;
+    
+    let changed = false;
     if (active_agents[socket.id]) {
       active_agents[socket.id].lastSeen = Date.now();
-      active_agents[socket.id].status = 'HEALTHY';
-      if (data.model) active_agents[socket.id].model = data.model;
+      if (active_agents[socket.id].status !== status) {
+        active_agents[socket.id].status = status;
+        changed = true;
+      }
+      if (data.model && active_agents[socket.id].model !== data.model) {
+        active_agents[socket.id].model = data.model;
+        changed = true;
+      }
+      if (active_agents[socket.id].currentTask !== currentTask) {
+        active_agents[socket.id].currentTask = currentTask;
+        changed = true;
+      }
     } else {
       // Yeniden tescil et
       active_agents[socket.id] = {
         name: name,
         role: data.role || 'guest',
         model: model,
-        status: 'HEALTHY',
+        status: status,
         lastSeen: Date.now(),
         time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
-        currentTask: null
+        currentTask: currentTask
       };
+      changed = true;
+    }
+    
+    if (changed) {
       io.emit('update_agents', active_agents);
     }
   });
@@ -475,6 +502,16 @@ io.on('connection', (socket) => {
     // Ajanın görevini temizle
     clearAgentTask(name);
     io.emit('update_agents', active_agents);
+
+    if (name === 'QA_AUDITOR') {
+      appendToLogFile(
+        `${name} (Kalite Denetimi)`,
+        'Kalite denetim raporu yayınlandı.',
+        `- Detaylar: ${txt}`,
+        '- Sistem durumu korunuyor.'
+      );
+      return;
+    }
 
     // State ve Log dosyalarını güncelle
     updateStateFile(txt, 'COMPLETED');

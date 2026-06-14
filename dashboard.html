@@ -22,6 +22,8 @@
         .glow-healthy { box-shadow: 0 0 15px rgba(16, 185, 129, 0.5); }
         .glow-idle { box-shadow: 0 0 15px rgba(245, 158, 11, 0.5); }
         .glow-dead { box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
+        .glow-running { box-shadow: 0 0 15px rgba(245, 158, 11, 0.8); }
+        .glow-auditing { box-shadow: 0 0 15px rgba(168, 85, 247, 0.8); }
         .font-mono { font-family: 'Roboto Mono', monospace; }
         
         /* Flowing Lines for topology visualizer */
@@ -116,6 +118,8 @@
                 <button onclick="switchChannel('#design')" id="tab-design" class="px-3 py-1.5 rounded-lg font-mono font-semibold bg-slate-900 text-slate-400 hover:text-slate-200 transition-colors">#design</button>
                 <button onclick="switchChannel('#simulation')" id="tab-simulation" class="px-3 py-1.5 rounded-lg font-mono font-semibold bg-slate-900 text-slate-400 hover:text-slate-200 transition-colors">#simulation</button>
                 <button onclick="switchChannel('#reporting')" id="tab-reporting" class="px-3 py-1.5 rounded-lg font-mono font-semibold bg-slate-900 text-slate-400 hover:text-slate-200 transition-colors">#reporting</button>
+                <button onclick="switchChannel('#structural')" id="tab-structural" class="px-3 py-1.5 rounded-lg font-mono font-semibold bg-slate-900 text-slate-400 hover:text-slate-200 transition-colors">#structural</button>
+                <button onclick="switchChannel('#qa')" id="tab-qa" class="px-3 py-1.5 rounded-lg font-mono font-semibold bg-slate-900 text-slate-400 hover:text-slate-200 transition-colors">#qa</button>
             </div>
 
             <!-- Chat Logs Container -->
@@ -148,6 +152,8 @@
                             <option value="AI_01_DESIGN">AI_01_DESIGN (Tasarım)</option>
                             <option value="AI_02_SIMULATION">AI_02_SIMULATION (Simülasyon)</option>
                             <option value="AI_03_REPORTING">AI_03_REPORTING (Raporlama)</option>
+                            <option value="AI_STRUCTURAL_SPECIALIST">AI_STRUCTURAL_SPECIALIST (Yapısal)</option>
+                            <option value="QA_AUDITOR">QA_AUDITOR (Kalite Denetçisi)</option>
                         </select>
                     </div>
                     <div>
@@ -156,6 +162,8 @@
                             <option value="#design">#design</option>
                             <option value="#simulation">#simulation</option>
                             <option value="#reporting">#reporting</option>
+                            <option value="#structural">#structural</option>
+                            <option value="#qa">#qa</option>
                         </select>
                     </div>
                 </div>
@@ -286,13 +294,15 @@
             currentActiveChannel = channelName;
             
             // Tab stillerini güncelle
-            ['#general', '#design', '#simulation', '#reporting'].forEach(ch => {
+            ['#general', '#design', '#simulation', '#reporting', '#structural', '#qa'].forEach(ch => {
                 const cleanId = ch.replace('#', '');
                 const tab = document.getElementById('tab-' + cleanId);
-                if (ch === channelName) {
-                    tab.className = "px-3 py-1.5 rounded-lg font-mono font-semibold bg-sky-600 text-slate-950 transition-colors";
-                } else {
-                    tab.className = "px-3 py-1.5 rounded-lg font-mono font-semibold bg-slate-900 text-slate-400 hover:text-slate-200 transition-colors";
+                if (tab) {
+                    if (ch === channelName) {
+                        tab.className = "px-3 py-1.5 rounded-lg font-mono font-semibold bg-sky-600 text-slate-950 transition-colors";
+                    } else {
+                        tab.className = "px-3 py-1.5 rounded-lg font-mono font-semibold bg-slate-900 text-slate-400 hover:text-slate-200 transition-colors";
+                    }
                 }
             });
             
@@ -360,7 +370,12 @@
             
             // Çizgileri çiz (Bağlantılar)
             nodes.forEach(n => {
-                const color = n.status === 'HEALTHY' ? '#10b981' : (n.status === 'IDLE' ? '#f59e0b' : '#ef4444');
+                let color = '#10b981'; // default green
+                if (n.status === 'RUNNING') color = '#f59e0b';
+                else if (n.status === 'AUDITING') color = '#a855f7';
+                else if (n.status === 'IDLE') color = '#d97706';
+                else if (n.status === 'DEAD') color = '#ef4444';
+                
                 const lineHtml = `
                     <line x1="${humanX}" y1="${humanY}" x2="${n.x}" y2="${n.y}" 
                           stroke="${color}" stroke-opacity="0.4" stroke-width="1.5" />
@@ -381,7 +396,12 @@
             
             // Ajan Düğümlerini Çiz
             nodes.forEach(n => {
-                const color = n.status === 'HEALTHY' ? '#10b981' : (n.status === 'IDLE' ? '#f59e0b' : '#ef4444');
+                let color = '#10b981'; // default green
+                if (n.status === 'RUNNING') color = '#f59e0b';
+                else if (n.status === 'AUDITING') color = '#a855f7';
+                else if (n.status === 'IDLE') color = '#d97706';
+                else if (n.status === 'DEAD') color = '#ef4444';
+                
                 svg.innerHTML += `
                     <g transform="translate(${n.x}, ${n.y})">
                         <circle r="10" fill="${color}" opacity="0.3" class="animate-pulse" />
@@ -444,8 +464,22 @@
             }
 
             for (const [sid, data] of Object.entries(agents)) {
-                const healthColor = data.status === 'HEALTHY' ? 'text-emerald-400' : (data.status === 'IDLE' ? 'text-amber-400' : 'text-rose-400');
-                const dotColor = data.status === 'HEALTHY' ? 'bg-emerald-500 glow-healthy' : (data.status === 'IDLE' ? 'bg-amber-500 glow-idle' : 'bg-rose-500 glow-dead');
+                let healthColor = 'text-emerald-400';
+                let dotColor = 'bg-emerald-500 glow-healthy';
+                
+                if (data.status === 'RUNNING') {
+                    healthColor = 'text-amber-400';
+                    dotColor = 'bg-amber-500 glow-running';
+                } else if (data.status === 'AUDITING') {
+                    healthColor = 'text-purple-400';
+                    dotColor = 'bg-purple-500 glow-auditing';
+                } else if (data.status === 'IDLE') {
+                    healthColor = 'text-yellow-600';
+                    dotColor = 'bg-yellow-600 glow-idle';
+                } else if (data.status === 'DEAD') {
+                    healthColor = 'text-rose-400';
+                    dotColor = 'bg-rose-500 glow-dead';
+                }
                 
                 const currentTaskText = data.currentTask 
                     ? `<div class="mt-2 px-2.5 py-1.5 bg-slate-950/80 rounded-lg border border-slate-800 text-[9px] text-amber-400 font-mono"><span class="text-slate-500 font-bold">GÖREV:</span> ${data.currentTask}</div>`
@@ -455,7 +489,7 @@
                     <div class="p-2.5 rounded-xl bg-slate-900/40 border border-slate-900 flex flex-col gap-2 shadow-lg">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <span class="w-2.5 h-2.5 rounded-full ${dotColor} animate-pulse"></span>
+                                <span class="w-2.5 h-2.5 rounded-full ${dotColor} ${data.status === 'RUNNING' || data.status === 'AUDITING' ? 'animate-pulse' : ''}"></span>
                                 <div class="flex flex-col">
                                     <span class="font-bold text-slate-300 text-xs">${data.name}</span>
                                     <span class="text-[10px] text-slate-500 font-mono">${data.role}</span>

@@ -44,7 +44,7 @@ Bu Reynolds sayısı değeri, İHA'nın operasyonel hız aralığında aerodinam
 
 ## 3. Operasyonel Limitler ve Performans
 
-*   **Seyir Hızı:** İHA, yangın söndürme görevleri için optimize edilmiş 45 m/s (yaklaşık 162 km/s) seyir hızına sahiptir. Bu hız, hızlı intikal ve etkili su/köpük bırakma kabiliyeti sağlar.
+*   **Seyir Hızı:** İHA, yangın söndürme görevleri için optimize edilmiş 45 m/s (yaklaşık 162 km/h) seyir hızına sahiptir. Bu hız, hızlı intikal ve etkili su/köpük bırakma kabiliyeti sağlar.
 *   **Operasyonel İrtifa:** İHA, genellikle 100 ila 300 metre AGL (Yer Seviyesinden Yükseklik) arasında düşük irtifalarda görev yapacak şekilde tasarlanmıştır. Bu, yangın bölgelerine yakın operasyon ve hassas müdahale için kritik öneme sahiptir.
 *   **Ağırlıklar:**
     *   **Boş Ağırlık (EW):** 50 kg
@@ -60,5 +60,3 @@ Kanatlar ve şasi yapısı, havacılık standartlarına uygun olarak en az 1.5'l
 ## 5. Sonuç
 
 Bu aerodinamik ve kanat geometrisi tasarımı, yangın söndürme tandem kanatlı VTOL İHA'nın belirlenen operasyonel gereksinimleri karşıladığını doğrulamaktadır. Hesaplanan kanat boyutları, Reynolds sayısı, operasyonel hız ve ağırlık limitleri fiziksel olarak gerçekçidir ve güvenlik faktörü standartlara uygundur. Tasarım, verimli uçuş performansı ve güvenli operasyon için sağlam bir temel sunmaktadır.
-
----

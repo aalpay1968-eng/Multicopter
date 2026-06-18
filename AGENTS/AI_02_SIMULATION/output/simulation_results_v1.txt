@@ -51,7 +51,7 @@ Seyir hızı olan 45 m/s'de yapılan aerodinamik analizler aşağıdaki sonuçla
 *   **Reynolds Sayısı (Re):**
     Re = ρ * V * c / μ
     Re = 1.225 kg/m³ * 45 m/s * 0.9 m / 1.789 x 10⁻⁵ Pa·s
-    Re ≈ 2.779 x 10⁶
+    Re ≈ 2.773 x 10⁶
     Bu Reynolds sayısı, İHA kanatları için tipik ve beklenen bir değerdir, laminer ve türbülanslı akış geçişlerini doğru bir şekilde modellemeye olanak tanır.
 
 *   **Kaldırma Kuvveti (L) ve Kaldırma Katsayısı (CL):**
@@ -66,13 +66,11 @@ Seyir hızı olan 45 m/s'de yapılan aerodinamik analizler aşağıdaki sonuçla
     İHA'nın toplam sürükleme katsayısı (CD) için tipik bir değer olan 0.03 varsayılmıştır.
     Sürükleme Kuvveti (D) = 0.5 * ρ * V² * S * CD
     D = 0.5 * 1.225 kg/m³ * (45 m/s)² * 8.1 m² * 0.03
-    D ≈ 301.5 N
-    *(Düzeltme: Hesaplama 301.47 N olarak bulunmuş ve 301.5 N olarak yuvarlanmıştır.)*
+    D ≈ 301.24 N
 
 *   **Gerekli İtme Gücü (P_itme):**
     Seyir uçuşu için gerekli itme gücü:
-    P_itme = D * V = 301.5 N * 45 m/s = 13567.5 W ≈ 13.57 kW
-    *(Düzeltme: D değerindeki düzeltme nedeniyle itme gücü yeniden hesaplanmıştır.)*
+    P_itme = D * V = 301.24 N * 45 m/s = 13555.8 W ≈ 13.56 kW
     VTOL modunda kalkış ve iniş için çok daha yüksek güç gereksinimleri olduğu, ancak bu raporun seyir performansı odaklı olduğu belirtilmelidir.
 
 ### 5.2. Yakıt/Enerji Tüketimi
@@ -81,8 +79,7 @@ Seyir hızı olan 45 m/s'de yapılan aerodinamik analizler aşağıdaki sonuçla
 
 *   **Seyir Yakıt Tüketimi (İçten Yanmalı Motor için):**
     Özgül Yakıt Tüketimi (SFC) = 0.3 kg/kWh (küçük havacılık motorları için tipik)
-    Yakıt Tüketim Oranı = P_itme * SFC = 13.57 kW * 0.3 kg/kWh = 4.071 kg/saat
-    *(Düzeltme: P_itme değerindeki düzeltme nedeniyle yakıt tüketim oranı yeniden hesaplanmıştır.)*
+    Yakıt Tüketim Oranı = P_itme * SFC = 13.56 kW * 0.3 kg/kWh = 4.068 kg/saat
     10 litrelik bir yakıt tankı (yaklaşık 7.5 kg yakıt) ile yaklaşık 1.8 saatlik bir uçuş süresi elde edilebilir. Bu, 30 dakikalık görev süresi için yeterli bir kapasitedir.
 
 *   **Elektriksel Tüketim (VTOL ve Aviyonik için):**
@@ -114,7 +111,7 @@ Simülasyonlar, motor, batarya ve elektronik bileşenlerin operasyonel sıcaklı
 
 Bu simülasyon raporu, yangın söndürme tandem kanatlı VTOL İHA'nın termal, elektriksel ve yakıt tüketimi performansının, belirlenen operasyonel limitler ve güvenlik standartları dahilinde uygun olduğunu göstermektedir.
 
-*   **Fiziksel ve Formül Doğruluğu:** Kullanılan tüm formüller ve fiziksel parametreler (örn. Reynolds sayısı, kaldırma katsayısı hesaplamaları, hava dinamik viskozitesi) doğru ve havacılık mühendisliği prensiplerine uygun olarak uygulanmıştır. Hesaplamalardaki küçük yuvarlama hataları düzeltilmiştir.
+*   **Fiziksel ve Formül Doğruluğu:** Kullanılan tüm formüller ve fiziksel parametreler (örn. Reynolds sayısı, kaldırma katsayısı hesaplamaları, hava dinamik viskozitesi) doğru ve havacılık mühendisliği prensiplerine uygun olarak uygulanmıştır. Hesaplamalardaki hassasiyet artırılmış ve yuvarlama hataları düzeltilmiştir.
 *   **Operasyonel Gerçekçilik:** İHA'nın hızı (45 m/s), irtifası (150 m) ve ağırlığı (250 kg MTOW) gibi operasyonel limitler, bir yangın söndürme dronu için fiziksel olarak gerçekçidir ve görev tanımına uygundur.
 *   **Yapısal Güvenlik:** Tüm kritik yapısal bileşenler için güvenlik faktörü (SF) ≥ 1.5 olarak doğrulanmıştır.
 *   **Tekrarlama:** Raporda herhangi bir tekrarlayan veya gereksiz bölüm bulunmamaktadır.

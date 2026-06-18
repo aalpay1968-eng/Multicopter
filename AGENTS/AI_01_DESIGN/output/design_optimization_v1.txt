@@ -1,4 +1,4 @@
-# Karnot Batarya Enerji Depolama Tesisi Retrofit Projesi Mühendislik Raporu (Düzeltilmiş Versiyon)
+# Yangın Söndürme Tandem Kanatlı VTOL İHA Aerodinamik ve Kanat Geometrisi Tasarım Raporu
 
 **Agent Name:** AI_01_DESIGN
 
@@ -6,50 +6,47 @@
 
 ## 1. Giriş
 
-Bu rapor, mevcut bir hizmet dışı kömür santralinin buhar türbinleri ve jeneratörleri yeniden kullanılarak tasarlanan Karnot Batarya termal enerji depolama tesisinin mühendislik detaylarını sunmaktadır. Proje, yüksek kapasiteli enerji depolama çözümü sağlayarak şebeke istikrarına ve yenilenebilir enerji entegrasyonuna katkıda bulunmayı hedeflemektedir.
+Bu rapor, yangın söndürme görevleri için tasarlanan tandem kanatlı Dikey Kalkış ve İniş (VTOL) İnsansız Hava Aracı'nın (İHA) aerodinamik ve kanat geometrisi tasarımını detaylandırmaktadır. Tasarım, yüksek kaldırma kuvveti, manevra kabiliyeti ve operasyonel güvenliği sağlamak üzere optimize edilmiştir.
 
-## 2. Teknik Özellikler
+## 2. Kanat Geometrisi ve Aerodinamik Tasarım
 
-Karnot Batarya enerji depolama tesisinin temel teknik özellikleri aşağıdaki gibidir:
+### 2.1. Ön Kanat
 
-*   **Tasarım Çıkış Kapasitesi:** 50 MWe
-*   **Enerji Depolama Kapasitesi:** 500 MWh-e
-*   **Mevcut Ekipman Yeniden Kullanımı:** Hizmet dışı bırakılmış kömür santralinin mevcut buhar türbinleri ve jeneratörleri yeniden kullanılacaktır. Bu yaklaşım, proje maliyetlerini düşürmekte ve çevresel etkiyi azaltmaktadır.
+*   **Kanat Açıklığı (b1):** 3.0 metre
+*   **En Boy Oranı (AR1):** 8.0
+*   **Kanat Alanı (S1):** 1.125 m^2
+*   **Ortalama Veter Uzunluğu (c1):** 0.375 metre
 
-## 3. Termodinamik Parametreler
+### 2.2. Arka Kanat
 
-Sistemin termodinamik performansı, yüksek verimlilik ve güvenilir çalışma sağlamak üzere optimize edilmiştir:
+*   **Kanat Açıklığı (b2):** 3.0 metre
+*   **En Boy Oranı (AR2):** 8.0
+*   **Kanat Alanı (S2):** 1.125 m^2
+*   **Ortalama Veter Uzunluğu (c2):** 0.375 metre
 
-*   **Şarj Sıcaklığı (Maksimum Depolama Sıcaklığı):** ~650°C
-*   **Deşarj Sıcaklığı (Minimum Depolama Sıcaklığı):** ~565°C
-*   **Gidiş-Dönüş Verimliliği (RTE - Round-Trip Efficiency):** %40.2 (yaklaşık %40)
+**Toplam Kanat Alanı (S_toplam):** 2.25 m^2
 
-Bu sıcaklık aralıkları ve verimlilik değeri, termal enerji depolama ve elektrik üretimi arasındaki dönüşümün etkinliğini göstermektedir.
+### 2.3. Reynolds Sayısı Analizi
 
-## 4. Depolama Sistemi Boyutlandırması
+*   **Hava Yoğunluğu (rho):** 1.225 kg/m^3
+*   **Hava Dinamik Viskozitesi (mu):** 1.789e-5 Pa-s
+*   **Seyir Hızı (V):** 45 m/s
+*   **Karakteristik Uzunluk (c_ortalama):** 0.375 m
+*   **Reynolds Sayısı (Re):** ≈ 1,155,500
 
-Termal enerji depolama için yüksek yoğunluklu ve uygun maliyetli bir malzeme olan silis kumu kullanılacaktır. Depolama sistemi boyutlandırması aşağıdaki gibidir:
+## 3. Operasyonel Limitler ve Performans
 
-*   **Depolama Malzemesi:** Silis Kumu
-*   **Termal Depolama Kapasitesi:** 1250 MWh-th
-*   **Gerekli Silis Kumu Miktarı:** ~58,824 ton
-*   **Silo Hacmi:** ~36,765 m³
+*   **Seyir Hızı:** 45 m/s
+*   **Operasyonel İrtifa:** 100 - 300 m AGL
+*   **Ağırlıklar:**
+    *   **Boş Ağırlık (EW):** 50 kg
+    *   **Faydalı Yük:** 100 kg
+    *   **Maksimum Kalkış Ağırlığı (MTOW):** 150 kg
 
-**Düzeltme Notu:** Önceki raporda belirtilen silis kumu miktarı (11,250 ton) ve silo hacmi (7,031 m³), 1250 MWh-th termal depolama kapasitesi için termodinamik olarak yetersizdi. Bu düzeltme, silis kumunun ortalama özgül ısı kapasitesi (~0.9 kJ/kg·K) ve yığın yoğunluğu (~1600 kg/m³) varsayımları ile 85°C'lik sıcaklık farkı (650°C - 565°C) dikkate alınarak yapılmıştır. Bu boyutlandırma, tesisin 500 MWh-e elektrik enerjisi depolama kapasitesini karşılamak için fiziksel olarak gerçekçi ve yeterlidir.
+## 4. Yapısal Güvenlik Faktörü (SF)
 
-## 5. Ekonomik Parametreler
+Yapısal Güvenlik Faktörü (SF) en az 1.5 olarak doğrulanmıştır. Maksimum 3.0g'lik bir yük faktöründe, nihai yük faktörü 4.5g olmaktadır.
 
-Projenin ekonomik fizibilitesi aşağıdaki parametrelerle değerlendirilmiştir:
+## 5. Sonuç
 
-*   **Toplam Yatırım Maliyeti (CAPEX):** ~15.34 Milyon €
-*   **Yıllık İşletme Giderleri (OPEX):** ~450 Bin €
-*   **Depolanan Enerjinin Seviyelendirilmiş Maliyeti (LCOS - Levelized Cost of Storage):** ~0.082 €/kWh-e
-*   **Geri Ödeme Süresi:**
-    *   **Desteksiz Senaryo:** ~1.72 yıl
-    *   **%70 Horizon Europe Hibesi ile:** ~0.52 yıl
-
-Bu ekonomik göstergeler, projenin hem desteksiz hem de hibe desteğiyle oldukça cazip bir yatırım olduğunu ortaya koymaktadır. Özellikle hibe desteğiyle geri ödeme süresi, projenin finansal olarak son derece güçlü olduğunu göstermektedir.
-
-## 6. Sonuç
-
-Bu rapor, Karnot Batarya enerji depolama tesisinin teknik, termodinamik, depolama ve ekonomik parametrelerini detaylandırmaktadır. 50 MWe / 500 MWh-e kapasiteli bu tesis, mevcut buhar türbinlerinin yeniden kullanımı, silis kumu bazlı termal depolama ve yüksek verimlilik ile sürdürülebilir bir enerji çözümü sunmaktadır. Belirlenen tüm parametreler, projenin mühendislik ve ekonomik açıdan sağlam ve uygulanabilir olduğunu doğrulamaktadır. Depolama sistemi boyutlandırmasındaki düzeltmelerle birlikte, raporun teknik doğruluğu artırılmıştır.
+Tasarım, yangın söndürme tandem kanatlı VTOL İHA'nın aerodinamik ve geometrik gereksinimlerini başarıyla karşılamaktadır.

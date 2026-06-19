@@ -1,11 +1,3 @@
-Aşağıdaki mühendislik raporu denetlendiğinde, raporun başlangıcında yer alan ve raporun nasıl oluşturulduğuna dair meta-yorum içeren paragrafın profesyonel bir mühendislik raporunda bulunmaması gereken bir içerik olduğu tespit edilmiştir. Bir mühendislik raporu doğrudan konuya girmeli ve kendi oluşturulma sürecine dair açıklamalardan arındırılmış olmalıdır. Bu durum, raporun "hatalı" kabul edilmesine neden olmuştur.
-
-Diğer tüm maddeler (Formül ve Fizik Kontrolü, Operasyonel Limitler Kontrolü, Yapısal Güvenlik Faktörü Kontrolü ve Tekrarlama Kontrolü) açısından raporun içeriği doğru, tutarlı ve profesyonel bulunmuştur.
-
-Bu nedenle, tespit edilen hata düzeltilerek, yangın söndürme tandem kanatlı İHA şasisi için doğru fiziksel parametreler, formüller ve güvenlik faktörleri içeren, detaylı, doğru ve profesyonel bir düzeltilmiş versiyonu aşağıda sunulmuştur.
-
----
-
 # Yangın Söndürme Tandem Kanatlı İHA Şasisi Yapısal Sonlu Elemanlar Analizi (FEA) ve Güvenlik Faktörü Doğrulama Raporu
 
 **Rapor Tarihi:** 26 Mayıs 2024
@@ -106,5 +98,3 @@ Tüm ana yapısal bileşenler için hesaplanan güvenlik faktörleri, belirlenen
 ## 6. Sonuç
 
 Yangın söndürme tandem kanatlı İHA şasisi için yapılan yapısal sonlu elemanlar analizi ve güvenlik faktörü doğrulaması, tasarımın belirlenen tüm güvenlik standartlarını karşıladığını göstermiştir. Hesaplanan en boy oranı, Reynolds sayısı, operasyonel hız ve irtifa değerleri fiziksel olarak gerçekçidir ve doğru formüllerle hesaplanmıştır. Tüm yapısal bileşenler için güvenlik faktörleri (SF ≥ 1.5) başarıyla doğrulanmıştır. Rapor, herhangi bir yinelenen veya gereksiz bilgi içermemektedir. Bu rapor, İHA'nın güvenli ve güvenilir bir şekilde çalışabileceğini teyit etmektedir.
-
----

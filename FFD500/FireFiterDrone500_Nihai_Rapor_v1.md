@@ -15,9 +15,9 @@ FireFiterDrone500'ün aerodinamik tasarımı, yüksek kaldırma kuvveti ve verim
 *   **Faydalı Yük Kapasitesi:** 500 kg (su veya yangın söndürücü madde)
 *   **Kanat Açıklığı (b):** 9.2 metre
 *   **Kanat Alanı (S):** 8.464 m² (Hesaplama: Kanat Açıklığı b=9.2m ve En Boy Oranı AR=10 kabul edilmiştir. S = b²/AR = 9.2²/10 = 84.64/10 = 8.464 m²)
-*   **Ortalama Aerodinamik Veter (c):** 0.92 metre (Hesaplama: c = S/b = 8.464 m²/9.2 m = 0.92 m)
+*   **Ortalama Aerodinamik Veter (c)::** 0.92 metre (Hesaplama: c = S/b = 8.464 m²/9.2 m = 0.92 m)
 *   **En Boy Oranı (AR):** 10
-*   **Seyir Hızı (V):** Yaklaşık 45 m/s (162 km/s)
+*   **Seyir Hızı (V):** Yaklaşık 45 m/s (162 km/h)
 *   **Operasyonel İrtifa:** Düşük irtifa operasyonları (genellikle 100-500 metre AGL)
 *   **Uçuş Süresi:** 120 dakika (2 saat)
 *   **Reynolds Sayısı (Re):** Seyir hızında ve ortalama veter uzunluğunda yaklaşık 2.84 x 10^6. (Hesaplama: Re = (ρ * V * c) / μ. Deniz seviyesinde hava yoğunluğu ρ ≈ 1.225 kg/m³, hava dinamik viskozitesi μ ≈ 1.789e-5 Pa-s kullanılmıştır. Re = (1.225 * 45 * 0.92) / 1.789e-5 ≈ 2,836,081)

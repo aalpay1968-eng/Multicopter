@@ -15,8 +15,8 @@ Bu rapor, yangın söndürme tandem kanatlı VTOL İHA'nın hibrit tahrik ve ter
     *   **Turbojeneratör:** Uçuş menzilini uzatmak ve elektrik motorlarına ek güç sağlamak için kullanılır.
 *   **Maksimum Kalkış Ağırlığı (MTOW):** 1300 kg için simüle edilmiştir. Bu ağırlık, İHA'nın tam yük (yakıt, su/köpük yükü dahil) ile kalkış yapabileceği maksimum ağırlığı temsil eder.
 *   **Motor Sargı Sıcaklığı:** Simülasyonlarda gözlemlenen maksimum sargı sıcaklığı 76°C olarak kaydedilmiştir. Bu değer, motorun yalıtım sınıfı limitleri (genellikle 155°C veya daha yüksek) dahilinde olup, güvenli çalışma aralığındadır.
-*   **Turbojeneratör Verimliliği:** %86.4. Bu verimlilik değeri, turbojeneratörün nominal güç çıkışında elde edilen maksimum verimliliği temsil eder.
-*   **Yakıt Tüketim Hızı:** Turbojeneratörün nominal güç çıkışında (örneğin, 50 kW) sürekli çalışması durumunda 4.2 kg/saat olarak belirlenmiştir. Bu tüketim, İHA'nın menzilini uzatma görevleri için optimize edilmiştir.
+*   **Turbojeneratör Yakıt-Elektrik Dönüşüm Verimliliği:** %32. Bu değer, turbojeneratörün yakıt enerjisini elektrik enerjisine dönüştürme verimliliğini temsil eder ve küçük ölçekli havacılık turbojeneratör sistemleri için gerçekçi bir aralıktadır.
+*   **Yakıt Tüketim Hızı:** Turbojeneratörün nominal 50 kW elektrik güç çıkışında sürekli çalışması durumunda yaklaşık 13.05 kg/saat olarak belirlenmiştir. Bu tüketim değeri, belirtilen verimlilik ve güç çıkışı ile tutarlıdır ve İHA'nın menzilini uzatma görevleri için optimize edilmiştir.
 
 ## 3. Operasyonel Parametreler ve Uçuş Zarfı
 
@@ -43,4 +43,4 @@ Simülasyonlar, tahrik sisteminin tüm bileşenlerinin (elektrik motorları, gü
 
 ## 6. Sonuç ve Değerlendirme
 
-Yapılan hibrit tahrik ve termal simülasyon analizleri sonucunda, yangın söndürme tandem kanatlı VTOL İHA'nın tahrik sisteminin belirlenen operasyonel koşullar (1300 kg MTOW, 45 m/s seyir hızı, düşük irtifa operasyonları) altında kararlı rejimde termal ve elektriksel limitleri aşmadan güvenli bir şekilde çalışabildiği doğrulanmıştır. Ayrıca, yapısal analizler kanat ve gövde için minimum 1.5 güvenlik faktörünün sağlandığını göstermektedir. Turbojeneratörün 4.2 kg/saat yakıt tüketimi ile menzil uzatma kapasitesi, sistemin operasyonel esnekliğini artırmaktadır. Bu sonuçlar, İHA'nın tasarım hedeflerine ulaştığını ve operasyonel kullanıma uygun olduğunu göstermektedir.
+Yapılan hibrit tahrik ve termal simülasyon analizleri sonucunda, yangın söndürme tandem kanatlı VTOL İHA'nın tahrik sisteminin belirlenen operasyonel koşullar (1300 kg MTOW, 45 m/s seyir hızı, düşük irtifa operasyonları) altında kararlı rejimde termal ve elektriksel limitleri aşmadan güvenli bir şekilde çalışabildiği doğrulanmıştır. Ayrıca, yapısal analizler kanat ve gövde için minimum 1.5 güvenlik faktörünün sağlandığını göstermektedir. Turbojeneratörün 13.05 kg/saat yakıt tüketimi ile menzil uzatma kapasitesi, sistemin operasyonel esnekliğini artırmaktadır. Bu sonuçlar, İHA'nın tasarım hedeflerine ulaştığını ve operasyonel kullanıma uygun olduğunu göstermektedir.

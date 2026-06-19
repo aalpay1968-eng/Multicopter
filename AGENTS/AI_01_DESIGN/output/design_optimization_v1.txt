@@ -32,7 +32,7 @@ Bu rapor, yangın söndürme görevleri için tasarlanan tandem kanatlı Dikey K
 *   **Hava Dinamik Viskozitesi (mu):** 1.789e-5 Pa-s (Deniz seviyesi standart atmosfer)
 *   **Seyir Hızı (V):** 45 m/s
 *   **Karakteristik Uzunluk (c_ortalama):** 0.375 m (Ortalama veter uzunluğu)
-*   **Reynolds Sayısı (Re):** ≈ 1,289,000 (Hesaplama: Re = rho * V * c_ortalama / mu = 1.225 * 45 * 0.375 / 1.789e-5 ≈ 1,289,128)
+*   **Reynolds Sayısı (Re):** ≈ 1,155,500 (Hesaplama: Re = rho * V * c_ortalama / mu = 1.225 * 45 * 0.375 / 1.789e-5 ≈ 1,155,504)
 
 ## 3. Operasyonel Limitler ve Performans
 
@@ -49,4 +49,4 @@ Yapısal Güvenlik Faktörü (SF) en az 1.5 olarak doğrulanmıştır. Maksimum 
 
 ## 5. Sonuç
 
-Tasarım, yangın söndürme tandem kanatlı VTOL İHA'nın aerodinamik ve geometrik gereksinimlerini başarıyla karşılamaktadır. Yapılan düzeltmelerle birlikte, Reynolds sayısı analizi de doğru bir şekilde sunulmuştur.
+Tasarım, yangın söndürme tandem kanatlı VTOL İHA'nın aerodinamik ve geometrik gereksinimlerini başarıyla karşılamaktadır. Reynolds sayısı analizi de doğru bir şekilde sunulmuştur.

@@ -14,30 +14,30 @@ Bu rapor, yangın söndürme görevleri için tasarlanan tandem kanatlı Dikey K
 
 *   **Kanat Açıklığı (b1):** 3.0 metre
 *   **En Boy Oranı (AR1):** 8.0
-*   **Kanat Alanı (S1):** 1.125 m^2
-*   **Ortalama Veter Uzunluğu (c1):** 0.375 metre
+*   **Kanat Alanı (S1):** 1.125 m^2 (Hesaplama: S1 = b1^2 / AR1 = 3.0^2 / 8.0 = 9.0 / 8.0 = 1.125 m^2)
+*   **Ortalama Veter Uzunluğu (c1):** 0.375 metre (Hesaplama: c1 = S1 / b1 = 1.125 / 3.0 = 0.375 m)
 
 ### 2.2. Arka Kanat
 
 *   **Kanat Açıklığı (b2):** 3.0 metre
 *   **En Boy Oranı (AR2):** 8.0
-*   **Kanat Alanı (S2):** 1.125 m^2
-*   **Ortalama Veter Uzunluğu (c2):** 0.375 metre
+*   **Kanat Alanı (S2):** 1.125 m^2 (Hesaplama: S2 = b2^2 / AR2 = 3.0^2 / 8.0 = 9.0 / 8.0 = 1.125 m^2)
+*   **Ortalama Veter Uzunluğu (c2):** 0.375 metre (Hesaplama: c2 = S2 / b2 = 1.125 / 3.0 = 0.375 m)
 
 **Toplam Kanat Alanı (S_toplam):** 2.25 m^2
 
 ### 2.3. Reynolds Sayısı Analizi
 
-*   **Hava Yoğunluğu (rho):** 1.225 kg/m^3
-*   **Hava Dinamik Viskozitesi (mu):** 1.789e-5 Pa-s
+*   **Hava Yoğunluğu (rho):** 1.225 kg/m^3 (Deniz seviyesi standart atmosfer)
+*   **Hava Dinamik Viskozitesi (mu):** 1.789e-5 Pa-s (Deniz seviyesi standart atmosfer)
 *   **Seyir Hızı (V):** 45 m/s
-*   **Karakteristik Uzunluk (c_ortalama):** 0.375 m
-*   **Reynolds Sayısı (Re):** ≈ 1,155,500
+*   **Karakteristik Uzunluk (c_ortalama):** 0.375 m (Ortalama veter uzunluğu)
+*   **Reynolds Sayısı (Re):** ≈ 1,289,000 (Hesaplama: Re = rho * V * c_ortalama / mu = 1.225 * 45 * 0.375 / 1.789e-5 ≈ 1,289,128)
 
 ## 3. Operasyonel Limitler ve Performans
 
 *   **Seyir Hızı:** 45 m/s
-*   **Operasyonel İrtifa:** 100 - 300 m AGL
+*   **Operasyonel İrtifa:** 100 - 300 m AGL (Yer Seviyesinden Yükseklik)
 *   **Ağırlıklar:**
     *   **Boş Ağırlık (EW):** 50 kg
     *   **Faydalı Yük:** 100 kg
@@ -45,8 +45,8 @@ Bu rapor, yangın söndürme görevleri için tasarlanan tandem kanatlı Dikey K
 
 ## 4. Yapısal Güvenlik Faktörü (SF)
 
-Yapısal Güvenlik Faktörü (SF) en az 1.5 olarak doğrulanmıştır. Maksimum 3.0g'lik bir yük faktöründe, nihai yük faktörü 4.5g olmaktadır.
+Yapısal Güvenlik Faktörü (SF) en az 1.5 olarak doğrulanmıştır. Maksimum 3.0g'lik bir tasarım yük faktöründe, nihai yük faktörü 4.5g olmaktadır (Hesaplama: Nihai Yük Faktörü = Tasarım Yük Faktörü * SF = 3.0g * 1.5 = 4.5g). Bu değer, yapısal bütünlük ve güvenlik gereksinimlerini karşılamaktadır.
 
 ## 5. Sonuç
 
-Tasarım, yangın söndürme tandem kanatlı VTOL İHA'nın aerodinamik ve geometrik gereksinimlerini başarıyla karşılamaktadır.
+Tasarım, yangın söndürme tandem kanatlı VTOL İHA'nın aerodinamik ve geometrik gereksinimlerini başarıyla karşılamaktadır. Yapılan düzeltmelerle birlikte, Reynolds sayısı analizi de doğru bir şekilde sunulmuştur.

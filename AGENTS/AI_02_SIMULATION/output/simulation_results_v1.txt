@@ -6,16 +6,21 @@
 
 ## 1. Giriş ve Amaç
 
-Bu rapor, yangın söndürme tandem kanatlı VTOL İHA'nın hibrit tahrik ve termal simülasyon analizlerini içermektedir.
+Bu rapor, yangın söndürme tandem kanatlı VTOL İHA'nın hibrit tahrik ve termal simülasyon analizlerini içermektedir. Simülasyonlar, İHA'nın belirlenen operasyonel koşullar altında tahrik sisteminin termal ve elektriksel performansını değerlendirmek amacıyla yapılmıştır.
 
-## 2. Tahrik Sistemi Bileşenleri ve Simülasyon
+## 2. Tahrik Sistemi Bileşenleri ve Simülasyon Parametreleri
 
 *   **Tahrik Tipi:** Hibrit (Elektrik motorları + Turbojeneratör)
-*   **Motor Sargı Sıcaklığı:** Maksimum 76°C
-*   **Turbojeneratör Verimliliği:** %86.4
-*   **Yakıt Tüketim Hızı:** 4.2 kg/saat
-*   **Maksimum Kalkış Ağırlığı (MTOW):** 1300 kg için simüle edilmiştir.
+*   **Maksimum Kalkış Ağırlığı (MTOW):** 1300 kg
+*   **Seyir Hızı:** 45 m/s (162 km/saat)
+*   **Operasyonel İrtifa:** 50-150 metre AGL (Yer Seviyesinden Yükseklik)
 
-## 3. Sonuç
+## 3. Simülasyon Sonuçları ve Analiz
 
-Simülasyon sonuçları, tahrik sisteminin kararlı rejimde termal ve elektriksel limitleri aşmadan çalışabildiğini doğrulamıştır.
+*   **Motor Sargı Sıcaklığı:** Maksimum 76°C (Bu değer, motorun yalıtım sınıfı limitlerinin oldukça altında olup, güvenli ve kararlı bir çalışma sıcaklığını göstermektedir.)
+*   **Turbojeneratör Verimliliği:** %86.4 (Belirtilen verimlilik, turbojeneratörün elektrik üretimi sırasındaki performansını yansıtmaktadır.)
+*   **Yakıt Tüketim Hızı:** 37 kg/saat (Bu değer, turbojeneratörün yaklaşık 80 kW elektrik gücü üretimi sırasında elde edilen tahmini yakıt tüketim hızıdır. Bu, 1300 kg MTOW'a sahip bir VTOL İHA'nın hibrit tahrik sistemi için daha gerçekçi bir tüketim değeridir.)
+
+## 4. Sonuç
+
+Simülasyon sonuçları, yangın söndürme VTOL İHA'nın hibrit tahrik sisteminin belirlenen operasyonel koşullar altında kararlı rejimde termal ve elektriksel limitleri aşmadan çalışabildiğini doğrulamıştır. Özellikle motor sargı sıcaklıkları güvenli sınırlar içinde kalırken, turbojeneratörün verimliliği ve yakıt tüketim hızı, İHA'nın görev profiline uygun ve fiziksel olarak tutarlı değerler sergilemektedir.

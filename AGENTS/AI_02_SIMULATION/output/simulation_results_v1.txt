@@ -18,15 +18,14 @@ Simülasyonlar, entegre bir termal-elektriksel-tahrik modeli kullanılarak gerç
 *   **Operasyonel Uçuş Parametreleri:**
     *   Seyir Hızı: Ortalama 45 m/s (162 km/saat)
     *   Operasyonel İrtifa: 50 - 300 metre AGL (Deniz seviyesinden yüksekliği)
+    *   Maksimum Kalkış Ağırlığı (MTOW): 1300 kg
 *   **Elektriksel Yük Profili:** Görev profili boyunca ortalama ve pik elektrik güç talepleri dikkate alınmıştır.
-*   **Maksimum Kalkış Ağırlığı (MTOW):** 1300 kg için simüle edilmiştir.
 
 ## 3. Tahrik Sistemi Bileşenleri ve Simülasyon Sonuçları
 
 ### 3.1. Tahrik Sistemi Genel Bilgileri
 
 *   **Tahrik Tipi:** Hibrit (Elektrik motorları + Turbojeneratör)
-*   **Maksimum Kalkış Ağırlığı (MTOW):** 1300 kg
 
 ### 3.2. Termal Simülasyon Sonuçları
 

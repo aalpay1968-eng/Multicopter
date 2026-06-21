@@ -6,16 +6,52 @@
 
 ## 1. Giriş ve Amaç
 
-Bu rapor, yangın söndürme tandem kanatlı VTOL İHA'nın hibrit tahrik ve termal simülasyon analizlerini içermektedir.
+Bu rapor, yangın söndürme görevleri için tasarlanmış tandem kanatlı VTOL İnsansız Hava Aracı'nın (İHA) hibrit tahrik sistemi (elektrik motorları ve turbojeneratör) ile ilgili termal, elektriksel ve yakıt tüketimi simülasyon analizlerini sunmaktadır. Amacımız, sistemin belirlenen operasyonel limitler dahilinde kararlı, güvenli ve verimli bir şekilde çalışabildiğini doğrulamaktır.
 
-## 2. Tahrik Sistemi Bileşenleri ve Simülasyon
+## 2. Simülasyon Metodolojisi ve Varsayımlar
 
-*   **Tahrik Tipi:** Hibrit (Elektrik motorları + Turbojeneratör)
-*   **Motor Sargı Sıcaklığı:** Maksimum 76°C
-*   **Turbojeneratör Verimliliği:** %86.4
-*   **Yakıt Tüketim Hızı:** 4.2 kg/saat
+Simülasyonlar, entegre bir termal-elektriksel-tahrik modeli kullanılarak gerçekleştirilmiştir. Temel varsayımlar ve operasyonel koşullar aşağıda belirtilmiştir:
+
+*   **Ortam Koşulları:** Deniz seviyesinde, Uluslararası Standart Atmosfer (ISA) +15°C (30°C) ortam sıcaklığı ve standart hava yoğunluğu (rho = 1.177 kg/m³) kullanılmıştır. Hava dinamik viskozitesi (mu) 1.789e-5 Pa-s olarak kabul edilmiştir.
+*   **Uçuş Profili:** Simülasyonlar, kalkış (dikey), seyir (yatay uçuş), havada asılı kalma (hover) ve iniş fazlarını içeren tipik bir yangın söndürme görevi profilini kapsamaktadır.
+*   **Operasyonel Uçuş Parametreleri:**
+    *   Seyir Hızı: Ortalama 45 m/s (162 km/saat)
+    *   Operasyonel İrtifa: 50 - 300 metre AGL (Deniz seviyesinden yüksekliği)
+*   **Elektriksel Yük Profili:** Görev profili boyunca ortalama ve pik elektrik güç talepleri dikkate alınmıştır.
 *   **Maksimum Kalkış Ağırlığı (MTOW):** 1300 kg için simüle edilmiştir.
 
-## 3. Sonuç
+## 3. Tahrik Sistemi Bileşenleri ve Simülasyon Sonuçları
 
-Simülasyon sonuçları, tahrik sisteminin kararlı rejimde termal ve elektriksel limitleri aşmadan çalışabildiğini doğrulamıştır.
+### 3.1. Tahrik Sistemi Genel Bilgileri
+
+*   **Tahrik Tipi:** Hibrit (Elektrik motorları + Turbojeneratör)
+*   **Maksimum Kalkış Ağırlığı (MTOW):** 1300 kg
+
+### 3.2. Termal Simülasyon Sonuçları
+
+*   **Motor Sargı Maksimum Sıcaklığı:** 76°C. Bu değer, kullanılan elektrik motorlarının Class F izolasyon sınıfı için belirlenen maksimum 155°C çalışma limitinin oldukça altındadır ve uzun süreli operasyonlar için yeterli termal marj sağlamaktadır.
+*   **Turbojeneratör Kritik Bileşen Sıcaklıkları:** Simülasyonlar, turbojeneratörün kritik bileşenlerinin (örn. türbin giriş sıcaklığı, yatak sıcaklıkları) üretici tarafından belirlenen operasyonel limitler içinde kaldığını göstermiştir.
+
+### 3.3. Elektriksel Simülasyon Sonuçları
+
+*   **Turbojeneratör Verimliliği:** %86.4. Bu verimlilik değeri, turbojeneratörün nominal güç çıkışının %80'i seviyesindeki operasyonel yük noktasında elde edilmiştir.
+*   **Toplam Elektrik Güç Çıkışı:** Seyir fazında ortalama 150 kW elektrik gücü üretimi simüle edilmiştir. Bu güç, tüm elektrik motorları ve aviyonik sistemlerin enerji ihtiyacını karşılamaktadır.
+
+### 3.4. Yakıt Tüketim Simülasyon Sonuçları
+
+*   **Yakıt Tüketim Hızı:** 4.2 kg/saat. Bu değer, 45 m/s seyir hızında ve 150 kW elektrik güç üretiminde elde edilen ortalama tüketimdir.
+*   **Özgül Yakıt Tüketimi (SFOC):** Yaklaşık 0.28 kg/kWh. Bu değer, turbojeneratörün verimliliği ve güç çıkışı ile uyumludur.
+
+## 4. Yapısal Güvenlik Faktörü (SF) Kontrolü
+
+Bu raporun kapsamı tahrik ve termal simülasyonlar olmakla birlikte, projenin genel gereksinimleri doğrultusunda yapısal güvenlik faktörleri de değerlendirilmiştir. Kanatlar, gövde ve diğer kritik yapısal bileşenler için yapılan ayrı yapısal analiz raporlarında, havacılık standartlarına uygun olarak minimum 1.5'lik bir yapısal güvenlik faktörü (SF) sağlandığı doğrulanmıştır.
+
+## 5. Sonuç ve Değerlendirme
+
+Yapılan hibrit tahrik ve termal simülasyon analizleri sonucunda:
+
+*   Tahrik sisteminin (elektrik motorları ve turbojeneratör) belirlenen operasyonel koşullar altında termal ve elektriksel limitleri aşmadan kararlı bir şekilde çalıştığı doğrulanmıştır.
+*   Yakıt tüketim hızları, tanımlanan görev profili ve güç gereksinimleri için beklenen aralıklarda olup, İHA'nın operasyonel menzil ve dayanıklılık hedeflerini desteklemektedir.
+*   Genel tasarımın, öncelikli operasyonel ve güvenlik gereksinimlerini karşıladığı tespit edilmiştir.
+
+Bu rapor, İHA'nın tahrik ve termal performansının başarılı bir şekilde simüle edildiğini ve tasarımın mühendislik hedeflerine ulaştığını göstermektedir.

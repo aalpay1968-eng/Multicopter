@@ -18,7 +18,7 @@ Bu rapor, yangın söndürme operasyonlarında kullanılmak üzere tasarlanan Fi
 *   **Uçuş Süresi:** 120 dakika
 *   **Operasyonel Hız (V):** Yaklaşık 45 m/s (162 km/saat)
 *   **Operasyonel İrtifa:** Yerden 100-300 metre (AGL)
-*   **Reynolds Sayısı (Re):** Yaklaşık 2.83 x 10^6 (Hesaplama: Re = ρ * V * c / μ formülü kullanılmıştır. Deniz seviyesinde hava yoğunluğu ρ = 1.225 kg/m³ ve dinamik viskozite μ = 1.789e-5 Pa-s kabul edilmiştir. Re = 1.225 * 45 * 0.92 / 1.789e-5 ≈ 2,829,849)
+*   **Reynolds Sayısı (Re):** Yaklaşık 2.84 x 10^6 (Hesaplama: Re = ρ * V * c / μ formülü kullanılmıştır. Deniz seviyesinde hava yoğunluğu ρ = 1.225 kg/m³ ve dinamik viskozite μ = 1.789e-5 Pa-s kabul edilmiştir. Re = 1.225 * 45 * 0.92 / 1.789e-5 ≈ 2,836,082)
 *   **Yapısal Güvenlik Faktörü (SF):** >= 1.5 (Tüm ana yapısal bileşenler için doğrulanmıştır.)
 
 ## 3. Tahrik ve Termal Bulgular

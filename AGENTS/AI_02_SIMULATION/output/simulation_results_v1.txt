@@ -13,7 +13,7 @@ Bu rapor, yangın söndürme görevleri için tasarlanmış tandem kanatlı VTOL
 
 Simülasyonlar, entegre bir termal-elektriksel-tahrik modeli kullanılarak gerçekleştirilmiştir. Temel varsayımlar ve operasyonel koşullar aşağıda belirtilmiştir:
 
-*   **Ortam Koşulları:** Deniz seviyesinde, Uluslararası Standart Atmosfer (ISA) +15°C (30°C) ortam sıcaklığı ve standart hava yoğunluğu (rho = 1.164 kg/m³) kullanılmıştır. Hava dinamik viskozitesi (mu) 1.789e-5 Pa-s olarak kabul edilmiştir.
+*   **Ortam Koşulları:** Deniz seviyesinde, Uluslararası Standart Atmosfer (ISA) +15°C (30°C) ortam sıcaklığı ve standart hava yoğunluğu (rho = 1.164 kg/m³) kullanılmıştır. Hava dinamik viskozitesi (mu) **1.887e-5 Pa-s** olarak kabul edilmiştir.
 *   **Uçuş Profili:** Simülasyonlar, kalkış (dikey), seyir (yatay uçuş), havada asılı kalma (hover) ve iniş fazlarını içeren tipik bir yangın söndürme görevi profilini kapsamaktadır.
 *   **Operasyonel Uçuş Parametreleri:**
     *   Seyir Hızı: Ortalama 45 m/s (162 km/saat)
@@ -34,13 +34,13 @@ Simülasyonlar, entegre bir termal-elektriksel-tahrik modeli kullanılarak gerç
 
 ### 3.3. Elektriksel Simülasyon Sonuçları
 
-*   **Turbojeneratör Verimliliği:** %86.4. Bu verimlilik değeri, turbojeneratörün nominal güç çıkışının %80'i seviyesindeki operasyonel yük noktasında elde edilmiştir.
+*   **Turbojeneratörün Yakıt-Elektrik Dönüşüm Verimliliği:** Yaklaşık **%29.8**. Bu değer, turbojeneratörün nominal güç çıkışının %80'i seviyesindeki operasyonel yük noktasında elde edilen özgül yakıt tüketimi (SFOC) ile tutarlıdır ve modern küçük gaz türbinleri için gerçekçi bir termal verimlilik seviyesini temsil etmektedir. (Not: Elektrik jeneratörünün mekanik enerjiyi elektriğe dönüştürme verimliliği daha yüksek olabilir, ancak burada yakıttan elektriğe genel verimlilik belirtilmiştir.)
 *   **Toplam Elektrik Güç Çıkışı:** Seyir fazında ortalama 150 kW elektrik gücü üretimi simüle edilmiştir. Bu güç, tüm elektrik motorları ve aviyonik sistemlerin enerji ihtiyacını karşılamaktadır.
 
 ### 3.4. Yakıt Tüketim Simülasyon Sonuçları
 
 *   **Yakıt Tüketim Hızı:** 42 kg/saat. Bu değer, 45 m/s seyir hızında ve 150 kW elektrik güç üretiminde elde edilen ortalama tüketimdir.
-*   **Özgül Yakıt Tüketimi (SFOC):** Yaklaşık 0.28 kg/kWh. Bu değer, turbojeneratörün verimliliği ve güç çıkışı ile uyumludur.
+*   **Özgül Yakıt Tüketimi (SFOC):** Yaklaşık 0.28 kg/kWh. Bu değer, turbojeneratörün yakıt-elektrik dönüşüm verimliliği ve güç çıkışı ile uyumludur.
 
 ## 4. Yapısal Güvenlik Faktörü (SF) Kontrolü
 

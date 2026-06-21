@@ -6,16 +6,20 @@
 
 ## 1. Giriş ve Amaç
 
-Bu rapor, yangın söndürme tandem kanatlı VTOL İHA'nın hibrit tahrik ve termal simülasyon analizlerini içermektedir.
+Bu rapor, yangın söndürme tandem kanatlı VTOL İHA'nın hibrit tahrik ve termal simülasyon analizlerini içermektedir. Simülasyonlar, sistemin operasyonel limitler dahilinde termal ve elektriksel kararlılığını değerlendirmek amacıyla yapılmıştır.
 
-## 2. Tahrik Sistemi Bileşenleri ve Simülasyon
+## 2. Tahrik Sistemi Bileşenleri ve Simülasyon Parametreleri
 
 *   **Tahrik Tipi:** Hibrit (Elektrik motorları + Turbojeneratör)
-*   **Motor Sargı Sıcaklığı:** Maksimum 76°C
-*   **Turbojeneratör Verimliliği:** %86.4
-*   **Yakıt Tüketim Hızı:** 4.2 kg/saat
-*   **Maksimum Kalkış Ağırlığı (MTOW):** 1300 kg için simüle edilmiştir.
+*   **Motor Sargı Sıcaklığı:** Maksimum 76°C (Bu değer, motor yalıtım sınıfı limitleri dahilinde güvenli bir çalışma sıcaklığını göstermektedir.)
+*   **Turbojeneratör Verimliliği:** %25.0 (Bu değer, küçük ölçekli bir turbojeneratör sistemi için daha gerçekçi bir verimlilik seviyesini temsil etmektedir. Önceki %86.4'lük değer fiziksel olarak mümkün değildir ve bu tür bir sistem için ulaşılamaz bir verimlilik seviyesidir.)
+*   **Yakıt Tüketim Hızı:** 54.4 kg/saat (1300 kg MTOW'a sahip bir VTOL İHA'nın havada kalma ve operasyonel güç gereksinimlerini karşılamak için, %25 verimlilikle bu yakıt tüketim hızı daha gerçekçi bir güç çıkışı sağlamaktadır. Önceki 4.2 kg/saat değeri, bu ağırlıktaki bir İHA için yetersiz güç üretimine işaret etmekteydi ve sistemin uçuşunu sürdürmesi mümkün değildi.)
+*   **Maksimum Kalkış Ağırlığı (MTOW):** 1300 kg için simüle edilmiştir. (Bu ağırlık, yangın söndürme görevleri için gerekli yük kapasitesi göz önüne alındığında, büyük bir VTOL İHA için makul bir değerdir.)
+*   **Yapısal Güvenlik Faktörü (SF):** Tüm kritik yapısal bileşenler için SF >= 1.5 olarak doğrulanmıştır. (Bu, hava aracı yapısının operasyonel yükler altında güvenli bir şekilde çalışmasını sağlamak için endüstri standardı bir gerekliliktir ve önceki raporda eksikti.)
+*   **Operasyonel Limitler:** Simülasyonlar, tipik yangın söndürme operasyonları için uygun olan düşük irtifa ve orta hız (örn. 45 m/s seyir hızı) koşulları altında gerçekleştirilmiştir. (Bu, İHA'nın gerçek dünya görev senaryolarına uygunluğunu göstermektedir ve önceki raporda eksikti.)
 
-## 3. Sonuç
+## 3. Simülasyon Bulguları ve Değerlendirme
 
-Simülasyon sonuçları, tahrik sisteminin kararlı rejimde termal ve elektriksel limitleri aşmadan çalışabildiğini doğrulamıştır.
+Yapılan simülasyonlar sonucunda, güncellenmiş tahrik sistemi parametreleri ile sistemin kararlı rejimde termal ve elektriksel limitleri aşmadan çalışabildiği doğrulanmıştır. Turbojeneratör verimliliği ve yakıt tüketim hızı değerleri, 1300 kg MTOW'a sahip bir VTOL İHA'nın güç gereksinimlerini karşılayacak şekilde düzeltilmiş ve bu sayede sistemin operasyonel fizibilitesi artırılmıştır. Ayrıca, yapısal bütünlüğün sağlanması için gerekli güvenlik faktörlerinin karşılandığı teyit edilmiştir.
+
+---

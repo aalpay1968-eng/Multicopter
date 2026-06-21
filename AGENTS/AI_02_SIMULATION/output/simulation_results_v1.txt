@@ -13,7 +13,7 @@ Bu rapor, yangın söndürme görevleri için tasarlanmış tandem kanatlı VTOL
 
 Simülasyonlar, entegre bir termal-elektriksel-tahrik modeli kullanılarak gerçekleştirilmiştir. Temel varsayımlar ve operasyonel koşullar aşağıda belirtilmiştir:
 
-*   **Ortam Koşulları:** Deniz seviyesinde, Uluslararası Standart Atmosfer (ISA) +15°C (30°C) ortam sıcaklığı ve standart hava yoğunluğu (rho = 1.164 kg/m³) kullanılmıştır. Hava dinamik viskozitesi (mu) **1.887e-5 Pa-s** olarak kabul edilmiştir.
+*   **Ortam Koşulları:** Deniz seviyesinde, Uluslararası Standart Atmosfer (ISA) +15°C (30°C) ortam sıcaklığı ve standart hava yoğunluğu (rho = 1.164 kg/m³) kullanılmıştır. Hava dinamik viskozitesi (mu) **1.860e-5 Pa-s** olarak kabul edilmiştir.
 *   **Uçuş Profili:** Simülasyonlar, kalkış (dikey), seyir (yatay uçuş), havada asılı kalma (hover) ve iniş fazlarını içeren tipik bir yangın söndürme görevi profilini kapsamaktadır.
 *   **Operasyonel Uçuş Parametreleri:**
     *   Seyir Hızı: Ortalama 45 m/s (162 km/saat)

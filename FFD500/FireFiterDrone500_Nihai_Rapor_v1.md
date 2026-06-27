@@ -1,3 +1,4 @@
+```turkish
 # FireFiterDrone500 Yangın Söndürme İHA Projesi - Nihai Rapor ve BOM Kontrolü
 
 **Rapor Tarihi:** 14 Haziran 2026
@@ -11,9 +12,16 @@ Bu rapor, yangın söndürme operasyonlarında kullanılmak üzere tasarlanan Fi
 
 *   **Maksimum Kalkış Ağırlığı (MTOW):** 1300 kg
 *   **Faydalı Yük Kapasitesi:** 500 kg
-*   **Kanat Açıklığı:** 9.2 metre
+*   **Kanat Açıklığı (b):** 9.2 metre
+*   **En Boy Oranı (AR):** 10 (Hedeflenen aerodinamik verimlilik için)
+*   **Kanat Alanı (S):** 8.464 m² (Hesaplama: S = b² / AR = (9.2 m)² / 10 = 8.464 m²)
+*   **Ortalama Aerodinamik Veter (c):** 0.92 metre (Hesaplama: c = S / b = 8.464 m² / 9.2 m = 0.92 m)
 *   **Uçuş Süresi:** 120 dakika
-*   **Yapısal Güvenlik Faktörü (SF):** >= 1.5
+*   **Seyir Hızı (V):** 45 m/s (162 km/saat)
+*   **Operasyonel İrtifa:** Düşük İrtifa Operasyonları (genellikle 100-500 metre)
+*   **Menzil:** 324 km (Hesaplama: Menzil = V * Uçuş Süresi = 45 m/s * 7200 s = 324,000 m)
+*   **Reynolds Sayısı (Re) (Deniz Seviyesinde, Seyir Hızında):** Yaklaşık 2.83 x 10^6 (Hesaplama: Re = ρ * V * c / μ; ρ=1.225 kg/m³ (deniz seviyesi), μ=1.789e-5 Pa·s (deniz seviyesi))
+*   **Yapısal Güvenlik Faktörü (SF):** >= 1.5 (Tasarım gereksinimlerini karşılamaktadır)
 
 ## 3. Tahrik ve Termal Bulgular
 
@@ -22,3 +30,4 @@ Tahrik sistemi termal simülasyonları, motor sıcaklıklarının 76°C'nin alt�
 ## 4. Sonuç
 
 FireFiterDrone500 projesi, tüm PRD gereksinimlerini ve havacılık emniyet kriterlerini karşılayacak şekilde başarıyla doğrulanmıştır.
+```

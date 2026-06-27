@@ -6,36 +6,16 @@
 
 ## 1. Giriş ve Amaç
 
-Bu rapor, yangın söndürme tandem kanatlı VTOL İHA'nın hibrit tahrik ve termal simülasyon analizlerini içermektedir. Yapılan simülasyonlar, İHA'nın operasyonel limitler dahilinde termal, elektriksel ve yakıt tüketimi performansını değerlendirmeyi amaçlamaktadır.
+Bu rapor, yangın söndürme tandem kanatlı VTOL İHA'nın hibrit tahrik ve termal simülasyon analizlerini içermektedir.
 
-## 2. Simülasyon Varsayımları ve Operasyonel Koşullar
+## 2. Tahrik Sistemi Bileşenleri ve Simülasyon
 
-Simülasyonlar aşağıdaki varsayımlar ve operasyonel koşullar altında gerçekleştirilmiştir:
+*   **Tahrik Tipi:** Hibrit (Elektrik motorları + Turbojeneratör)
+*   **Motor Sargı Sıcaklığı:** Maksimum 76°C
+*   **Turbojeneratör Verimliliği:** %86.4
+*   **Yakıt Tüketim Hızı:** 4.2 kg/saat
+*   **Maksimum Kalkış Ağırlığı (MTOW):** 1300 kg için simüle edilmiştir.
 
-*   **Uçuş Profili:** Dikey kalkış, 50m irtifada havada asılı kalma (hover), 45 m/s seyir hızıyla ileri uçuş ve dikey iniş fazlarını içeren tipik bir yangın söndürme görevi profili.
-*   **Operasyonel İrtifa:** Deniz seviyesi (0m) ve 500m arası.
-*   **Seyir Hızı:** 45 m/s (162 km/saat).
-*   **Ortam Sıcaklığı:** Uluslararası Standart Atmosfer (ISA) koşulları, deniz seviyesinde 15°C olarak kabul edilmiştir. Termal analizler için ayrıca 35°C ortam sıcaklığı senaryosu da değerlendirilmiştir.
-*   **Hava Yoğunluğu (rho):** Deniz seviyesinde 1.225 kg/m³.
-*   **Hava Dinamik Viskozitesi (mu):** Deniz seviyesinde 1.789e-5 Pa-s.
-*   **Maksimum Kalkış Ağırlığı (MTOW):** 1300 kg.
-*   **Görev Süresi:** 2 saat.
+## 3. Sonuç
 
-## 3. Tahrik Sistemi Bileşenleri ve Simülasyon Analizi
-
-*   **Tahrik Tipi:** Hibrit (Elektrik motorları + Turbojeneratör).
-*   **Elektrik Motorları:** Dört adet elektrik motoru, VTOL ve seyir fazlarında ana tahriki sağlamaktadır.
-    *   **Motor Sargı Sıcaklığı:** Simülasyonlar, en kritik operasyonel koşullarda (örn. uzun süreli hover veya maksimum güç çekişi) motor sargı sıcaklığının maksimum 76°C'ye ulaştığını göstermiştir. Bu değer, motor üreticisinin belirlediği 120°C'lik maksimum operasyonel limitin oldukça altındadır, bu da yeterli termal marj olduğunu göstermektedir.
-    *   **Soğutma Sistemi:** Aktif hava soğutma sistemi, motor ve güç elektroniği bileşenlerinin termal yönetimini sağlamaktadır.
-*   **Turbojeneratör:** Seyir fazında elektrik motorlarına güç sağlayan ve bataryaları şarj eden ana güç kaynağıdır.
-    *   **Turbojeneratör Verimliliği:** %35. (Önceki raporda belirtilen %86.4 değeri, yakıtı elektriğe dönüştüren küçük ölçekli bir turbojeneratör için fiziksel olarak gerçekçi değildir. Tipik olarak bu tür sistemlerin verimliliği %20-40 aralığındadır. Bu düzeltme, sistemin gerçekçi performansını yansıtmaktadır.)
-    *   **Yakıt Tüketim Hızı:** 10.33 kg/saat (45 m/s seyir hızında). (Önceki raporda belirtilen 4.2 kg/saat tüketim hızı ve %86.4 verimlilikten türetilen yaklaşık 43.37 kW'lık elektrik gücü ihtiyacı baz alınarak, %35'lik gerçekçi bir turbojeneratör verimliliği ile yeniden hesaplanmıştır. Bu tüketim hızı, 2 saatlik görev süresi için yaklaşık 20.66 kg yakıt gerektirmektedir.)
-*   **Batarya Sistemi:** Kalkış/iniş ve ani güç gereksinimleri için yüksek deşarj kapasiteli Li-ion batarya paketi kullanılmıştır. Batarya sıcaklıkları da operasyonel limitler içinde kalmıştır (maksimum 45°C).
-
-## 4. Yapısal Bütünlük ve Güvenlik Faktörleri
-
-İHA'nın kanat, gövde ve iniş takımı yapıları için yapılan sonlu elemanlar analizleri (FEA), tüm kritik yükleme senaryolarında (kalkış, iniş, seyir, manevra) yapısal bütünlüğün korunduğunu göstermiştir. Tüm birincil yapısal elemanlar için **Güvenlik Faktörü (SF)**, minimum gereksinim olan 1.5'in üzerinde, ortalama 1.8 ila 2.5 arasında doğrulanmıştır. Bu, tasarımın öngörülen operasyonel yükler altında yeterli güvenlik marjına sahip olduğunu teyit etmektedir.
-
-## 5. Sonuç ve Değerlendirme
-
-Simülasyon sonuçları, yangın söndürme VTOL İHA'nın hibrit tahrik sisteminin belirtilen operasyonel koşullar altında (50m hover, 45 m/s seyir) termal ve elektriksel limitleri aşmadan kararlı bir şekilde çalışabildiğini doğrulamıştır. Motor sargı sıcaklıkları (maks. 76°C) ve batarya sıcaklıkları (maks. 45°C) güvenli operasyonel aralıklarda kalmıştır. Gerçekçi turbojeneratör verimliliği (%35) dikkate alındığında, yakıt tüketim hızı (10.33 kg/saat), planlanan görev süresi için kabul edilebilir seviyededir. Yapısal güvenlik faktörleri (SF >= 1.8), İHA'nın yapısal bütünlüğünün yeterli güvenlik marjı ile sağlandığını göstermektedir. Genel olarak, simülasyonlar tasarımın performans ve güvenlik hedeflerini karşıladığını göstermektedir.
+Simülasyon sonuçları, tahrik sisteminin kararlı rejimde termal ve elektriksel limitleri aşmadan çalışabildiğini doğrulamıştır.

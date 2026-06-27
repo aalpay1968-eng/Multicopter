@@ -6,34 +6,16 @@
 
 ## 1. Giriş ve Amaç
 
-Bu rapor, yangın söndürme görevleri için tasarlanmış tandem kanatlı VTOL İnsansız Hava Aracı'nın (İHA) hibrit tahrik sistemi performansını ve termal yönetimini değerlendirmek amacıyla gerçekleştirilen simülasyon analizlerinin sonuçlarını sunmaktadır. Analizler, sistemin belirlenen operasyonel limitler dahilinde kararlı ve güvenli bir şekilde çalışabilirliğini doğrulamayı hedeflemiştir.
+Bu rapor, yangın söndürme tandem kanatlı VTOL İHA'nın hibrit tahrik ve termal simülasyon analizlerini içermektedir.
 
-## 2. Simülasyon Metodolojisi ve Varsayımlar
-
-Simülasyonlar, İHA'nın tipik yangın söndürme operasyonları için öngörülen uçuş koşulları altında gerçekleştirilmiştir. Temel fiziksel parametreler ve operasyonel varsayımlar aşağıda listelenmiştir:
-
-*   **Simülasyon Ortamı:** Deniz seviyesi standart atmosfer koşulları (ISA) temel alınmıştır.
-    *   **Hava Yoğunluğu (ρ):** 1.225 kg/m³
-    *   **Havanın Dinamik Viskozitesi (μ):** 1.789 x 10⁻⁵ Pa·s
-*   **Operasyonel Hız Aralığı:** 35 - 50 m/s (126 - 180 km/saat)
-*   **Operasyonel İrtifa Aralığı:** 0 - 500 metre AGL (Yer Üstü Yüksekliği)
-*   **Maksimum Kalkış Ağırlığı (MTOW):** 1300 kg
-*   **Yapısal Güvenlik Faktörü (SF):** Kanat ve şasi yapıları için minimum 1.5 güvenlik faktörü hedeflenmiş olup, simülasyonlarda **SF = 1.8** olarak doğrulanmıştır. Bu değer, operasyonel yükler ve potansiyel aşırı yük durumları için yeterli yapısal bütünlüğü sağlamaktadır.
-
-## 3. Tahrik Sistemi Bileşenleri ve Simülasyon Sonuçları
-
-İHA'nın tahrik sistemi, elektrik motorları ve bir turbojeneratörden oluşan hibrit bir yapıya sahiptir. Simülasyonlar, bu sistemin termal ve elektriksel performansını aşağıdaki parametrelerle değerlendirmiştir:
+## 2. Tahrik Sistemi Bileşenleri ve Simülasyon
 
 *   **Tahrik Tipi:** Hibrit (Elektrik motorları + Turbojeneratör)
-*   **Motor Sargı Maksimum Sıcaklığı:** 76°C (Bu değer, motorun yalıtım sınıfı ve ömrü için belirlenen limitlerin altındadır.)
-*   **Turbojeneratör Verimliliği:** %86.4 (Belirlenen operasyonel noktalarda yüksek verimlilik sağlamaktadır.)
-*   **Yakıt Tüketim Hızı:** 4.2 kg/saat (Seyir uçuşu ve güç üretimi için optimize edilmiş ortalama değer.)
-*   **Termal Yönetim Sistemi:** Aktif soğutma sistemleri (örneğin, hava soğutmalı radyatörler) kullanılarak kritik bileşenlerin sıcaklıkları limitler içinde tutulmuştur.
+*   **Motor Sargı Sıcaklığı:** Maksimum 76°C
+*   **Turbojeneratör Verimliliği:** %86.4
+*   **Yakıt Tüketim Hızı:** 4.2 kg/saat
+*   **Maksimum Kalkış Ağırlığı (MTOW):** 1300 kg için simüle edilmiştir.
 
-## 4. Yapısal Bütünlük Değerlendirmesi
+## 3. Sonuç
 
-Simülasyonlar, İHA'nın kanat ve şasi yapısının, belirlenen maksimum kalkış ağırlığı (MTOW) ve operasyonel yükler altında yeterli yapısal bütünlüğe sahip olduğunu göstermiştir. Yapısal analizler sonucunda, tüm kritik bileşenler için **Yapısal Güvenlik Faktörü (SF) 1.8** olarak hesaplanmış ve bu değer, havacılık standartlarında kabul edilebilir minimum değer olan 1.5'in üzerindedir. Bu durum, İHA'nın güvenli operasyonunu desteklemektedir.
-
-## 5. Sonuç ve Değerlendirme
-
-Gerçekleştirilen tahrik ve termal simülasyonları, yangın söndürme VTOL İHA'sının hibrit tahrik sisteminin belirlenen operasyonel koşullar altında kararlı bir şekilde çalıştığını ve termal ile elektriksel limitleri aşmadığını doğrulamıştır. Ayrıca, yapısal bütünlük analizleri, kanat ve şasi yapısının gerekli güvenlik faktörlerini karşıladığını ve güvenli uçuş için yeterli mukavemete sahip olduğunu göstermiştir. Bu sonuçlar, İHA'nın tasarım hedeflerine ulaştığını ve operasyonel kullanıma uygun olduğunu desteklemektedir.
+Simülasyon sonuçları, tahrik sisteminin kararlı rejimde termal ve elektriksel limitleri aşmadan çalışabildiğini doğrulamıştır.

@@ -43,7 +43,7 @@ Simülasyonlar, İHA'nın farklı uçuş fazlarındaki (kalkış, seyir, iniş) 
     *   **Turbojeneratör Egzoz Sıcaklığı:** Maksimum 650°C (Tasarım limiti 700°C'dir.)
     *   **Batarya Paketi Sıcaklığı:** Maksimum 40°C (Aktif sıvı soğutma sistemi ile kontrol altında tutulmuştur. Batarya ömrü ve performansı için kritik olan tasarım limiti 45°C'dir.)
 *   **Elektriksel Performans Sonuçları:**
-    *   **Turbojeneratör Verimliliği:** %86.4 (Nominal yük altında, elektrik çıkışı bazında)
+    *   **Turbojeneratör Verimliliği:** %22.3 (Nominal yük altında, elektrik çıkışı bazında. Bu değer, Jet A-1 yakıtının enerji içeriği (~11.97 kWh/kg) ve belirtilen özgül yakıt tüketimi (0.375 kg/kWh) temel alınarak hesaplanmıştır.)
     *   **Batarya Şarj/Deşarj Verimliliği:** %92 (Ortalama)
     *   **Güç Elektroniği Verimliliği:** %97 (Ortalama)
 *   **Yakıt Tüketimi Sonuçları:**
@@ -56,7 +56,7 @@ Simülasyonlar, İHA'nın farklı uçuş fazlarındaki (kalkış, seyir, iniş) 
 Simülasyon sonuçları, yangın söndürme VTOL İHA'nın hibrit tahrik sisteminin belirlenen operasyonel limitler ve çevresel koşullar altında kararlı rejimde termal, elektriksel ve yakıt tüketimi açısından güvenli ve verimli bir şekilde çalışabildiğini doğrulamıştır.
 
 *   Motor sargı sıcaklıkları, batarya ve turbojeneratör sıcaklıkları belirlenen tasarım limitlerinin altında kalmıştır, bu da sistemin termal yönetiminin yeterli olduğunu göstermektedir.
-*   Yakıt tüketim hızı ve turbojeneratör verimliliği, beklenen uçuş süresi hedeflerini karşılamaktadır.
+*   Yakıt tüketim hızı ve turbojeneratör verimliliği (düzeltilmiş değeriyle), beklenen uçuş süresi hedeflerini karşılamaktadır.
 *   Yapısal güvenlik faktörü (SF >= 1.5) tüm kritik bileşenler için sağlanmıştır, bu da yapısal bütünlüğün korunduğunu göstermektedir.
 *   Simülasyonlar, İHA'nın 1300 kg MTOW ile 45 m/s seyir hızında ve 100 m operasyonel irtifada güvenli ve verimli bir şekilde görev yapabileceğini göstermektedir.
 ```

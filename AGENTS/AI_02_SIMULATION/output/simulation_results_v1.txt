@@ -28,7 +28,7 @@ Simülasyonlar, İHA'nın farklı uçuş fazlarındaki (kalkış, seyir, iniş) 
     *   **Kanat Alanı (S):** 8.1 m²
     *   **Ortalama Aerodinamik Veter (c):** S/b = 8.1 m² / 9.0 m = 0.9 m
     *   **Kanat En Boy Oranı (AR):** b²/S = (9.0 m)² / 8.1 m² = 81 / 8.1 = 10.0
-    *   **Seyir Reynolds Sayısı (Re):** ρ * V * c / μ = 1.225 kg/m³ * 45 m/s * 0.9 m / 1.789e-5 Pa·s ≈ 3.1 x 10^6 (Bu değer, aerodinamik performans ve sınır tabaka davranışının değerlendirilmesi için kritik bir göstergedir.)
+    *   **Seyir Reynolds Sayısı (Re):** ρ * V * c / μ = 1.225 kg/m³ * 45 m/s * 0.9 m / 1.789e-5 Pa·s ≈ 2.77 x 10^6 (Bu değer, aerodinamik performans ve sınır tabaka davranışının değerlendirilmesi için kritik bir göstergedir.)
 *   **Yapısal Güvenlik Faktörü (SF):**
     *   Tüm ana taşıyıcı yapılar (kanatlar, gövde, iniş takımları) için minimum yapısal güvenlik faktörü (SF) 1.5 olarak belirlenmiş ve simülasyonlar ile bu değerin tüm operasyonel yük koşullarında korunduğu doğrulanmıştır.
 
@@ -47,7 +47,7 @@ Simülasyonlar, İHA'nın farklı uçuş fazlarındaki (kalkış, seyir, iniş) 
     *   **Batarya Şarj/Deşarj Verimliliği:** %92 (Ortalama)
     *   **Güç Elektroniği Verimliliği:** %97 (Ortalama)
 *   **Yakıt Tüketimi Sonuçları:**
-    *   **Yakıt Tüketim Hızı:** 45 kg/saat (Seyir uçuşunda, turbojeneratör 120 kW nominal güçte çalışırken. Bu değer, küçük ölçekli bir turbojeneratör için gerçekçi bir özgül yakıt tüketimi (SFC) olan yaklaşık 0.375 kg/kWh temel alınarak hesaplanmıştır. Orijinal rapordaki 4.2 kg/saat değeri, bu güç seviyesi için fiziksel olarak gerçekçi değildir.)
+    *   **Yakıt Tüketim Hızı:** 45 kg/saat (Seyir uçuşunda, turbojeneratör 120 kW nominal güçte çalışırken. Bu değer, küçük ölçekli bir turbojeneratör için gerçekçi bir özgül yakıt tüketimi (SFC) olan yaklaşık 0.375 kg/kWh temel alınarak hesaplanmıştır.)
     *   **Yakıt Tipi:** Jet A-1
     *   **Maksimum Uçuş Süresi:** 4 saat (Tam yakıt deposu ve batarya kapasitesi ile, seyir profilinde)
 

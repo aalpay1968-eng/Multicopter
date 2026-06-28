@@ -24,7 +24,7 @@ Bu rapor, yangın söndürme operasyonlarında kullanılmak üzere tasarlanan Fi
 
 Deniz seviyesinde (hava yoğunluğu ρ = 1.225 kg/m³) ve operasyonel hızda (V = 45 m/s) yapılan analizlerde, ortalama kanat veteri (c = 0.92 m) kullanılarak Reynolds Sayısı (Re) hesaplanmıştır. Hava dinamik viskozitesi (μ) deniz seviyesinde 1.789e-5 Pa-s olarak alınmıştır.
 
-*   **Reynolds Sayısı (Re):** (ρ * V * c) / μ = (1.225 kg/m³ * 45 m/s * 0.92 m) / 1.789e-5 Pa-s ≈ 2.84 x 10⁶
+*   **Reynolds Sayısı (Re):** (ρ * V * c) / μ = (1.225 kg/m³ * 45 m/s * 0.92 m) / 1.789e-5 Pa-s ≈ 2.83 x 10⁶
 
 Bu Reynolds sayısı, kanat profili seçiminin ve aerodinamik performansın beklenen sınırlar içinde olduğunu göstermektedir. CFD (Hesaplamalı Akışkanlar Dinamiği) simülasyonları, belirlenen operasyonel zarf içinde yeterli kaldırma kuvveti ve kabul edilebilir sürükleme değerlerini doğrulamıştır.
 

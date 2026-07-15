@@ -34,7 +34,7 @@ Simülasyonlar, aşağıdaki parametreler ve bulgular doğrultusunda gerçekleş
 *   **Seyir Reynolds Sayısı (Re):**
     *   Hava Yoğunluğu (rho, deniz seviyesi): 1.225 kg/m³
     *   Hava Dinamik Viskozitesi (mu, deniz seviyesi): 1.789e-5 Pa-s
-    *   Re = (rho * V * c) / mu = (1.225 kg/m³ * 45 m/s * 1.5 m) / 1.789e-5 Pa-s ≈ 4.61 x 10^6
+    *   Re = (rho * V * c) / mu = (1.225 kg/m³ * 45 m/s * 1.5 m) / 1.789e-5 Pa-s ≈ 4.62 x 10^6
 *   **Yapısal Emniyet Faktörü (SF):** Tüm kritik yapısal bileşenler için SF >= 1.5 olarak doğrulanmıştır.
 
 ### 2.3. Termal Yönetim
